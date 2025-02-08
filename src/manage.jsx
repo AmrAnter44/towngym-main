@@ -37,16 +37,6 @@ export default function Manage() {
     }
   }
 
-  async function convertImageToBase64(file) {
-    return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file); // Convert to Base64 Data URL
-        reader.onload = () => resolve(reader.result); 
-        reader.onerror = (error) => reject(error);
-    });
-}
-
-
   async function addCoach(formValues, token) {
     setloadingadd(true);
     console.log("Token:", token);
@@ -73,6 +63,45 @@ export default function Manage() {
         setloadingadd(false);
     }
 }
+// async function addCoach(formValues, token) {
+//   setloadingadd(true);
+//   console.log("Token:", token);
+//   console.log("Form Values:", formValues);
+
+//   try {
+//       const formData = new FormData();
+//       formData.append('name', formValues.name);
+//       formData.append('title', formValues.title);
+//       formData.append('img', formValues.img); // Must be a File object
+//       formData.append('token', token);
+
+//       const response = await fetch('http://197.134.255.154:3000/addCoach', {
+//           method: 'POST',
+//           body: formData, // Send as multipart/form-data
+//       });
+
+//       if (!response.ok) {
+//           throw new Error(`HTTP error! Status: ${response.status}`);
+//       }
+
+//       const data = await response.json();
+//       console.log('Coach added:', data);
+//   } catch (error) {
+//       console.error('Error adding coach:', error);
+//   } finally {
+//       setloadingadd(false);
+//   }
+// }
+
+// Handle file selection in Formik
+const handleFileChange = (event) => {
+  const file = event.target.files[0];
+  if (file) {
+      coachesformik.setFieldValue('img', file); // Store raw file in Formik
+  }
+};
+
+// Inside Formik
 
 
 
@@ -131,16 +160,70 @@ export default function Manage() {
   });
 
 
+
+
+
+
+  
   const coachesformik = useFormik({
     initialValues: {
         name: '',
         title: '',
-        img: '', // Will store the Base64 string
+        img: null, // Store File object, not Base64
     },
     onSubmit: async (values) => {
-        addCoach(values, sessionStorage.getItem('token'));
+        const formData = new FormData();
+        console.log(values.img);
+        
+        formData.append('name', values.name);
+        formData.append('title', values.title);
+        formData.append('img', values.img); // Ensure this is a File object
+        formData.append('token', sessionStorage.getItem('token'));
+  
+        try {
+            const response = await fetch('http://197.134.255.154:3000/addCoach', {
+                method: 'POST',
+                body: formData, // Send as multipart/form-data
+            });
+  
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+  
+            const data = await response.json();
+            console.log('Coach added:', data);
+        } catch (error) {
+            console.error('Error adding coach:', error);
+        }
     },
-});
+  });
+
+
+
+
+
+//   const coachesformik = useFormik({
+//     initialValues: {
+//         name: '',
+//         title: '',
+//         img: '', // Will store the Base64 string
+//     },
+//     onSubmit: async (values) => {
+//         addCoach(values, sessionStorage.getItem('token'));
+//     },
+// });
+
+
+// const coachesformik = useFormik({
+//   initialValues: {
+//       name: '',
+//       title: '',
+//       img: null, // Store File object, not Base64
+//   },
+//   onSubmit: async (values) => {
+//       addCoach(values, sessionStorage.getItem('token'));
+//   },
+// });
 
 
 
@@ -362,20 +445,13 @@ export default function Manage() {
 
 
  <div className="relative z-0 w-full mb-5 group">
-                    <input
-                        type="file"
-                        name="img"
-                        id="floating_img"
-                        className="block py-2.5 px-0 w-full text-sm bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                        onChange={async (event) => {
-                            const file = event.currentTarget.files[0];
-                            if (file) {
-                                const base64 = await convertImageToBase64(file);
-                                coachesformik.setFieldValue("img", base64); // Store Base64
-                            }
-                        }}
-                        onBlur={coachesformik.handleBlur}
-                    />
+ <input
+  type="file"
+  name="img"
+  id="floating_img"
+  className="block py-2.5 px-0 w-full text-sm bg-transparent border-0 border-b-2 border-gray-300 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+  onChange={handleFileChange} // ✅ Correct way to handle file input
+/>
                     <label htmlFor="floating_img" className="absolute text-sm text-gray-400 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
                         Upload Image
                     </label>
