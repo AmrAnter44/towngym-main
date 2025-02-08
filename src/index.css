@@ -1,0 +1,104 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.body{
+  background-color: black;
+  color:white
+}
+
+
+.sale{
+  @apply bg-slate-700 absolute top-0 right-1 p-1 
+}
+
+.row {
+  @apply flex flex-wrap py-4  items-end
+}
+.btn {
+  @apply bg-transparent text-slate-100 rounded-lg border p-2
+}
+.w-90{
+
+  width: 90%;
+}
+ /* .offer{
+  background-image:url(./assets/offer.jpg);
+  backdrop-filter: blur(5px);
+  height: 200px;
+  background-size: cover;
+ } */
+
+
+@media only screen and (min-width: 720px) {
+  .prod:hover .btn {
+    opacity: 100%;
+    transform: translateY(50%) ;
+    transition: all 0.5s;
+  }
+}
+
+
+*{
+
+  margin: 0;
+  padding: 0;
+}
+
+
+
+.active{
+ background-color: transparent;
+ border-bottom: solid 1px green;
+ padding: 1rem;
+}
+
+.loader {
+  top: 200px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+  border: 3px solid;
+  border-color: #FFF #FFF transparent;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+.loader::after {
+  content: '';  
+  box-sizing: border-box;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0px;
+  margin: auto;
+  border: 3px solid;
+  border-color: transparent green green;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  animation: rotationBack 0.5s linear infinite;
+  transform-origin: center center;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+} 
+    
+@keyframes rotationBack {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(-360deg);
+  }
+}
+
+
