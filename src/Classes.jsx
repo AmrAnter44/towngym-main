@@ -5,7 +5,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 export default function Home () {
-let { IsLogin, setIsLogin ,DeletingClasses,
+let { IsLogin, setIsLogin ,DeletingClasses,deleteClasses,
     classes,userToken, getClasses, DelIdclasses } = useContext(ProjectContext);
 
     var settings = {
@@ -40,12 +40,12 @@ let { IsLogin, setIsLogin ,DeletingClasses,
 {classes?.length > 0   ? 
  classes?.map((classs)=>             <div key={classs.id} className="flex w-full flex-row gap-4 justify-center text-center ">
             <div className="text-blue-800 bg-white p-4 m-2">
-                <h3 className="p-2 font-bold text-blue-700 text-lg "> {classs.class}  </h3>
+                <h3 className="p-2 font-bold text-blue-700 text-lg "> {classs.className}  </h3>
                 <h4 className="p-2 font-bold text-blue-700 text-lg">day: {classs.day}</h4>
                 <p className="p-2 font-bold text-blue-700 text-lg "> <i class="fa-regular fa-clock"></i> at: <span className="text-xl text-black"> {classs.time1}</span >to:<span className="text-xl text-black"> {classs.time2} </span></p>
             
         
-        {userToken !== sessionStorage.getItem('token') ? <button className='text-xl btn m-5 text-blue-700' onClick={()=>deleteprod(coache.id)}>{Deleting && DelIdCoaches==coache.id ? <span><i class="fa-solid fa-check text-blue-700"></i> <span className='text-blue-700'>Done</span> </span> : <span className='text-blue-600'>Delete</span> }</button>
+        {userToken !== sessionStorage.getItem('token') ? <button className='text-xl btn m-5 text-blue-700' onClick={()=>deleteClasses(classs.id)}>{DeletingClasses && DelIdclasses==classes.id ? <span><i class="fa-solid fa-check text-blue-700"></i> <span className='text-blue-700'>Done</span> </span> : <span className='text-blue-600'>Delete</span> }</button>
 : null}
 </div>
     </div>

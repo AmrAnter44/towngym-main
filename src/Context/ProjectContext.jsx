@@ -24,7 +24,7 @@ const [IsLogin, setIsLogin] = useState(null)
     async function getdata () {
       setloading(true);
       try {
-        const response = await fetch('http://41.38.207.186/Offers');
+        const response = await fetch('http://197.134.255.154:3000/Offers');
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
@@ -56,30 +56,50 @@ const [IsLogin, setIsLogin] = useState(null)
 
 
 // !!!!!coaches
-    async function getCoaches () {
+    // async function getCoaches () {
+    //   setloading(true);
+    //   try {
+    //     const response = await fetch('http://197.134.255.154:3000/Coaches');
+    //     if (!response.ok) {
+    //       throw new Error('Network response was not ok');
+    //     }
+    //     const data = await response.json();
+    //     setCoaches(data);
+    //     console.log(data);
+    //   } catch (error) {
+    //     console.error('Error fetching Coaches:', error);
+    //   } finally {
+    //     setloading(false);
+    //   }
+    
+    // };
+    async function getCoaches() {
       setloading(true);
       try {
-        const response = await fetch('http://41.38.207.186/Coaches');
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        const data = await response.json();
-        setCoaches(data);
-        console.log(data);
+          const response = await fetch('http://197.134.255.154:3000/Coaches');
+          if (!response.ok) {
+              throw new Error('Network response was not ok');
+          }
+          const data = await response.json();
+          setCoaches(data);
+          console.log(data);  // ✅ Check if images are correctly stored in Base64
       } catch (error) {
-        console.error('Error fetching Coaches:', error);
+          console.error('Error fetching Coaches:', error);
       } finally {
-        setloading(false);
+          setloading(false);
       }
-    
-    };
+  }
+
+
+
+
     // !!!!!!!delCoaches
     async function deleteCoaches(id) {
       setDelIdCoache(id)
       setDeletingCoaches(true)
       try {
         const token = sessionStorage.getItem('token');
-        const response = await fetch('http://41.38.207.186/deleteCoaches', {
+        const response = await fetch('http://197.134.255.154:3000/deleteCoach', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -121,7 +141,7 @@ const [IsLogin, setIsLogin] = useState(null)
 async function getClasses () {
   setloading(true);
   try {
-    const response = await fetch('http://41.38.207.186/Classes');
+    const response = await fetch('http://197.134.255.154:3000/Classes');
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }
@@ -135,13 +155,14 @@ async function getClasses () {
   }
 
 };
+
     // !!!!!!!delclasses
     async function deleteClasses(id) {
       setDelIdclasses(id)
       setDeletingclasses(true)
       try {
         const token = sessionStorage.getItem('token');
-        const response = await fetch('http://41.38.207.186/deleteCoaches', {
+        const response = await fetch('http://197.134.255.154:3000/deleteClass', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -195,7 +216,7 @@ async function getClasses () {
       setDeleting(true)
       try {
         const token = sessionStorage.getItem('token');
-        const response = await fetch('http://41.38.207.186/deleteOffer', {
+        const response = await fetch('http://197.134.255.154:3000/deleteOffer', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

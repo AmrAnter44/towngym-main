@@ -16,7 +16,7 @@ export default function Manage() {
     console.log(formValues);
   
     try {
-      const response = await fetch('http://41.38.207.186/addOffer', {
+      const response = await fetch('http://197.134.255.154:3000/addOffer', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -37,35 +37,43 @@ export default function Manage() {
     }
   }
 
+  async function convertImageToBase64(file) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file); // Convert to Base64 Data URL
+        reader.onload = () => resolve(reader.result); 
+        reader.onerror = (error) => reject(error);
+    });
+}
 
 
-
-//  add coahes !!!!!!!!!!
-  async function addCoach(formValues,token) {
-    setloadingadd(true); // Get token directly from session storage
-    console.log(token);
-    console.log(formValues);
+  async function addCoach(formValues, token) {
+    setloadingadd(true);
+    console.log("Token:", token);
+    console.log("Form Values:", formValues);
+    
     try {
-      const response = await fetch('http://41.38.207.186/addCoach', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ formValues:formValues , token:token }), // Send both formValues and token
-      });
-  
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-  
-      const data = await response.json();
-      console.log('Coach added:', data);
+        const response = await fetch('http://197.134.255.154:3000/addCoach', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ formValues, token }), // Send formValues with token
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        console.log('Coach added:', data);
     } catch (error) {
-      console.error('Error adding offer:', error);
+        console.error('Error adding coach:', error);
     } finally {
-      setloadingadd(false);
+        setloadingadd(false);
     }
-  }
+}
+
 
 
 
@@ -77,7 +85,7 @@ export default function Manage() {
     console.log(formValues);
   
     try {
-      const response = await fetch('http://41.38.207.186/addClass', {
+      const response = await fetch('http://197.134.255.154:3000/addClass', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -123,23 +131,29 @@ export default function Manage() {
   });
 
 
-  // FormikCoaches!!!!!!!!
   const coachesformik = useFormik({
     initialValues: {
-      name: '',
-      title: '',
-      img: '',
+        name: '',
+        title: '',
+        img: '', // Will store the Base64 string
     },
-    onSubmit: (values) => {
-      addCoach(values,sessionStorage.getItem('token'));
+    onSubmit: async (values) => {
+        addCoach(values, sessionStorage.getItem('token'));
     },
-  });
+});
 
 
-  // FormikCoaches!!!!!!!!
+
+
+
+
+
+
+
+  // FormikClasses!!!!!!!!
   const classesformik = useFormik({
     initialValues: {
-      class: '',
+      className: '',
       day: '',
       time1: '',
       time2: '',
@@ -348,25 +362,24 @@ export default function Manage() {
 
 
  <div className="relative z-0 w-full mb-5 group">
- <input
-  type="file"
-  name="img"
-  id="floating_img"
-  className="block py-2.5 px-0 w-full text-sm bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-  onChange={(event) => {
-    coachesformik.setFieldValue("img", event.currentTarget.files[0]); // Correctly handle file input
-  }}
-  onBlur={coachesformik.handleBlur}
-/>
-   <label
-     htmlFor="floating_img"
-     className="peer-focus:font-medium absolute text-sm text-gray-400
-      dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-400
-      peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-   >
-     Enter title
-   </label>
- </div>
+                    <input
+                        type="file"
+                        name="img"
+                        id="floating_img"
+                        className="block py-2.5 px-0 w-full text-sm bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                        onChange={async (event) => {
+                            const file = event.currentTarget.files[0];
+                            if (file) {
+                                const base64 = await convertImageToBase64(file);
+                                coachesformik.setFieldValue("img", base64); // Store Base64
+                            }
+                        }}
+                        onBlur={coachesformik.handleBlur}
+                    />
+                    <label htmlFor="floating_img" className="absolute text-sm text-gray-400 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                        Upload Image
+                    </label>
+                </div>
 
 
 
@@ -387,107 +400,98 @@ export default function Manage() {
 
 
            {/* start Class add !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/}
+           {IsLogin ? (
+  <>
+    <h2 className="text-xl font-bold pt-9">Add Class Now :</h2>
+    <form className="max-w-md mx-auto p-5" onSubmit={classesformik.handleSubmit}>
 
-           {IsLogin ?  <><h2 className='text-xl font-bold pt-9'>Add Class Now :</h2><form className="max-w-md mx-auto p-5" onSubmit={classesformik.handleSubmit}>
+      {/* Class Name */}
+      <div className="relative z-0 w-full mb-5 group">
+        <input
+          type="text"
+          name="className"
+          id="floating_className"
+          className="block py-2.5 px-0 w-full text-sm bg-transparent border-0 border-b-2 border-gray-300 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+          placeholder=" "
+          value={classesformik.values.className}
+          onChange={classesformik.handleChange}
+          onBlur={classesformik.handleBlur}
+        />
+        <label
+          htmlFor="floating_className"
+          className="absolute text-sm text-gray-400 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+        >
+          Enter class
+        </label>
+      </div>
 
-<div className="relative z-0 w-full mb-5 group">
-   <input
-     type="text"
-     name="class"
-     id="floating_class"
-     className="block py-2.5 px-0 w-full text-sm  bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-     placeholder=" "
-     value={classesformik.values.name}
-     onChange={classesformik.handleChange}
-     onBlur={classesformik.handleBlur} />
-   <label
-     htmlFor="floating_class"
-     className="peer-focus:font-medium absolute text-sm text-gray-400
-      dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-400
-      peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-   >
-     Enter class
-   </label>
- </div>
+      {/* Duration (Day) */}
+      <div className="relative z-0 w-full mb-5 group">
+        <input
+          type="text"
+          name="duration"
+          id="floating_duration"
+          className="block py-2.5 px-0 w-full text-sm bg-transparent border-0 border-b-2 border-gray-300 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+          placeholder=" "
+          value={classesformik.values.duration}
+          onChange={classesformik.handleChange}
+          onBlur={classesformik.handleBlur}
+        />
+        <label
+          htmlFor="floating_duration"
+          className="absolute text-sm text-gray-400 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+        >
+          Enter day
+        </label>
+      </div>
 
+      {/* Start Time */}
+      <div className="relative z-0 w-full mb-5 group">
+        <input
+          type="number"
+          name="time1"
+          id="floating_time1"
+          className="block py-2.5 px-0 w-full text-sm bg-transparent border-0 border-b-2 border-gray-300 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+          placeholder=" "
+          value={classesformik.values.time1}
+          onChange={classesformik.handleChange}
+          onBlur={classesformik.handleBlur}
+        />
+        <label
+          htmlFor="floating_time1"
+          className="absolute text-sm text-gray-400 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+        >
+          Enter start time
+        </label>
+      </div>
 
+      {/* End Time */}
+      <div className="relative z-0 w-full mb-5 group">
+        <input
+          type="number"
+          name="time2"
+          id="floating_time2"
+          className="block py-2.5 px-0 w-full text-sm bg-transparent border-0 border-b-2 border-gray-300 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+          placeholder=" "
+          value={classesformik.values.time2}
+          onChange={classesformik.handleChange}
+          onBlur={classesformik.handleBlur}
+        />
+        <label
+          htmlFor="floating_time2"
+          className="absolute text-sm text-gray-400 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+        >
+          Enter end time
+        </label>
+      </div>
 
-
-
-<div className="relative z-0 w-full mb-5 group">
-<input
-type="text"
-name="duration"
-id="floating_title"
-className="block py-2.5 px-0 w-full text-sm  bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-placeholder=" "
-value={classesformik.values.title}
-onChange={classesformik.handleChange}
-onBlur={classesformik.handleBlur} />
-<label
-htmlFor="floating_title"
-className="peer-focus:font-medium absolute text-sm text-gray-400
-dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-400
-peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
->
-Enter day
-</label>
-</div>
-
-
-
-
-<div className="relative z-0 w-full mb-5 group">
-<input
-type="number"
-name="number1"
-id="floating_number1"
-className="block py-2.5 px-0 w-full text-sm  bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-placeholder=" "
-value={classesformik.values.time1}
-onChange={classesformik.handleChange}
-onBlur={classesformik.handleBlur} />
-<label
-htmlFor="floating_number1"
-className="peer-focus:font-medium absolute text-sm text-gray-400
-dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-400
-peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
->
-Enter start time
-</label>
-</div>
-
-
-<div className="relative z-0 w-full mb-5 group">
-<input
-type="number"
-name="number2"
-id="floating_number2"
-className="block py-2.5 px-0 w-full text-sm  bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-placeholder=" "
-value={classesformik.values.time2}
-onChange={classesformik.handleChange}
-onBlur={classesformik.handleBlur} />
-<label
-htmlFor="floating_number1"
-className="peer-focus:font-medium absolute text-sm text-gray-400
-dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-400
-peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
->
-Enter end time
-</label>
-</div>
-
-
-
-
-
-<button type="submit" className="text-white bg-blue-400
-  p-2 rounded">
- {loadingadd ? <span><i className='fas fa-spinner fa-spin'></i></span> : 'Add'}
- </button>
-</form></>
-: null}
+      {/* Submit Button */}
+      <button type="submit" className="text-white bg-blue-400 p-2 rounded">
+        {loadingadd ? <i className="fas fa-spinner fa-spin"></i> : "Add"}
+      </button>
+    </form>
+  </>
+) : null}
 
     </>
   );

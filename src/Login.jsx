@@ -130,7 +130,7 @@ export default function Login() {
   async function getLogin(formValues) {
     setloadinglog(true); // Set loading state before making the request
     try {
-      const response = await fetch('http://41.38.207.186/Login', {
+      const response = await fetch('http://197.134.255.154:3000/Login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
