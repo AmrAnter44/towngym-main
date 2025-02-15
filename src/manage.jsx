@@ -16,7 +16,7 @@ export default function Manage() {
     console.log(formValues);
   
     try {
-      const response = await fetch('http://197.134.255.154:3000/addOffer', {
+      const response = await fetch('https://xgym.website/addOffer', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -37,32 +37,32 @@ export default function Manage() {
     }
   }
 
-  async function addCoach(formValues, token) {
-    setloadingadd(true);
-    console.log("Token:", token);
-    console.log("Form Values:", formValues);
+//   async function addCoach(formValues, token) {
+//     setloadingadd(true);
+//     console.log("Token:", token);
+//     console.log("Form Values:", formValues);
     
-    try {
-        const response = await fetch('http://197.134.255.154:3000/addCoach', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ formValues, token }), // Send formValues with token
-        });
+//     try {
+//         const response = await fetch('http://41.38.207.186/addCoach', {
+//             method: 'POST',
+//             headers: {
+//                 'Content-Type': 'application/json',
+//             },
+//             body: JSON.stringify({ formValues, token }), // Send formValues with token
+//         });
 
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
+//         if (!response.ok) {
+//             throw new Error(`HTTP error! Status: ${response.status}`);
+//         }
 
-        const data = await response.json();
-        console.log('Coach added:', data);
-    } catch (error) {
-        console.error('Error adding coach:', error);
-    } finally {
-        setloadingadd(false);
-    }
-}
+//         const data = await response.json();
+//         console.log('Coach added:', data);
+//     } catch (error) {
+//         console.error('Error adding coach:', error);
+//     } finally {
+//         setloadingadd(false);
+//     }
+// }
 // async function addCoach(formValues, token) {
 //   setloadingadd(true);
 //   console.log("Token:", token);
@@ -112,14 +112,17 @@ const handleFileChange = (event) => {
     setloadingadd(true); // Get token directly from session storage
     console.log(token);
     console.log(formValues);
+    
+    
   
     try {
-      const response = await fetch('http://197.134.255.154:3000/addClass', {
+      const response = await fetch('https://xgym.website/addClass', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ formValues:formValues , token:token }), // Send both formValues and token
+        body: JSON.stringify({ formValues:formValues , token:token }),
+         // Send both formValues and token
       });
   
       if (!response.ok) {
@@ -128,6 +131,8 @@ const handleFileChange = (event) => {
   
       const data = await response.json();
       console.log('Class added:', data);
+      console.log(classes);
+      
     } catch (error) {
       console.error('Error adding offer:', error);
     } finally {
@@ -172,16 +177,17 @@ const handleFileChange = (event) => {
         img: null, // Store File object, not Base64
     },
     onSubmit: async (values) => {
+
         const formData = new FormData();
         console.log(values.img);
-        
+        setloadingadd(true);
         formData.append('name', values.name);
         formData.append('title', values.title);
         formData.append('img', values.img); // Ensure this is a File object
         formData.append('token', sessionStorage.getItem('token'));
   
         try {
-            const response = await fetch('http://197.134.255.154:3000/addCoach', {
+            const response = await fetch('https://xgym.website/addCoach', {
                 method: 'POST',
                 body: formData, // Send as multipart/form-data
             });
@@ -194,6 +200,8 @@ const handleFileChange = (event) => {
             console.log('Coach added:', data);
         } catch (error) {
             console.error('Error adding coach:', error);
+        } finally{
+                  setloadingadd(false);
         }
     },
   });
@@ -236,7 +244,7 @@ const handleFileChange = (event) => {
   // FormikClasses!!!!!!!!
   const classesformik = useFormik({
     initialValues: {
-      className: '',
+      namecla: '',
       day: '',
       time1: '',
       time2: '',
@@ -388,8 +396,7 @@ const handleFileChange = (event) => {
         </button>
       </form></>
       : null}
-      {IsLogin? <button className="text-white bg-blue-400
-       p-2 rounded" onClick={()=>{sessionStorage.clear}} >Logout</button> : null}
+
 
 
 
@@ -421,7 +428,7 @@ const handleFileChange = (event) => {
 
        
 
-<div className="relative z-0 w-full mb-5 group">
+{/* <div className="relative z-0 w-full mb-5 group">
    <input
      type="text"
      name="title"
@@ -439,7 +446,7 @@ const handleFileChange = (event) => {
    >
      Enter title
    </label>
- </div>
+ </div> */}
 
 
 
@@ -485,19 +492,21 @@ const handleFileChange = (event) => {
       <div className="relative z-0 w-full mb-5 group">
         <input
           type="text"
-          name="className"
-          id="floating_className"
-          className="block py-2.5 px-0 w-full text-sm bg-transparent border-0 border-b-2 border-gray-300 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+          name="namecla"
+          id="floating_namecla"
+className="block py-2.5 px-0 w-full text-sm bg-transparent border-0 border-b-2 border-gray-300 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
           placeholder=" "
-          value={classesformik.values.className}
+          value={classesformik.values.namecla}
           onChange={classesformik.handleChange}
           onBlur={classesformik.handleBlur}
         />
         <label
-          htmlFor="floating_className"
-          className="absolute text-sm text-gray-400 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+          htmlFor="floating_namecla"
+          className="peer-focus:font-medium absolute text-sm text-gray-400
+          dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-400
+          peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
         >
-          Enter class
+          Enter name class
         </label>
       </div>
 
@@ -505,19 +514,20 @@ const handleFileChange = (event) => {
       <div className="relative z-0 w-full mb-5 group">
         <input
           type="text"
-          name="duration"
-          id="floating_duration"
-          className="block py-2.5 px-0 w-full text-sm bg-transparent border-0 border-b-2 border-gray-300 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-          placeholder=" "
-          value={classesformik.values.duration}
+          name="day"
+          id="floating-day"
+          className="block py-2.5 px-0 w-full text-sm bg-transparent border-0 border-b-2 border-gray-300 focus:outline-none focus:ring-0 focus:border-blue-600 peer"       placeholder=" "
+          value={classesformik.values.day}
           onChange={classesformik.handleChange}
           onBlur={classesformik.handleBlur}
         />
         <label
-          htmlFor="floating_duration"
-          className="absolute text-sm text-gray-400 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-        >
-          Enter day
+          htmlFor="floating-day"
+          className="peer-focus:font-medium absolute text-sm text-gray-400
+          dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-400
+          peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+       >
+          Enter days
         </label>
       </div>
 
@@ -527,8 +537,7 @@ const handleFileChange = (event) => {
           type="number"
           name="time1"
           id="floating_time1"
-          className="block py-2.5 px-0 w-full text-sm bg-transparent border-0 border-b-2 border-gray-300 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-          placeholder=" "
+          className="block py-2.5 px-0 w-full text-sm bg-transparent border-0 border-b-2 border-gray-300 focus:outline-none focus:ring-0 focus:border-blue-600 peer"       placeholder=" "
           value={classesformik.values.time1}
           onChange={classesformik.handleChange}
           onBlur={classesformik.handleBlur}
@@ -557,8 +566,10 @@ const handleFileChange = (event) => {
         />
         <label
           htmlFor="floating_time2"
-          className="absolute text-sm text-gray-400 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-        >
+          className="peer-focus:font-medium absolute text-sm text-gray-400
+          dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-400
+          peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+       >
           Enter end time
         </label>
       </div>
@@ -570,6 +581,9 @@ const handleFileChange = (event) => {
     </form>
   </>
 ) : null}
+      {IsLogin? <button className="text-white
+      px-5 bg-blue-400
+       p-2 mt-7 rounded" onClick={()=>{sessionStorage.clear}} >Logout</button> : null}
 
     </>
   );

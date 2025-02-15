@@ -3,7 +3,6 @@ import axios from 'axios'
 import { ProjectContext } from './Context/ProjectContext';
 import Coaches from './Coaches';
 import Classes from './Classes';
-import Slider from 'react-slick';
 import { Link } from 'react-router-dom'
 import logo from './assets/logo.png'
 import { motion } from "motion/react"
@@ -46,19 +45,19 @@ export default function Home () {
 
   useEffect(()=>{
     getdata()
-  },[Deleting , userToken , ])
+  },[])
 
 
 
   return <>
-    <Link className='text-black' to="/manage">manage</Link>
+    {/* <Link className='text-black' to="/manage">manage</Link> */}
   <div className=''>
     <div className='flex justify-center'>
 
 
 
   <div className='sm:max-w-40 lg:justify-center lg:flex'>
-<motion.img animate={{ rotate: 360 }} className='justify-center m-auto ' src={logo} alt="logo" />
+<motion.img animate={{ rotate: 360 }} className='justify-center m-auto object-cover' src={logo} alt="logo" />
 </div>
 
 </div>
@@ -68,13 +67,13 @@ export default function Home () {
 </div>
 
 
-<h2  className='text-xl pt-5 text-white font-semibold '>Special Offers For You :</h2>
+<h2  className='text-xl p-4 text-white font-semibold gymfont'>Special Offers For You :</h2>
     <div className='pt-4 md:flex md:flex-wrap flex-row-reverse gap-4 justify-center' >
      
     {offers?.length > 0   ? 
  
  offers?.map((offer)=>    <div key={offer.id} className=' md:w-80  offer mt-7 p-2 rounded-lg flex flex-col bg-white shadow-md border-b-8 border-blue-600 opacity-90'>
-<h3 className='p-2 font-bold text-blue-700 text-lg '><i className="fa-solid fa-dumbbell pr-2"></i>  {offer.duration}</h3>
+<h3 className='p-2 font-bold text-blue-700 text-2xl gymfont'><i className="fa-solid fa-dumbbell pr-2"></i>  {offer.duration}</h3>
 <div className='flex justify-between'>
 
 <h3 className='p-2 font-bold text-blue-700 text-lg line-through'><i className="fa-solid fa-tag pr-1"></i>{ (offer.price).split('.00')} EGP</h3>
@@ -92,7 +91,7 @@ export default function Home () {
 
      </ul>
      
-     {userToken !== sessionStorage.getItem('token') ? <button className='text-xl btn m-5 text-blue-700' onClick={()=>deleteprod(offer.id)}>{Deleting && Delid==offer.id ? <span><i class="fa-solid fa-check text-blue-700"></i> <span className='text-blue-700'>Done</span> </span> : <span className='text-blue-600'>Delete</span> }</button>
+     {userToken !== sessionStorage.getItem('token') ? <button className='text-xl btn m-5 text-blue-700' onClick={()=>deleteprod(offer.id)}>{Deleting && Delid==offer.id ? <span><i class="fa-solid fa-check text-blue-700"></i> <span className='text-blue-700 gymfont '>Done</span> </span> : <span className='text-blue-600  gymfont '>Delete</span> }</button>
 : null}
    </div>
   

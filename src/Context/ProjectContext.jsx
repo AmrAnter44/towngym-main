@@ -16,6 +16,7 @@ const [IsLogin, setIsLogin] = useState(null)
     const [coaches, setCoaches] = useState([]);
     const [DeletingCoaches, setDeletingCoaches] = useState();
     const [DelIdCoache, setDelIdCoache] = useState();
+
     //  !!!! Classes
     const [classes, setClasses] = useState([]);
     const [DeletingClasses, setDeletingclasses] = useState();
@@ -24,7 +25,7 @@ const [IsLogin, setIsLogin] = useState(null)
     async function getdata () {
       setloading(true);
       try {
-        const response = await fetch('http://197.134.255.154:3000/Offers');
+        const response = await fetch('https://xgym.website/Offers');
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
@@ -76,7 +77,7 @@ const [IsLogin, setIsLogin] = useState(null)
     async function getCoaches() {
       setloading(true);
       try {
-          const response = await fetch('http://197.134.255.154:3000/Coaches');
+          const response = await fetch('https://xgym.website/Coaches');
           if (!response.ok) {
               throw new Error('Network response was not ok');
           }
@@ -99,7 +100,7 @@ const [IsLogin, setIsLogin] = useState(null)
       setDeletingCoaches(true)
       try {
         const token = sessionStorage.getItem('token');
-        const response = await fetch('http://197.134.255.154:3000/deleteCoach', {
+        const response = await fetch('https://xgym.website/deleteCoach', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -119,7 +120,7 @@ const [IsLogin, setIsLogin] = useState(null)
       } catch (error) {
         console.error('Error deleting product:', error);
       } finally {
-        setDeletingCoaches(null)
+        setDeletingCoaches(false)
       }
     }
 
@@ -141,7 +142,7 @@ const [IsLogin, setIsLogin] = useState(null)
 async function getClasses () {
   setloading(true);
   try {
-    const response = await fetch('http://197.134.255.154:3000/Classes');
+    const response = await fetch('https://xgym.website/Classes');
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }
@@ -162,7 +163,7 @@ async function getClasses () {
       setDeletingclasses(true)
       try {
         const token = sessionStorage.getItem('token');
-        const response = await fetch('http://197.134.255.154:3000/deleteClass', {
+        const response = await fetch('https://xgym.website/deleteClass', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -182,7 +183,7 @@ async function getClasses () {
       } catch (error) {
         console.error('Error deleting product:', error);
       } finally {
-        setDeletingCoaches(null)
+        setDeletingCoaches(false)
       }
     }
 
@@ -216,7 +217,7 @@ async function getClasses () {
       setDeleting(true)
       try {
         const token = sessionStorage.getItem('token');
-        const response = await fetch('http://197.134.255.154:3000/deleteOffer', {
+        const response = await fetch('https://xgym.website/deleteOffer', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -292,3 +293,4 @@ async function getClasses () {
       </ProjectContext.Provider>
     );
   }
+  
