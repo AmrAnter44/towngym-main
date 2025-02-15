@@ -60,7 +60,6 @@ return <>
 : null}
 
     </div>
-    </div>
 </div>
      )  : <i className="text-3xl text-blue-700 p-4 m-4 fa-solid fa-spinner fa-spin"></i> }
 
