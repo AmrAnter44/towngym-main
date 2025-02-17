@@ -39,8 +39,8 @@ return <>
 
 {/* new  */}
     {coaches?.length > 0   ? 
- coaches?.map((coache)=>     <div key={coache.id} className="w-80 bg-blue-800 rounded-lg bg-opacity-70 text-white justify-between flex flex-col-reverse md:flex-row pt-2 gap-2 border">
-    <div className='w-full flex flex-col-reverse md:flex-row  '>
+ coaches?.map((coache)=>     <div key={coache.id} className="w-80 bg-black rounded-lg bg-opacity-70 text-blue-700 justify-between flex flex-col-reverse md:flex-row pt-2 gap-2 border">
+    <div className='w-full flex flex-col-reverse md:flex-row bg-black '>
     <div className="w-full justify-center bottom-0"> <img className=" top-0 md:w-40  pt-2 pr-2 pl-2" src={coache.img} alt="Coach Img" /> </div>
     <div className="lg:p-6  lg:m-6 font-bold p-3 text-2xl justify-center m-1 flex flex-col gap-4 text-center">
         <h2 className='font-semibold text-pretty gymfont'> {coache.name} </h2>

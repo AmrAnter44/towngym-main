@@ -12,8 +12,8 @@ export default function Manage() {
   // Function to add an offer
   async function addOffer(formValues,token) {
     setloadingadd(true); // Get token directly from session storage
-    console.log(token);
-    console.log(formValues);
+    // console.log(token);
+    // console.log(formValues);
   
     try {
       const response = await fetch('https://xgym.website/addOffer', {
@@ -29,9 +29,9 @@ export default function Manage() {
       }
   
       const data = await response.json();
-      console.log('Offer added:', data);
+      // console.log('Offer added:', data);
     } catch (error) {
-      console.error('Error adding offer:', error);
+      // console.error('Error adding offer:', error);
     } finally {
       setloadingadd(false);
     }
@@ -110,8 +110,8 @@ const handleFileChange = (event) => {
 //  add !!!!!!!!!!class
   async function addClass(formValues,token) {
     setloadingadd(true); // Get token directly from session storage
-    console.log(token);
-    console.log(formValues);
+    // console.log(token);
+    // console.log(formValues);
     
     
   
@@ -130,11 +130,11 @@ const handleFileChange = (event) => {
       }
   
       const data = await response.json();
-      console.log('Class added:', data);
-      console.log(classes);
+      // console.log('Class added:', data);
+      // console.log(classes);
       
     } catch (error) {
-      console.error('Error adding offer:', error);
+      // console.error('Error adding offer:', error);
     } finally {
       setloadingadd(false);
     }
@@ -179,7 +179,7 @@ const handleFileChange = (event) => {
     onSubmit: async (values) => {
 
         const formData = new FormData();
-        console.log(values.img);
+        // console.log(values.img);
         setloadingadd(true);
         formData.append('name', values.name);
         formData.append('title', values.title);
@@ -197,9 +197,9 @@ const handleFileChange = (event) => {
             }
   
             const data = await response.json();
-            console.log('Coach added:', data);
+            // console.log('Coach added:', data);
         } catch (error) {
-            console.error('Error adding coach:', error);
+            // console.error('Error adding coach:', error);
         } finally{
                   setloadingadd(false);
         }
@@ -426,7 +426,7 @@ const handleFileChange = (event) => {
 
 
 
-       
+   
 
 {/* <div className="relative z-0 w-full mb-5 group">
    <input

@@ -48,7 +48,6 @@ export default function Home () {
   },[])
 
 
-
   return <>
     {/* <Link className='text-black' to="/manage">manage</Link> */}
   <div className=''>

@@ -20,9 +20,7 @@ let { IsLogin, setIsLogin ,DeletingClasses,deleteClasses,
 
 
   useEffect(()=>{
-    getClasses()
-    console.log(classes);
-    
+    getClasses() 
   },[])
  
 
@@ -51,7 +49,7 @@ let { IsLogin, setIsLogin ,DeletingClasses,deleteClasses,
 : null}
 
     </div>
-    
+
 
      )  : <i className="text-3xl text-blue-700 p-4 m-4 fa-solid fa-spinner fa-spin"></i> }
 

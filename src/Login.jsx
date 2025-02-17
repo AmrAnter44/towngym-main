@@ -117,7 +117,6 @@
 //       {loadinglog ? <span>{loadinglog}</span> : null}
 //     </>
 // }
-
 import React, { useContext, useState } from 'react';
 import { useFormik } from 'formik';
 import { ProjectContext } from './Context/ProjectContext';
@@ -145,21 +144,21 @@ export default function Login() {
   
       // Log the raw response text
       const responseText = await response.text();
-      console.log('Response Text:', responseText);
+      // console.log('Response Text:', responseText);
       sessionStorage.setItem('token', responseText);
       setUserToken(responseText);
       setIsLogin(true)
       // Check if the response is JSON before parsing
       if (response.headers.get('Content-Type')?.includes('application/json')) {
         const data = JSON.parse(responseText);
-        console.log('Login data:', data);
+        // console.log('Login data:', data);
   
         // Ensure the server returns a 'token' property
         if (responseText) {
           sessionStorage.setItem('token', responseText);
-          console.log('Token:', sessionStorage.getItem('token'));
+
           setUserToken(responseText); // Set user token in context if needed
-          console.log(responseText);
+          // console.log(responseText);
           
            // Update login state
           setloadinglog(false); // Reset loading state
@@ -170,7 +169,7 @@ export default function Login() {
         throw new Error('Response is not JSON');
       }
     } catch (error) {
-      console.error('Error:', error);
+      // console.error('Error:', error);
       setloadinglog(false); // Reset loading state in case of error
     }
   }

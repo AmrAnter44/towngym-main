@@ -28,7 +28,6 @@ export default function Img() {
 
 
 
-
   return <>
   <Slider className='pb-5' {...settings}>
 
