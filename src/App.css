@@ -53,25 +53,13 @@
 }
 
 .gympng{
-  background-image: url("./assets/bg.jpg");
+  background-image: url("./assets/bg.png");
   background-position: center;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
   background-repeat:repeat;
 }
-.gympng::after{
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color:black;
-  background-size: cover;
-  background-position: center;
-  opacity: 0.8; /* Adjust opacity here */
-  z-index: -1; /* Make sure it stays behind the content */
-}
+
 
 .w{
   width: 130px;

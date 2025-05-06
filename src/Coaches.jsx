@@ -30,7 +30,7 @@ return <>
  <h2 className='text-xl font-semibold pb-1 p-4 mb-4 gymfont '> Coaches :</h2>
  <div className="lg:px-14 ">
     {/* !!flexhere */}
-<Slider className='pb-5' {...settings}>
+<Slider className='pb-5 w-50%' {...settings}>
 
 
 
