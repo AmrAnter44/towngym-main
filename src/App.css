@@ -1,7 +1,6 @@
 @font-face {
   font-family: gym;
-  src: url(../src/assets/NCLMonsterBeast-Demo.otf);
-
+  src: url("/assets/NCLMonsterBeast-Demo.otf");
 }
 
 #root {
@@ -10,13 +9,12 @@
   padding: 2rem;
   text-align: center;
 }
-.gymfont{
+
+.gymfont {
   font-family: gym;
   letter-spacing: 1.5px;
   font-weight: 300;
 }
-
-
 
 .logo {
   height: 6em;
@@ -24,9 +22,11 @@
   will-change: filter;
   transition: filter 300ms;
 }
+
 .logo:hover {
   filter: drop-shadow(0 0 2em #646cffaa);
 }
+
 .logo.react:hover {
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
@@ -45,25 +45,23 @@
     animation: logo-spin infinite 20s linear;
   }
 }
+
 .card {
   padding: 2em;
 }
+
 .read-the-docs {
   color: #888;
 }
 
-.gympng{
-  background-image: url("./assets/bg.png");
+.gympng {
+  background-image: url("/assets/bg.png");
   background-position: center;
+  background-repeat: repeat;
   height: 100%;
-  object-fit: cover;
-  background-repeat:repeat;
 }
 
-
-.w{
+.w {
   width: 130px;
   height: 180px;
 }
-
-

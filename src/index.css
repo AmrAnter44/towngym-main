@@ -2,58 +2,43 @@
 @tailwind components;
 @tailwind utilities;
 
-.body{
-  background-color: black;
-  color:white;
-
+body {
+  @apply bg-black text-white;
 }
 
-.gold{
-  background-color: blue;
+.gold {
+  @apply bg-blue-500;
 }
-.sale{
-  @apply bg-slate-700 absolute top-0 right-1 p-1 
+
+.sale {
+  @apply bg-slate-700 absolute top-0 right-1 p-1;
 }
 
 .row {
-  @apply flex flex-wrap py-4  items-end
+  @apply flex flex-wrap py-4 items-end;
 }
+
 .btn {
-  @apply bg-transparent text-slate-100 rounded-lg border p-2
+  @apply bg-transparent text-slate-100 rounded-lg border p-2;
 }
-.w-90{
 
-  width: 90%;
+.w-90 {
+  @apply w-[90%];
 }
- /* .offer{
-  background-image:url(./assets/offer.jpg);
-  backdrop-filter: blur(5px);
-  height: 200px;
-  background-size: cover;
- } */
-
 
 @media only screen and (min-width: 720px) {
   .prod:hover .btn {
-    opacity: 100%;
-    transform: translateY(50%) ;
-    transition: all 0.5s;
+    @apply opacity-100 translate-y-12 transition-all duration-500;
   }
 }
 
-
-*{
-
+* {
   margin: 0;
   padding: 0;
 }
 
-
-
-.active{
- background-color: transparent;
- border-bottom: solid 1px green;
- padding: 1rem;
+.active {
+  @apply bg-transparent border-b-2 border-green-500 p-4;
 }
 
 .loader {
@@ -68,8 +53,9 @@
   box-sizing: border-box;
   animation: rotation 1s linear infinite;
 }
+
 .loader::after {
-  content: '';  
+  content: '';
   box-sizing: border-box;
   position: absolute;
   left: 0;
@@ -93,8 +79,8 @@
   100% {
     transform: rotate(360deg);
   }
-} 
-    
+}
+
 @keyframes rotationBack {
   0% {
     transform: rotate(0deg);
@@ -103,5 +89,3 @@
     transform: rotate(-360deg);
   }
 }
-
-
