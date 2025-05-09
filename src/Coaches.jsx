@@ -10,7 +10,7 @@ export default function Coaches() {
     { id: 3, name: "aimlia", img: "/coaches/aimlia.jpg" },
     { id: 4, name: "haitham", img: "/coaches/haitham.jpg" },
     { id: 5, name: "saif", img: "/coaches/saif.jpg" },
-    // { id: 66, name: "bogy", img: "/coaches/bogy.jpg" },
+    { id: 66, name: "bogy", img: "/coaches/bogy.jpg" },
   ]);
 
   const [deletingId, setDeletingId] = useState(null);
