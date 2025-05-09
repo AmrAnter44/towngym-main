@@ -17,7 +17,7 @@ export default function Coaches() {
     { id: 3, name: "aimlia", img: aimlia },
     { id: 4, name: "haitham", img: haitham },
     { id: 5, name: "saif", img: saif },
-    // { id: 6, name: "bogy", img: bogy },
+    // { id: 66, name: "bogy", img: bogy },
 
   ]);
 
