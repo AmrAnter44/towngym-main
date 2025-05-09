@@ -5,7 +5,7 @@ import Home from './Home'
 export default function Layout() {
   return <>
   
-  <Nav/>
+
   <Outlet/>
   
   
