@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import zema from "../src/assets/coaches/zema.jpg";
-import amr from "../src/assets/coaches/amr.jpg";
-import aimlia from "../src/assets/coaches/aimlia.jpg";
-import haitham from "../src/assets/coaches/haitham.jpg";
-import saif from "../src/assets/coaches/saif.jpg";
+import zema from "/src/assets/coaches/zema.jpg";
+import amr from "/src/assets/coaches/amr.jpg";
+import aimlia from "/src/assets/coaches/aimlia.jpg";
+import haitham from "/src/assets/coaches/haitham.jpg";
+import saif from "/src/assets/coaches/saif.jpg";
 // import bogy from "../src/assets/coaches/bogy.jpg";
 
 
