@@ -22,9 +22,9 @@ export default function Home() {
       duration: "1 Month",
       price: "800.00",
       priceNew: "600.00",
-      private: "12",
-      inbody: "12",
-      invite: "12"
+      private: "2",
+      inbody: "1",
+      invite: "2"
     },
     {
       id: 3,

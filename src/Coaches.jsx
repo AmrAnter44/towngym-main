@@ -50,11 +50,11 @@ export default function Coaches() {
             coaches.map((coache) => (
              <div
                 key={coache.id}
-                className="w-full bg-black rounded-lg bg-opacity-70 text-blue-700 flex flex-col pt-2 gap-2"
+                className="w-full md:w-40 bg-black rounded-lg bg-opacity-70 text-blue-700 flex flex-col justify-center pt-2 gap-2"
               >
-                <div className="w-full flex flex-col-reverse md:flex-row bg-black">
-                  <div className="w-full justify-center bottom-0">
-      <img className="w-full rounded-lg p-2" src={coache.img} alt="Coach Img " />
+                <div className="w-full flex flex-col-reverse md:flex-row bg-black justify-center">
+                  <div className="w-full justify-center items-center bottom-0">
+      <img className=" rounded-lg p-2 mx-1 md:w-40" src={coache.img} alt="Coach Img " />
                   </div>
                   <div className="lg:p-6 lg:m-6 font-bold p-3 text-2xl justify-center m-1 flex flex-col gap-4 text-center">
                     <h2 className="font-semibold text-pretty gymfont">{coache.name}</h2>
