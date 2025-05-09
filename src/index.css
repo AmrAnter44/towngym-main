@@ -7,7 +7,9 @@
   color:white
 }
 
-
+.gold{
+  background-color: blue;
+}
 .sale{
   @apply bg-slate-700 absolute top-0 right-1 p-1 
 }
