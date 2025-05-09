@@ -5,12 +5,12 @@ import "slick-carousel/slick/slick-theme.css";
 
 export default function Coaches() {
   const [coaches, setCoaches] = useState([
-    { id: 1, name: "zema", img: "../public/assets/coaches/zema.jpg" },
-    { id: 2, name: "amr", img: "../public/assets/coaches/amr.jpg" },
-    { id: 3, name: "aimlia", img: "../public/assets/coaches/aimlia.jpg" },
-    { id: 4, name: "haitham", img: "../public/assets/coaches/haitham.jpg" },
-    { id: 5, name: "saif", img: "../public/assets/coaches/saif.jpg" },
-    // { id: 66, name: "bogy", img: "/assets/coaches/bogy.jpg" },
+    { id: 1, name: "zema", img: "/Coaches/zema.jpg" },
+    { id: 2, name: "amr", img: "/Coaches/amr.jpg" },
+    { id: 3, name: "aimlia", img: "/Coaches/aimlia.jpg" },
+    { id: 4, name: "haitham", img: "/Coaches/haitham.jpg" },
+    { id: 5, name: "saif", img: "/Coaches/saif.jpg" },
+    // { id: 66, name: "bogy", img: "/Coaches/bogy.jpg" },
   ]);
 
   const [deletingId, setDeletingId] = useState(null);
