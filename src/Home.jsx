@@ -5,8 +5,7 @@ import { Link } from 'react-router-dom';
 import logo from '../public/assets/logo.png';
 import { motion } from "framer-motion"; // صحح المكتبة هنا
 import Img from './Img';
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+
 
 export default function Home() {
   const [offers, setOffers] = useState([
