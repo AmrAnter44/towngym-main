@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Coaches from './Coaches';
 import Classes from './Classes';
 import { Link } from 'react-router-dom';
-import logo from './assets/logo.png';
+import logo from '../public/assets/logo.png';
 import { motion } from "framer-motion"; // صحح المكتبة هنا
 import Img from './Img';
 import "slick-carousel/slick/slick.css";
@@ -69,7 +69,7 @@ export default function Home() {
       <div className=''>
         <div className='flex justify-center'>
           <div className='sm:max-w-40 lg:justify-center lg:flex'>
-            <motion.img animate={{ rotate: 360 }} className='justify-center m-auto object-cover' src={logo} alt="logo" />
+            {/* <motion.img animate={{ rotate: 360 }} className='justify-center m-auto object-cover' src={logo} alt="logo" /> */}
           </div>
         </div>
 

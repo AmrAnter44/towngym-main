@@ -2,23 +2,16 @@ import React, { useState } from 'react';
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import zema from "./assets/coaches/zema.jpg";
-import amr from "./assets/coaches/amr.jpg";
-import aimlia from "./assets/coaches/aimlia.jpg";
-import haitham from "./assets/coaches/haitham.jpg";
-import saif from "./assets/coaches/saif.jpg";
-// import bogy from ".../assets/coaches/bogy.jpg";
 
 
 export default function Coaches() {
   const [coaches, setCoaches] = useState([
-    { id: 1, name: "zema", img: zema },
-    { id: 2, name: "amr", img: amr },
-    { id: 3, name: "aimlia", img: aimlia },
-    { id: 4, name: "haitham", img: haitham },
-    { id: 5, name: "saif", img: saif },
-    // { id: 66, name: "bogy", img: bogy },
-
+    { id: 1, name: "zema", img: "/assets/coaches/zema.jpg" },
+    { id: 2, name: "amr", img: "/assets/coaches/amr.jpg" },
+    { id: 3, name: "aimlia", img: "/assets/coaches/aimlia.jpg" },
+    { id: 4, name: "haitham", img: "/assets/coaches/haitham.jpg" },
+    { id: 5, name: "saif", img: "/assets/coaches/saif.jpg" },
+    // { id: 66, name: "bogy", img: "/assets/coaches/bogy.jpg" },
   ]);
 
   const [deletingId, setDeletingId] = useState(null);
