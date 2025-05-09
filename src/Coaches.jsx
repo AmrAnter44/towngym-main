@@ -5,11 +5,11 @@ import "slick-carousel/slick/slick-theme.css";
 
 export default function Coaches() {
   const [coaches, setCoaches] = useState([
-    { id: 1, name: "zema", img: "/assets/coaches/zema.jpg" },
-    { id: 2, name: "amr", img: "/assets/coaches/amr.jpg" },
-    { id: 3, name: "aimlia", img: "/assets/coaches/aimlia.jpg" },
-    { id: 4, name: "haitham", img: "/assets/coaches/haitham.jpg" },
-    { id: 5, name: "saif", img: "/assets/coaches/saif.jpg" },
+    { id: 1, name: "zema", img: "../public/assets/coaches/zema.jpg" },
+    { id: 2, name: "amr", img: "../public/assets/coaches/amr.jpg" },
+    { id: 3, name: "aimlia", img: "../public/assets/coaches/aimlia.jpg" },
+    { id: 4, name: "haitham", img: "../public/assets/coaches/haitham.jpg" },
+    { id: 5, name: "saif", img: "../public/assets/coaches/saif.jpg" },
     // { id: 66, name: "bogy", img: "/assets/coaches/bogy.jpg" },
   ]);
 
