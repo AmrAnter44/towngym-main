@@ -48,7 +48,7 @@ export default function Coaches() {
         <Slider className="pb-5 w-50%" {...settings}>
           {coaches.length > 0 ? (
             coaches.map((coache) => (
-              <div
+             <div
                 key={coache.id}
                 className="w-80 bg-black rounded-lg bg-opacity-70 text-blue-700 justify-between flex flex-col-reverse md:flex-row pt-2 gap-2 border"
               >
