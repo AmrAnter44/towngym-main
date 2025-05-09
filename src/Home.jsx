@@ -69,7 +69,7 @@ export default function Home() {
       {/* <Link className='text-black' to="/manage">manage</Link> */}
       <div className=''>
         <div className='flex justify-center'>
-          <div className='sm:max-w-40 lg:justify-center lg:flex'>
+          <div className='sm:max-w-32 lg:justify-center lg:flex'>
             <motion.img 
               animate={{ rotate: 360 }} 
               transition={{ duration: 2, repeat: Infinity, repeatType: 'loop' }}
