@@ -26,7 +26,7 @@ export default function Home() {
               key={id}
               style={
                 Mem
-                  ? { backgroundColor: "blue", color: "black", opacity: 1 }
+                  ? { backgroundColor: "blue", color: "white", opacity: 1 }
                   : { backgroundColor: "white", color: "blue" }
               }
               className="min-w-28 border p-3 rounded-lg flex flex-col flex-wrap justify-center text-center"
@@ -39,16 +39,16 @@ export default function Home() {
               </h4>
               <h5 className='p-2 font-bold  text-lg'>
                 
-                <span className="text-xl text-black px-1"><span>C: </span>{coachName}</span>
+                <span className="text-xl px-1"><span>C: </span>{coachName}</span>
               </h5>
               <p className="p-2 font-bold  text-lg">
                 <i className="fa-regular fa-clock"></i> At:{" "}
-                <span className="text-xl text-black px-1">{time1}</span> <span>pm</span>
+                <span className="text-xl px-1">{time1}</span> <span>pm</span>
               </p>
                   <p className="p-2 font-bold text-lg">
       {mix}
     </p>
-    {Mem? <span className="text-sm text-black px-1">out of Membership</span> : null}
+    {Mem? <span className="text-sm px-1">out of Membership</span> : null}
             </div>
           ))
         ) : (
