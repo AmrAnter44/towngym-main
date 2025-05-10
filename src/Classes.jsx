@@ -13,7 +13,7 @@ export default function Home() {
     { id: 9, className: "Core", day: "Wednesday", time1: "8:00",coachName:"Zima",mix:"Mix" },
     { id: 10, className: "Superman Kids", day: "Thursday", time1: "6:00",coachName:"Zima",mix:"Mix" },
     { id: 11, className: "Boxing", day: "Thursday", time1: "7:00",coachName:"Saif",mix:"Mix" },
-    { id: 12, className: "Belly Dancing", day: "Sunday", time1: "8:00",coachName:"Samah",mix:"Mix" },
+    { id: 12, className: "Belly Dancing", day: "Sunday", time1: "8:00",coachName:"Samah",mix:"Ladies" },
   ]);
 
   return (
