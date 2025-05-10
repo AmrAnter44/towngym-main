@@ -161,6 +161,9 @@ export default function Home() {
           </div>
         </div>
       </div>
+      <div>
+        <p>Direct by <a href="https://tamyaz.online/" className='text-blue-600'>Tamyaz</a></p>
+      </div>
     </>
   );
 }
