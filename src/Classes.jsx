@@ -2,18 +2,18 @@ import React, { useState } from 'react';
 
 export default function Home() {
   const [classes, setClasses] = useState([
-    { id: 1, className: "Functional Training", day: "Saturday", time1: "8:00",coachName:"Zima",mix:true },
-    { id: 2, className: "Aerobics", day: "Sunday", time1: "8:00",coachName:"Aimlia",mix:false },
-    { id: 3, className: "Flexibility", day: "Sunday", time1: "9:00",coachName:"Aimlia",mix:false },
-    { id: 4, className: "Superman Kids", day: "Monday", time1: "6:00",coachName:"Zima",mix:true },
-    { id: 5, className: "Boxing", day: "Monday", time1: "7:00",coachName:"Saif",mix:true },
-    { id: 6, className: "Circuit", day: "Monday", time1: "8:00",coachName:"Menna" },
-    { id: 7, className: "Zumba", day: "Tuesday", time1: "8:00",coachName:"Menna" },
-    { id: 8, className: "Yoga", day: "Tuesday", time1: "9:00",coachName:"Aimlia",mix:true },
-    { id: 9, className: "Core", day: "Wednesday", time1: "8:00",coachName:"Zima",mix:true },
-    { id: 10, className: "Superman Kids", day: "Thursday", time1: "6:00",coachName:"Zima",mix:true },
-    { id: 11, className: "Boxing", day: "Thursday", time1: "7:00",coachName:"Saif",mix:true },
-    { id: 12, className: "Belly Dancing", day: "Sunday", time1: "8:00",coachName:"Samah",mix:true },
+    { id: 1, className: "Functional Training", day: "Saturday", time1: "8:00",coachName:"Zima",mix:"Mix" },
+    { id: 2, className: "Aerobics", day: "Sunday", time1: "8:00",coachName:"Aimlia",mix:"Ladies" },
+    { id: 3, className: "Flexibility", day: "Sunday", time1: "9:00",coachName:"Aimlia",mix:"Ladies" },
+    { id: 4, className: "Superman Kids", day: "Monday", time1: "6:00",coachName:"Zima",mix:"Mix" },
+    { id: 5, className: "Boxing", day: "Monday", time1: "7:00",coachName:"Saif",mix:"Mix" },
+    { id: 6, className: "Circuit", day: "Monday", time1: "8:00",coachName:"Menna",mix:"Ladies" },
+    { id: 7, className: "Zumba", day: "Tuesday", time1: "8:00",coachName:"Menna",mix:"Ladies" },
+    { id: 8, className: "Yoga", day: "Tuesday", time1: "9:00",coachName:"Aimlia",mix:"Mix" },
+    { id: 9, className: "Core", day: "Wednesday", time1: "8:00",coachName:"Zima",mix:"Mix" },
+    { id: 10, className: "Superman Kids", day: "Thursday", time1: "6:00",coachName:"Zima",mix:"Mix" },
+    { id: 11, className: "Boxing", day: "Thursday", time1: "7:00",coachName:"Saif",mix:"Mix" },
+    { id: 12, className: "Belly Dancing", day: "Sunday", time1: "8:00",coachName:"Samah",mix:"Mix" },
   ]);
 
   return (
@@ -41,7 +41,7 @@ export default function Home() {
                 <span className="text-xl text-black px-1">{time1}</span> <span>pm</span>
               </p>
                   <p className="p-2 font-bold text-blue-700 text-lg">
-      {{mix} ? <span>Mix</span> : <span>Ladies</span>}
+      {mix}
     </p>
             </div>
           ))
