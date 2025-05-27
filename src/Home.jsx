@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom';
 import logo from '../public/assets/logo.png';
 import { motion } from "framer-motion"; // مكتبة framer-motion تم استيرادها بشكل صحيح
 import Img from './Img';
+import CalorieCalculator from './CalorieCalculator';
+
 
 export default function Home() {
   const [offers, setOffers] = useState([
@@ -134,6 +136,9 @@ export default function Home() {
           </div>
           <div>
             <Classes />
+          </div>
+          <div>
+            <CalorieCalculator></CalorieCalculator>
           </div>
         </div>
 
