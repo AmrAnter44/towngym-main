@@ -79,7 +79,7 @@ export default function CalorieCalculator() {
     <div className="max-w-md mx-auto mt-10 text-black">
       <Card>
         <CardContent>
-          <h2 className="text-xl font-bold text-center mb-4">حاسبة السعرات لثبات الوزن</h2>
+          <h2 className="text-xl font-bold text-center mb-4">احسب السعرات لثبات الوزن</h2>
 
              <div>
             <Label>النوع</Label>
