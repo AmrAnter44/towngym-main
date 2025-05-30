@@ -22,19 +22,10 @@ export default function Home() {
     {
       id: 2,
       duration: "1 Month",
-      price: "800.00",
-      priceNew: "600.00",
+      price: "0",
+      priceNew: "800.00",
       private: "2",
       inbody: "1",
-      invite: "2"
-    },
-    {
-      id: 3,
-      duration: "2 Months",
-      price: "1400.00",
-      priceNew: "1000.00",
-      private: "2",
-      inbody: "2",
       invite: "2"
     },
     {
@@ -48,7 +39,7 @@ export default function Home() {
     },
     {
       id: 5,
-      duration: "6 Months",
+      duration: "6 Months + 1 Free",
       price: "2800.00",
       priceNew: "2200.00",
       private: "4",
@@ -99,10 +90,9 @@ export default function Home() {
                     <i className="fa-solid fa-dumbbell pr-2"></i> {offer.duration}
                   </h3>
                   <div className='flex justify-between'>
-                    <h3 className='p-2 font-bold text-lg line-through'>
-                      <i className="fa-solid fa-tag pr-1"></i>{offer.price.split('.00')} EGP
-                    </h3>
-                    <h3 className='p-2 font-bold text-lg'>{offer.priceNew.split('.00')} EGP</h3>
+              {offer.price == "0" ? null :     <h3 className='p-2 font-bold text-lg line-through'>    <i className="fa-solid fa-tag pr-1"></i>{offer.price.split('.00')}EGP </h3>}
+                    {offer.priceNew == "0" ? null :   <h3 className='p-2 font-bold text-lg'>{offer.priceNew.split('.00')} EGP</h3>}
+                  
                   </div>
 
                   <ul className={offer.id === 1 ? 'p-2 text-start text-white' : 'p-2 text-start text-blue-700'}>
