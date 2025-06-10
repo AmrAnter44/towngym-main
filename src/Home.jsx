@@ -30,7 +30,7 @@ export default function Home() {
     },
     {
       id: 4,
-      duration: "3 Months + 1 Free",
+      duration: "3 Months",
       price: "2200.00",
       priceNew: "1800.00",
       private: "3",
