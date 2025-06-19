@@ -31,24 +31,24 @@ export default function Home() {
     {
       id: 4,
       duration: "3 Months",
-      price: "2200.00",
-      priceNew: "1800.00",
+      price: "1800.00",
+      priceNew: "1400.00",
       private: "3",
       inbody: "3",
       invite: "3"
     },
     {
       id: 5,
-      duration: "6 Months + 1 Free",
+      duration: "6 Months",
       price: "2800.00",
-      priceNew: "2500.00",
+      priceNew: "2000.00",
       private: "4",
       inbody: "6",
       invite: "6"
     },
     {
       id: 6,
-      duration: "12 Months + 2 Free",
+      duration: "12 Months + 1 Free",
       price: "4500.00",
       priceNew: "4000.00",
       private: "6",
