@@ -41,9 +41,14 @@ export default function Coaches() {
     ]
   };
 
-  return (
+  return <>
+
+
     <div className="w-50%">
       <h2 className="text-xl font-semibold pb-1 p-4 mb-4 gymfont">Coaches :</h2>
+                <p className='text-lg text-blue-600 font-bold p-2'>
+         Our coaches are here to support you in becoming stronger, healthier, and better every single day.
+        </p>
       <div className="lg:px-14">
         <Slider className="pb-5 w-50%" {...settings}>
           {coaches.length > 0 ? (
@@ -67,6 +72,13 @@ export default function Coaches() {
           )}
         </Slider>
       </div>
+
+      <div>
+
+      </div>
     </div>
-  );
+
+
+
+ </>
 }

@@ -1,11 +1,5 @@
 import React, { useState } from 'react';
-import Coaches from './Coaches';
-import Classes from './Classes';
-import { Link } from 'react-router-dom';
-import logo from '../public/assets/logo.png';
-import { motion } from "framer-motion"; // مكتبة framer-motion تم استيرادها بشكل صحيح
-import Img from './Img';
-import CalorieCalculator from './CalorieCalculator';
+import logo from '../../public/assets/logo.png';
 
 
 export default function Home() {
@@ -57,28 +51,24 @@ export default function Home() {
     },
   ]);
 
-  return (
-    <>
-      {/* <Link className='text-black' to="/manage">manage</Link> */}
+  return <>
+
       <div className=''>
-        <div className='flex justify-center'>
-          <div className='sm:max-w-32 lg:justify-center lg:flex'>
-            <motion.img 
-              animate={{ rotate: 360 }} 
-              transition={{ duration: 2, repeat: Infinity, repeatType: 'loop' }}
-              className='justify-center m-auto object-cover' 
-              src={logo} 
-              alt="logo" 
-            />
-          </div>
-        </div>
+<div>
 
-        <div className='flex justify-center p-4'>
-          <div className='w-96 lg:hidden'><Img /></div>
-        </div>
+      <div class="typewriter absolute top-[15%] lg:top-[27%]  left-1/2 transform -translate-x-1/2 -translate-y-1/2 ">
+        <h1 className='text-2xl p-4 text-white font-semibold gymfont'> INHALE  <span className='text-blue-600'>PASSION </span> </h1>
+        
+      </div>
+      
+               {/* <div className='flex justify-center opacity-60'>
+         <img className='w-40' src={logo} alt="logo"></img>
+       </div> */}
+</div>
+        <h2 className='text-xl  pt-24 text-white font-semibold gymfont'>Special Offers For You :</h2>
+        <div className=' md:flex md:flex-wrap flex-row-reverse gap-4 justify-center pt-3'>
+          
 
-        <h2 className='text-xl p-4 text-white font-semibold gymfont'>Special Offers For You :</h2>
-        <div className='pt-4 md:flex md:flex-wrap flex-row-reverse gap-4 justify-center'>
           {offers.length > 0 ? (
             offers.map((offer) => {
               const offerClass = offer.id === 1
@@ -121,44 +111,12 @@ export default function Home() {
         </div>
 
         <div className='gap-3'>
-          <div>
-            <Coaches />
-          </div>
-          <div>
-            <Classes />
-          </div>
-          <div>
-            <CalorieCalculator></CalorieCalculator>
-          </div>
-        </div>
 
-        <div className='flex mt-9 bottom-0 mb-0 justify-between p-2 lg:justify-center lg:p-4'>
-          <h3 className='text-start font-semibold pt-3'>Our Pages <i className="fa-solid fa-arrow-right"></i></h3>
-          <div>
-            <a className='text-white p-2 lg:p-4' href="https://www.instagram.com/x_ggym?igsh=MWEwdjV0eXk0MnBseQ==">
-              <i className="p-1 fa-brands fa-instagram text-2xl text-blue-500 mt-1"></i>
-            </a>
-          </div>
-          <div>
-            <a className='text-white p-2 lg:p-4' href="https://wa.link/zyhpxd">
-              <i className="p-1 fa-brands fa-whatsapp text-2xl text-blue-500 mt-1"></i>
-            </a>
-          </div>
-          <div>
-            <a className='text-white p-2 lg:p-4' href="https://www.facebook.com/TOWN411">
-              <i className="p-1 fa-brands fa-facebook text-2xl text-blue-500 mt-1"></i>
-            </a>
-          </div>
-          <div>
-            <a className='text-white p-2 lg:p-4' href="https://maps.app.goo.gl/goVtwSXvxrkmpzzPA">
-              <i className="fa-solid fa-location-dot text-2xl text-blue-500 mt-1 p-1"></i>
-            </a>
-          </div>
         </div>
-      </div>
-      <div>
-        <p>Direct by <a href="https://tamyaz.online/" className='text-blue-600'>Tamyaz</a></p>
       </div>
     </>
-  );
+
+    
+
 }
+
