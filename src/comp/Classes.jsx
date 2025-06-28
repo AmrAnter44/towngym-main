@@ -18,7 +18,7 @@ export default function Home() {
 
   return (
     <>
-      <h2 className="text-xl font-semibold p-4 gymfont">Classes :</h2>
+      {/* <h2 className="text-xl font-semibold p-4 gymfont">Classes :</h2> */}
       <div className="w-50% flex flex-col lg:flex-row gap-2 flex-wrap justify-center">
         {classes.length ? (
           classes.map(({ id, className, day, time1 ,coachName, mix ,Mem}) => (

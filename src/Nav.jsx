@@ -14,7 +14,7 @@ export default function Nav() {
 
     </nav>
 
-    <div className='absolute top-[1%] left-[2.9%]  lg:left-[1%]'>
+    <div className='absolute top-[1%] left-[2.9%]  lg:left-[17%] lg:top-[0%]'>
       <img className='w-12' src={logo} alt="" />
     </div>
 </div>
