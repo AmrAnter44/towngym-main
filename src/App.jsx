@@ -17,6 +17,7 @@ import Machines from './comp/Map/Machines';
 import Bar from './comp/Map/Bar';
 import Online from './comp/Online';
 import SignOnline from './comp/SignOnline';
+import Map from './comp/Map';
 
 
 function App() {
