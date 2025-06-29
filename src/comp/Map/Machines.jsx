@@ -3,7 +3,7 @@ import MapComp from '../Func/MapComp'
 
 export default function Machines() {
   return (
-        <MapComp src={'../../../public/assets/map/img.jpg'}   alt="#">
+        <MapComp src={'../../../public/assets/map/machines.jpg'}   alt="#">
   <ul className='list-disc '>
     
 <li>3 Seated Cable Row Machines (Multi-Grip)</li>

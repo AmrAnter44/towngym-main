@@ -3,7 +3,7 @@ import MapComp from '../Func/MapComp'
 
 export default function Leg() {
   return (
-        <MapComp src={'../../../public/assets/map/img.jpg'}   alt="#">
+        <MapComp src={'../../../public/assets/map/leg.jpg'}   alt="#">
   <ul className='list-disc '>
 <li>Hack Squat Machine</li>
 <li>Lying Leg Press</li>

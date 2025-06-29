@@ -13,7 +13,7 @@ import Weight from './comp/map/Weight';
 import Leg from './comp/map/Leg';
 import Fitness from './comp/map/Fitness';
 import Spa from './comp/map/Spa';
-import Caples from './comp/map/Caples';
+import Caples from './comp/Map/Cables';
 import Machines from './comp/map/Machines';
 import Bar from './comp/map/Bar';
 

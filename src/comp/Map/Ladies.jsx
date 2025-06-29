@@ -3,7 +3,7 @@ import MapComp from '../Func/MapComp'
 
 export default function Ladies() {
   return (
-       <MapComp src="#" alt="#">
+       <MapComp src="#" alt="oopps:(">
   <ul className='list-disc '>
      <p>"We’ve provided a sufficient number of lockers, carefully distributed to suit the gym’s layout. Our team ensures 24/7 cleanliness to maintain your comfort and hygiene at all times."</p>
   </ul>
