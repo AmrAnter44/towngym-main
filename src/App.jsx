@@ -5,7 +5,6 @@ import Home from './comp/Home';
 import Layout from './Layout';
 import Coaches from './comp/Coaches';
 import Classes from './comp/Classes';
-import Map from './comp/Map';
 import Men from './comp/map/Men';
 import Ladies from './comp/map/Ladies';
 import Cardio from './comp/map/Cardio';
