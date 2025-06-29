@@ -3,7 +3,7 @@ import React from 'react';
 export default function Footer() {
   return (
     <>
-    <div className='absolute bottom-0 w-full'>
+
       <div className="flex m-0 p-0 bottom-0 mb-0 justify-between pt-2 lg:justify-center lg:p-4">
         <h3 className="text-start font-semibold  ">
 
@@ -28,7 +28,7 @@ export default function Footer() {
           Direct by <a href="https://tamyaz.online/" className="text-blue-600">Tamyaz</a>
         </p>
       </div>
-      </div>
+
     </>
   );
 }
