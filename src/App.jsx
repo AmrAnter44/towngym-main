@@ -16,6 +16,9 @@ import Spa from './comp/map/Spa';
 import Caples from './comp/Map/Cables';
 import Machines from './comp/map/Machines';
 import Bar from './comp/map/Bar';
+import Online from './comp/Online';
+import SignOnline from './comp/SignOnline';
+
 
 function App() {
   let router = createBrowserRouter([
@@ -78,6 +81,14 @@ function App() {
         {
           path: "/Bar",
           element: <Bar/>,
+        },
+        {
+          path: "/online",
+          element: <Online/>,
+        },
+        {
+          path: "/sign",
+          element: <  SignOnline/>,
         },
       ],
     },
