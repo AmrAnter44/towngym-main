@@ -10,8 +10,8 @@ export default function Nav() {
         <Link to="/" className="hover:text-blue-500 px-2 m-1">Home</Link>
         <Link to="/coaches" className="hover:text-blue-500 px-2 m-1">Coaches</Link>
         <Link to="/classes" className="hover:text-blue-500 px-2 m-1">Classes</Link>
-        <Link to="/map" className="hover:text-blue-500 px-2 m-1">Map</Link><br />
-        {/* <Link to="/online" className="hover:text-blue-500 my-4 ">Online Coaching</Link> */}
+        <Link to="/map" className="hover:text-blue-500 px-2 m-1">Map</Link>
+        {/* <br /> <Link to="/online" className="hover:text-blue-500 my-4 ">Online Coaching</Link> */}
 
     </nav>
 
