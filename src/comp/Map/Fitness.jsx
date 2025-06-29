@@ -3,7 +3,7 @@ import MapComp from '../Func/MapComp'
 
 export default function Fitness() {
   return (
-        <MapComp src={'../../../public/assets/map/fitness.jpg'}   alt="#">
+        <MapComp src={'/assets/map/fitness.jpg'}   alt="#">
 
   <ul className='list-disc '>
     <li>6 Stationary Bikes</li>

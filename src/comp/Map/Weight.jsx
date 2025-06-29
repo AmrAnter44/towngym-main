@@ -3,7 +3,7 @@ import MapComp from '../Func/MapComp'
 
 export default function Weight() {
   return (
-        <MapComp src={'../../../public/assets/map/weight.jpg'}   alt="#">
+        <MapComp src={'/assets/map/weight.jpg'}   alt="#">
   <ul className='list-disc '>
 
 <li>Barbell Flat Bench Press</li>
