@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import logo from '../../towngym-main/public/assets/logo.png';
+import logo from '../public/assets/logo.png';
 export default function Nav() {
   const [open, setOpen] = useState(false);
 
