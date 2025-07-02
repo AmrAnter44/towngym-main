@@ -61,8 +61,10 @@ export default function Coaches() {
                   <div className="w-full justify-center items-center bottom-0">
       <img className=" rounded-lg p-2 mx-1 md:w-40" src={coache.img} alt="Coach Img " />
                   </div>
-                  <div className="lg:p-6 lg:m-6 font-bold p-3 text-2xl justify-center m-1 flex flex-col gap-4 text-center">
+                  <div className="lg:p-6 lg:m-6 font-bold p-3 text-2xl justify-evenly items-center flex flex-row gap-4 text-center">
+                   <i className="fa-solid fa-arrow-left text-blue-600 p-1"></i>
                     <h2 className="font-semibold text-pretty gymfont">{coache.name}</h2>
+                    <i className="fa-solid fa-arrow-right text-blue-600 p-1"></i>
                   </div>
                 </div>
               </div>
