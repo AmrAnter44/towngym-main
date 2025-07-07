@@ -65,8 +65,13 @@ export default function Home() {
                {/* <div className='flex justify-center opacity-60'>
          <img className='w-40' src={logo} alt="logo"></img>
        </div> */}
+
 </div>
-        <h2 className='text-xl  pt-24 text-white font-semibold gymfont'>Special Offers For You :</h2>
+        <h2 className='text-xl  pt-24 text-white font-semibold gymfont'>Special Offers</h2>
+               <div>
+        <p> We're open 24 hours</p>
+        <p>Get free Wi-Fi with your membership  <i class="fa-solid fa-wifi "></i></p>
+       </div>
         <div className=' md:flex md:flex-wrap flex-row-reverse gap-4 justify-center pt-3'>
           
 

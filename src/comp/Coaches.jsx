@@ -49,6 +49,7 @@ export default function Coaches() {
                 <p className='text-lg  font-bold p-2'>
          Our coaches are here to support you in becoming stronger, healthier, and better every single day.
         </p>
+
       <div className="lg:px-14">
         <Slider className="pb-5 w-50%" {...settings}>
           {coaches.length > 0 ? (
@@ -61,10 +62,10 @@ export default function Coaches() {
                   <div className="w-full justify-center items-center bottom-0">
       <img className=" rounded-lg p-2 mx-1 md:w-40" src={coache.img} alt="Coach Img " />
                   </div>
-                  <div className="lg:p-6 lg:m-6 font-bold p-3 text-2xl justify-evenly items-center flex flex-row gap-4 text-center">
-                   <i className="fa-solid fa-arrow-left text-blue-600 p-1"></i>
+                  <div className="lg:p-6 lg:m-6 font-bold p-3 text-2xl justify-between items-center flex flex-row gap-4 text-center">
+                   <i className="fa-solid fa-arrow-left text-blue-600"></i>
                     <h2 className="font-semibold text-pretty gymfont">{coache.name}</h2>
-                    <i className="fa-solid fa-arrow-right text-blue-600 p-1"></i>
+                    <i className="fa-solid fa-arrow-right text-blue-600"></i>
                   </div>
                 </div>
               </div>
