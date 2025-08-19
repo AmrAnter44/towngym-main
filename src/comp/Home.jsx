@@ -4,15 +4,15 @@ import logo from '../../public/assets/logo.png';
 
 export default function Home() {
   const [offers, setOffers] = useState([
-    {
-      id: 1,
-      duration: "One Package Total Transformation",
-      price: "3500.00",
-      priceNew: "2500.00",
-      private: "10",
-      inbody: "1",
-      invite: "1"
-    },
+    // {
+    //   id: 1,
+    //   duration: "One Package Total Transformation",
+    //   price: "3500.00",
+    //   priceNew: "2500.00",
+    //   private: "10",
+    //   inbody: "1",
+    //   invite: "1"
+    // },
     {
       id: 2,
       duration: "1 Month",
@@ -26,7 +26,7 @@ export default function Home() {
       id: 4,
       duration: "3 Months",
       price: "1800.00",
-      priceNew: "1400.00",
+      priceNew: "1500.00",
       private: "3",
       inbody: "3",
       invite: "3"
@@ -35,7 +35,7 @@ export default function Home() {
       id: 5,
       duration: "6 Months",
       price: "2800.00",
-      priceNew: "2000.00",
+      priceNew: "2200.00",
       private: "4",
       inbody: "6",
       invite: "6"
@@ -44,7 +44,7 @@ export default function Home() {
       id: 6,
       duration: "12 Months + 1 Free",
       price: "4500.00",
-      priceNew: "4000.00",
+      priceNew: "3800.00",
       private: "6",
       inbody: "12",
       invite: "12"
