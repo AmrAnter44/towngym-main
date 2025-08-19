@@ -42,7 +42,7 @@ export default function Home() {
     },
     {
       id: 6,
-      duration: "12 Months + 1 Free",
+      duration: "12 Months",
       price: "4500.00",
       priceNew: "3800.00",
       private: "6",
