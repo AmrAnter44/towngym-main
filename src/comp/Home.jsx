@@ -56,11 +56,11 @@ export default function Home() {
 
       <div className=''>
 <div>
-
+{/* 
       <div class="typewriter absolute top-[22%] lg:top-[19%]  left-1/2 transform -translate-x-1/2 -translate-y-1/2 ">
         <h1 className='text-2xl p-4 text-white font-semibold gymfont'> INHALE  <span className='text-blue-600'>PASSION </span> </h1>
         
-      </div>
+      </div> */}
       
                {/* <div className='flex justify-center opacity-60'>
          <img className='w-40' src={logo} alt="logo"></img>
