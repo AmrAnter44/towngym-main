@@ -46,7 +46,7 @@ export default function Home() {
     const phone = "201028188900";  
 
     // message text
-    const message = `Hello, I would like to book the ${offer.duration} package at ${offer.priceNew} EGP.`;
+    const message = `Hello, I would like to book the ${offer.duration} offer.`;
 
     // open WhatsApp link
     const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
