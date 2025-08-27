@@ -43,7 +43,7 @@ export default function Home() {
 
   function handlebook(offer) {
     // your WhatsApp number (include country code, no "+" or spaces)
-    const phone = "201028518754";  
+    const phone = "201028188900";  
 
     // message text
     const message = `Hello, I would like to book the ${offer.duration} package at ${offer.priceNew} EGP.`;
