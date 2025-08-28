@@ -56,7 +56,7 @@ export default function Home() {
   return (
     <>
       <div>
-        <h2 className='text-xl pt-24 text-white font-semibold gymfont'>Special Offers</h2>
+        <h2 className='text-xl pt-9 text-white font-semibold gymfont'>Special Offers</h2>
         <div>
           <p> We're open 24 hours</p>
           <p>Get free Wi-Fi with your membership <i className="fa-solid fa-wifi"></i></p>

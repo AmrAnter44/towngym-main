@@ -5,12 +5,14 @@ import "slick-carousel/slick/slick-theme.css";
 
 export default function Coaches() {
   const [coaches, setCoaches] = useState([
-    { id: 1, name: "Zima", img: "/coaches/zema.jpg" },
-    { id: 2, name: "Amr", img: "/coaches/amr.jpg" },
-    { id: 3, name: "Aimlia", img: "/coaches/aimlia.jpg" },
-    { id: 4, name: "Haitham", img: "/coaches/haitham.jpg" },
-    { id: 5, name: "Saif", img: "/coaches/saif.jpg" },
-    { id: 66, name: "Bogy", img: "/coaches/bogy.jpg" },
+     { id: 1, name: "Mostafa", img: "/coaches/mostafa.jpg", title:"Leader" },
+    { id: 2, name: "Zima", img: "/coaches/zema.jpg" ,title:"Fitness manager"},
+    { id: 3, name: "Aimlia", img: "/coaches/aimlia.jpg" ,title:"Coach"},
+    { id: 4, name: "Haitham", img: "/coaches/haitham.jpg", title:"Coach" },
+    { id: 5, name: "Saif", img: "/coaches/saif.jpg", title:"Coach" },
+    { id: 6, name: "Amr", img: "/coaches/amr.jpg", title:"Coach" },
+    { id: 7, name: "ali", img: "/coaches/ali.jpg", title:"Coach" },
+
   ]);
 
   const [deletingId, setDeletingId] = useState(null);
@@ -64,7 +66,10 @@ export default function Coaches() {
                   </div>
                   <div className="lg:p-6 lg:m-6 font-bold p-3 text-2xl justify-between items-center flex flex-row gap-4 text-center">
                    <i className="fa-solid fa-arrow-left text-blue-600"></i>
-                    <h2 className="font-semibold text-pretty gymfont">{coache.name}</h2>
+                        <div>
+      <h2 className="font-semibold text-pretty gymfont ">{coache.name}</h2>
+ <h3 className='font-semibold text-white text-sm mt-2'>{coache.title}</h3>
+                        </div>
                     <i className="fa-solid fa-arrow-right text-blue-600"></i>
                   </div>
                 </div>

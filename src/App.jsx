@@ -1,5 +1,5 @@
 import './App.css';
-import '@fortawesome/fontawesome-free/css/all.min.css'; // تم تعديل الاستيراد
+import '@fortawesome/fontawesome-free/css/all.min.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Home from './comp/Home';
 import Layout from './Layout';
@@ -19,80 +19,31 @@ import Online from './comp/Online';
 import SignOnline from './comp/SignOnline';
 import Map from './comp/Map';
 
-
 function App() {
   let router = createBrowserRouter([
     {
       path: "/",
-      element: <Layout />,
+      element: <Layout />,   // هنا حاطين الـ Layout فيه Footer و Outlet
       children: [
-        {
-          index: true,
-          element: <Home />,
-        },
-        {
-          path: "/coaches",
-          element: <Coaches />,
-        },
-        {
-          path: "/classes",
-          element: <Classes />,
-        },
-        {
-          path: "/map",
-          element: <Map />,
-        },
-        {
-          path: "/Men",
-          element: <Men/>,
-        },
-        {
-          path: "/Ladies",
-          element: <Ladies/>,
-        },
-        {
-          path: "/Cardio",
-          element: <Cardio/>,
-        },
-        {
-          path: "/Weight",
-          element: <Weight/>,
-        },
-        {
-          path: "/Leg",
-          element: <Leg/>,
-        },
-        {
-          path: "/Fitness",
-          element: <Fitness/>,
-        },
-        {
-          path: "/Spa",
-          element: <Spa/>,
-        },
-        {
-          path: "/Caples",
-          element: <Caples/>,
-        },
-        {
-          path: "/Machines",
-          element: <Machines/>,
-        },
-        {
-          path: "/Bar",
-          element: <Bar/>,
-        },
-        {
-          path: "/online",
-          element: <Online/>,
-        },
-        {
-          path: "/sign",
-          element: <  SignOnline/>,
-        },
+        { index: true, element: <Home /> },
+        { path: "/coaches", element: <Coaches /> },
+        { path: "/classes", element: <Classes /> },
+        { path: "/map", element: <Map /> },
+        { path: "/Men", element: <Men /> },
+        { path: "/Ladies", element: <Ladies /> },
+        { path: "/Cardio", element: <Cardio /> },
+        { path: "/Weight", element: <Weight /> },
+        { path: "/Leg", element: <Leg /> },
+        { path: "/Fitness", element: <Fitness /> },
+        { path: "/Spa", element: <Spa /> },
+        { path: "/Caples", element: <Caples /> },
+        { path: "/Machines", element: <Machines /> },
+        { path: "/Bar", element: <Bar /> },
+        { path: "/online", element: <Online /> },
+        { path: "/sign", element: <SignOnline /> },
       ],
     },
-  ]); // تم إزالة الفاصلة الزائدة
+  ]);
 
   return <RouterProvider router={router} />;
 }
