@@ -26,6 +26,7 @@ export default function Trans() {
     "/trans/7.png",
     "/trans/8.png",
     "/trans/9.png",
+    "/trans/10.png",
 
   ];
 
