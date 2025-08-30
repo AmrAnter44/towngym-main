@@ -17,15 +17,15 @@ export default function Trans() {
 
   // Replace with your images
   const images = [
-    "/public/trans/1.png",
-    "/public/trans/2.png",
-    "/public/trans/3.png",
-    "/public/trans/4.png",
-    "/public/trans/5.png",
-    "/public/trans/6.png",
-    "/public/trans/7.png",
-    "/public/trans/8.png",
-    "/public/trans/9.png",
+    "/trans/1.png",
+    "/trans/2.png",
+    "/trans/3.png",
+    "/trans/4.png",
+    "/trans/5.png",
+    "/trans/6.png",
+    "/trans/7.png",
+    "/trans/8.png",
+    "/trans/9.png",
 
   ];
 
