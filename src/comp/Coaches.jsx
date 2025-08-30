@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import Trans from './Trans';
+
 
 export default function Coaches() {
   const [coaches, setCoaches] = useState([
@@ -92,6 +94,7 @@ export default function Coaches() {
           </Slider>
         </div>
       </div>
+      <Trans></Trans>
     </>
   );
 }
