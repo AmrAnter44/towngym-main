@@ -93,6 +93,9 @@ li{
   padding: 3px;
   margin: 3px;
 }
+.gold-text{
+  color:#FFD700;
+}
 
 .glass {
   background: rgba(255, 255, 255, 0.1); /* semi-transparent */
@@ -102,7 +105,14 @@ li{
   border: 1px solid rgba(244, 235, 235, 0.616); /* subtle border */
   padding: 20px;
 }
-
+.glass-white {
+  background: rgba(252, 252, 252, 0.751); /* semi-transparent */
+  border-radius: 16px;
+  backdrop-filter: blur(10px); /* glass blur effect */
+  -webkit-backdrop-filter: blur(10px); /* Safari support */
+  border: 1px solid rgba(244, 235, 235, 0.616); /* subtle border */
+  padding: 20px;
+}
 .glass-nav {
   background: rgba(0, 119, 255, 0.272); /* semi-transparent */
   border-radius: 16px;
@@ -130,4 +140,38 @@ li{
   backdrop-filter: blur(10px); /* glass blur effect */
   -webkit-backdrop-filter: blur(10px); /* Safari support */  
   padding: 20px;
+}
+.glass-gold {
+  background: rgba(233, 233, 233, 0.422); /* semi-transparent */
+  border-radius: 16px;
+  backdrop-filter: blur(10px); /* glass blur effect */
+  -webkit-backdrop-filter: blur(10px); /* Safari support */  
+  padding: 20px;
+}
+
+.marquee {
+  width: 100%;
+  overflow: hidden;
+  background: rgb(0, 102, 255);
+  color: white;
+  white-space: nowrap;
+  position: relative;
+  padding: 20px;
+}
+
+.marquee p {
+  font-weight: bold;
+  font-size: larger;
+  display: inline-block;
+  padding-left: 100%; /* push text to start from right */
+  animation: marquee 10s linear infinite;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0%);
+  }
+  to {
+    transform: translateX(-100%);
+  }
 }
