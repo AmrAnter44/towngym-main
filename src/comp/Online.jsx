@@ -10,7 +10,7 @@ export default function Online() {
     <div className='flex flex-row items-center gap-5 pt-5'>
         <div className='bg-black rounded-lg '>
             <img  className='w-64 object-cover p-4' src={zema} alt="" />
-            <ul className=' p-2'>
+            <ul className='p-2'>
                 <li>experiense 7 years</li>
                 <li>strenss training</li>
                 <li>certified trainer</li>

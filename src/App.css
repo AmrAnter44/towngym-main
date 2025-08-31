@@ -96,6 +96,12 @@ li{
 .gold-text{
   color:#FFD700;
 }
+.silver-text{
+  color:#C0C0C0;
+}
+.bronze-text{
+  color:#CD7F32;
+}
 
 .glass {
   background: rgba(255, 255, 255, 0.1); /* semi-transparent */
@@ -142,7 +148,7 @@ li{
   padding: 20px;
 }
 .glass-gold {
-  background: rgba(233, 233, 233, 0.422); /* semi-transparent */
+  background: rgba(255, 247, 0, 0.833); /* semi-transparent */
   border-radius: 16px;
   backdrop-filter: blur(10px); /* glass blur effect */
   -webkit-backdrop-filter: blur(10px); /* Safari support */  
