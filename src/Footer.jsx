@@ -1,9 +1,9 @@
 import React from 'react';
 
 export default function Footer() {
-  return (
-    <footer className=" text-white  bg-black p-0 m-0">
-      <div className="flex flex-row justify-center gap-4">
+  return <>
+    <footer className=" text-white flex flex-row justify-between  bg-black p-0 m-0">
+  <div className="flex flex-row  g">
         <a href="https://www.instagram.com/x_ggym?igsh=MWEwdjV0eXk0MnBseQ==" className="text-white p-2 lg:p-4">
           <i className="p-1 fa-brands fa-instagram text-2xl text-blue-500 mt-1"></i>
         </a>
@@ -17,10 +17,14 @@ export default function Footer() {
           <i className="fa-solid fa-location-dot text-2xl text-blue-500 mt-1 p-1"></i>
         </a>
       </div>
-      <p className="text-center">
+      <div>
+        <img src="/pay.png" alt="" className='w-44 mr-8 mt-4' />
+      </div>
+          {/* <p className="text-center">
         Direct by <a href="https://tamyaz.online/" className="text-blue-600">Tamyaz</a>
-      </p>
+      </p> */}
     </footer>
-  );
+
+  </>
 }
 

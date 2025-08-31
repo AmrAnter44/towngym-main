@@ -107,7 +107,27 @@ li{
   background: rgba(0, 119, 255, 0.272); /* semi-transparent */
   border-radius: 16px;
   backdrop-filter: blur(10px); /* glass blur effect */
-  -webkit-backdrop-filter: blur(10px); /* Safari support */
-  
+  -webkit-backdrop-filter: blur(10px); /* Safari support */  
+  padding: 20px;
+}
+.glass-class {
+  background: rgba(0, 119, 255, 0.272); /* semi-transparent */
+  border-radius: 16px;
+  backdrop-filter: blur(10px); /* glass blur effect */
+  -webkit-backdrop-filter: blur(10px); /* Safari support */  
+  padding: 20px;
+}
+.glass-class-ladies {
+  background: rgba(255, 0, 212, 0.272); /* semi-transparent */
+  border-radius: 16px;
+  backdrop-filter: blur(10px); /* glass blur effect */
+  -webkit-backdrop-filter: blur(10px); /* Safari support */  
+  padding: 20px;
+}
+.glass-class-mem {
+  background: rgba(109, 109, 109, 0.272); /* semi-transparent */
+  border-radius: 16px;
+  backdrop-filter: blur(10px); /* glass blur effect */
+  -webkit-backdrop-filter: blur(10px); /* Safari support */  
   padding: 20px;
 }
