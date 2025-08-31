@@ -11,13 +11,13 @@ function Map() {
 
       <div className="relative w-full max-w-[768px] mx-auto p-6 m-12">
         {/* الخريطة */}
-        <img src={gymMap} alt="Gym Map" className="w-full" />
+        <img src={gymMap} alt="Gym Map" className="w-full opacity-80" />
 
         {/* اللوجو فوق الخريطة في الشمال */}
         <img
           src="./maplogo.png"
           alt="Map Logo"
-          className="absolute -top-9 -left-2 w-20 -z-20 "
+          className="absolute center top-24 left-1/2 transform -translate-x-1/2 -z-20 "
         />
 
         {/* الروابط */}
