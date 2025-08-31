@@ -31,10 +31,9 @@ export default function Trans() {
   ];
 
   return <>
-  <h3 className="font-bold text-3xl text-center">
-    X Gym Transformation
-  </h3>
-    <div className="w-[80%] mx-auto mt-10">
+  
+
+    <div className="w-72 mx-auto mt-10 lg:py-14 pb-4">
       <Slider {...settings}>
         {images.map((img, index) => (
           <div key={index}>
@@ -47,5 +46,6 @@ export default function Trans() {
         ))}
       </Slider>
     </div>
+    
   </>
 }

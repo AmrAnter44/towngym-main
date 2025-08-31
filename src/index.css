@@ -3,7 +3,9 @@
 @tailwind utilities;
 
 body {
-  @apply bg-black text-white;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 .gold {
@@ -35,57 +37,14 @@ body {
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 .active {
   @apply bg-transparent border-b-2 border-green-500 p-4;
 }
 
-/* .loader {
-  top: 200px;
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  display: inline-block;
-  position: relative;
-  border: 3px solid;
-  border-color: #FFF #FFF transparent;
-  box-sizing: border-box;
-  animation: rotation 1s linear infinite;
+.loader {
+  @apply top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-12 w-12 border-b-2 border-white rounded-full animate-spin;
 }
 
-.loader::after {
-  content: '';
-  box-sizing: border-box;
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0px;
-  margin: auto;
-  border: 3px solid;
-  border-color: transparent green green;
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  animation: rotationBack 0.5s linear infinite;
-  transform-origin: center center;
-} */
-
-@keyframes rotation {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes rotationBack {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(-360deg);
-  }
-}

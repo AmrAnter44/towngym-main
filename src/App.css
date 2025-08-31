@@ -4,10 +4,12 @@
 }
 
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
 
+  margin: 2;
+  padding: 2;
+  box-sizing: border-box;
   text-align: center;
+
 }
 
 .gymfont {
@@ -90,4 +92,22 @@
 li{
   padding: 3px;
   margin: 3px;
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.1); /* semi-transparent */
+  border-radius: 16px;
+  backdrop-filter: blur(10px); /* glass blur effect */
+  -webkit-backdrop-filter: blur(10px); /* Safari support */
+  border: 1px solid rgba(244, 235, 235, 0.616); /* subtle border */
+  padding: 20px;
+}
+
+.glass-nav {
+  background: rgba(0, 119, 255, 0.272); /* semi-transparent */
+  border-radius: 16px;
+  backdrop-filter: blur(10px); /* glass blur effect */
+  -webkit-backdrop-filter: blur(10px); /* Safari support */
+  
+  padding: 20px;
 }

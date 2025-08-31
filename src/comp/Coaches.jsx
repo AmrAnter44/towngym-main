@@ -46,14 +46,15 @@ export default function Coaches() {
 
   return (
     <>
-      <div className="w-50%">
+      <div className="w-50% flex flex-col lg:flex-row items-center justify-evenly">
         {/* الوصف فوق السلايدر */}
-        <p className='text-lg font-bold p-2'>
-          Our coaches are here to support you in becoming stronger, healthier, and better every single day.
-        </p>
 
-        <div className="lg:px-14">
-          <Slider className="pb-5 w-50%" {...settings}>
+
+        <div className="lg:px-14 text-center justify-center ">
+                  <p className='text-lg font-bold text-center py-2 w-30'>
+          Our Coaches
+        </p>
+          <Slider className="pb-5 w-72 " {...settings}>
             {coaches.length > 0 ? (
               coaches.map((coache) => (
                 // 🔹 هنا غيرنا الـ div إلى <a> عشان يبقى لينك قابل للضغط
@@ -62,23 +63,23 @@ export default function Coaches() {
                   href={coache.link}          // اللينك بتاع الكوتش
                   target="_blank"             // يفتح في تاب جديد
                   rel="noopener noreferrer"   // أمان ضد الـ phishing
-                  className="w-full md:w-40 bg-black rounded-lg bg-opacity-70 text-blue-700 flex flex-col justify-center pt-2 gap-2"
+                  className="w-full  bg-black rounded-lg bg-opacity-70 text-blue-700 flex flex-col justify-center pt-2 gap-2 "
                 >
-                  <div className="w-full flex flex-col-reverse md:flex-row bg-black justify-center">
+                  <div className="w-full flex flex-col-reverse  bg-black justify-center">
                     <div className="w-full justify-center items-center bottom-0">
                       <img
-                        className="rounded-lg p-2 mx-1 md:w-40"
+                        className=" p-2 mx-auto max-w-40 "
                         src={coache.img}
                         alt={`Coach ${coache.name}`}
                       />
                     </div>
-                    <div className="lg:p-6 lg:m-6 font-bold p-3 text-2xl justify-between items-center flex flex-row gap-4 text-center">
+                    <div className="lg:p-6 lg:m-6 font-bold p-3 text-xl flex-row justify-between items-center flex  gap-4 text-center">
                       <i className="fa-solid fa-arrow-left text-blue-600"></i>
                       <div>
                         <h2 className="font-semibold text-pretty gymfont ">
                           {coache.name}
                         </h2>
-                        <h3 className="font-semibold text-white text-sm mt-2">
+                        <h3 className="font-semibold text-white text-sm mt-1">
                           {coache.title}
                         </h3>
                       </div>
@@ -93,8 +94,14 @@ export default function Coaches() {
             )}
           </Slider>
         </div>
+        <div>
+  <h3 className="font-bold text-lg text-center ">
+    X Gym Transformation
+  </h3>
+        <Trans></Trans>
+        </div>
       </div>
-      <Trans></Trans>
+
     </>
   );
 }

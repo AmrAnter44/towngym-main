@@ -62,7 +62,7 @@ export default function Home() {
           <p>Get free Wi-Fi with your membership <i className="fa-solid fa-wifi"></i></p>
         </div>
 
-        <div className='md:flex md:flex-wrap flex-row-reverse gap-4 justify-center pt-3'>
+        <div className='md:flex md:flex-wrap flex-row-reverse gap-4 justify-center pt-3 m-4 '>
           {offers.length > 0 ? (
             offers.map((offer) => {
               const offerClass =
@@ -71,8 +71,8 @@ export default function Home() {
                   : 'md:w-80 text-blue-700 offer mt-7 p-2 rounded-lg flex flex-col bg-white shadow-md border-b-8 border-blue-600 opacity-90';
 
               return (
-                <div key={offer.id} className={offerClass}>
-                  <h3 className='p-2 font-bold text-xl gymfont'>
+                <div key={offer.id} className={"glass m-3"}>
+                  <h3 className='p-2 font-bold text-xl gymfont text-blue-600'>
                     <i className="fa-solid fa-dumbbell pr-2"></i> {offer.duration}
                   </h3>
                   <div className='flex justify-between'>
@@ -86,7 +86,7 @@ export default function Home() {
                     )}
                   </div>
 
-                  <ul className={offer.id === 1 ? 'p-2 text-start text-white' : 'p-2 text-start text-blue-700'}>
+                  <ul className={offer.id === 1 ? 'p-2 text-start text-white' : 'p-2 text-start text-white-700'}>
                     <li className='p-1 font-semibold'>
                       <i className='pr-1 fa-solid fa-check'></i> {offer.private} Sessions Personal Training
                     </li>
