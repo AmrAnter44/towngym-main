@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import logo from '../../public/assets/logo.png';
 import Coaches from './Coaches';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 
 export default function Home() {
+    const navigate = useNavigate(); 
   const [offers, setOffers] = useState([
     {
       id: 2,
@@ -53,7 +54,8 @@ export default function Home() {
 
     // open WhatsApp link
     const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
-
+    window.open(url, "_blank");
+     navigate("/");
   }
 
   return (
