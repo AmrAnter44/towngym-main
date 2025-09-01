@@ -50,7 +50,7 @@ gifts: false
     const phone = "201028188900";  
     const message = `I would to book the Gold ${offer.duration} offer.`;
     const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
-    window.open(url, "_blank");
+
   };
 
   return (
