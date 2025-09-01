@@ -111,7 +111,7 @@ export default function Gold() {
                 <li>- {offer.water} Bottles of Water</li>
                 <li>- ALL Classes</li>
                 <li>- SPA</li>
-                {offer.boxing && <li>- {offer.boxing} Boxing</li>}
+                {offer.boxing && <li> - Free {offer.boxing} Boxing Session</li>}
                 {offer.gifts && <li>- Free Coffee</li>}
                 <li
                   className="gold-text text-lg cursor-pointer hover:underline"
