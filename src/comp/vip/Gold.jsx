@@ -1,24 +1,12 @@
 import React, { useState } from "react";
 
 export default function Gold() {
+  // 📌 العروض (Offers)
   const [offers] = useState([
-    {
-      id: 2,
-      duration: "3 Month",
-      price: "0",
-      save: "14000",
-      private: "60",
-      invite: "20",
-      Meals: "120",
-      Shakes: "60",
-      water: "60",
-      boxing: "12",
-      gifts: true,
-      Freezing: true,
-    },
     {
       id: 1,
       duration: "1 Month",
+      days: "20",
       price: "0",
       save: "6600",
       private: "20",
@@ -28,10 +16,29 @@ export default function Gold() {
       water: "20",
       boxing: false,
       gifts: false,
+      Freezing: "2 Weeks",
+      expiration: "2 Months",
+    },
+    {
+      id: 2,
+      duration: "3 Months",
+      days: "60",
+      price: "0",
+      save: "14000",
+      private: "60",
+      invite: "20",
+      Meals: "120",
+      Shakes: "60",
+      water: "60",
+      boxing: "12",
+      gifts: true,
+      Freezing: "Unlimited",
+      expiration: "6 Months",
     },
     {
       id: 3,
-      duration: "6 Month",
+      duration: "6 Months",
+      days: "120",
       price: "0",
       save: "35000",
       private: "120",
@@ -41,18 +48,20 @@ export default function Gold() {
       water: "120",
       boxing: "24",
       gifts: true,
-      Freezing: true,
+      Freezing: "Unlimited",
+      expiration: "12 Months",
     },
   ]);
 
-  const [selectedId, setSelectedId] = useState(1);
+  const [selectedId, setSelectedId] = useState(1); // 📌 الافتراضي: شهر واحد
   const [showPopup, setShowPopup] = useState(false);
 
+  // 📌 دالة الحجز
   const handlebook = (offer) => {
     const phone = "201028188900";
-    const message = `I would to book the Gold ${offer.duration} offer.`;
+    const message = `I would like to book the Gold ${offer.duration} offer.`;
     const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
-    window.open(url, "_blank");
+    window.open(url, "_blank", "noopener,noreferrer");
   };
 
   return (
@@ -61,8 +70,8 @@ export default function Gold() {
         Golden X
       </h2>
 
-      {/* Buttons - Mobile only */}
-      <div className="flex flex-row-reverse gap-4 justify-center pt-5 m-4 block lg:hidden">
+      {/* 📱 أزرار اختيار الباقة - للموبايل فقط */}
+      <div className="flex flex-row-reverse gap-4 justify-center pt-5 m-4 lg:hidden">
         {offers.map((offer) => (
           <button
             key={offer.id}
@@ -91,103 +100,33 @@ export default function Gold() {
         ))}
       </div>
 
-      {/* Offer Section - Mobile (selected only) */}
+      {/* 📱 عرض الباقة المختارة فقط - للموبايل */}
       <div className="block lg:hidden">
         {offers
           .filter((offer) => offer.id === selectedId)
           .map((offer) => (
-            <div
+            <OfferCard
               key={offer.id}
-              className="m-4 text-start max-w-md bg-gray-900/40 backdrop-blur-md rounded-2xl p-5 shadow-lg flex flex-col"
-            >
-              <div className="p-2 font-bold text-xl gymfont gold-text flex flex-row-reverse justify-between items-center">
-                <img src="./goldlogo.png" alt="" className="ml-6 w-10" />
-                <div>{offer.duration}</div>
-              </div>
-
-              <ul className="p-2 text-white space-y-1">
-                <li>- {offer.private} Sessions Personal Training</li>
-                <li>- {offer.Meals} Meals</li>
-                <li>- {offer.Shakes} Protein Shakes</li>
-                <li>- {offer.invite} Sessions Invitations</li>
-                <li>- {offer.water} Bottles of Water</li>
-              {offer.Freezing ? <li>- Unlimited Freezing</li> : ''} 
-                <li>- ALL Classes</li>
-                <li>- SPA</li>
-                {offer.boxing && <li> - Free {offer.boxing} Boxing Session</li>}
-                {offer.gifts && <li>- Free Coffee</li>}
-                <li
-                  className="gold-text text-lg cursor-pointer hover:underline"
-                  onClick={() => setShowPopup(true)}
-                >
-                  <i className="fa-solid fa-gift gold-text ml-2"></i> Open Golden Box
-                </li>
-              </ul>
-
-              <ul className="p-2 text-xl gold-text space-y-1 font-bold">
-                <li>You Will Save {offer.save} .LE</li>
-              </ul>
-
-              <div className="justify-center mx-auto text-center mt-auto">
-                <button
-                  onClick={() => handlebook(offer)}
-                  className="px-6 py-2 text-lg bg-yellow-500 text-black rounded-full font-bold shadow-md hover:bg-yellow-600 transition"
-                >
-                  Book now
-                </button>
-              </div>
-            </div>
+              offer={offer}
+              onBook={handlebook}
+              onGift={() => setShowPopup(true)}
+            />
           ))}
       </div>
 
-      {/* Offer Section - Desktop */}
+      {/* 💻 عرض كل الباقات - للديسكتوب */}
       <div className="hidden lg:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 justify-items-center m-6">
         {offers.map((offer) => (
-          <div
+          <OfferCard
             key={offer.id}
-            className="w-80 text-start bg-gray-900/40 backdrop-blur-md rounded-2xl p-5 shadow-lg flex flex-col"
-          >
-            <div className="p-2 font-bold text-xl gymfont gold-text flex flex-row-reverse justify-between items-center">
-              <img src="./goldlogo.png" alt="" className="ml-6 w-10" />
-              <div>{offer.duration}</div>
-            </div>
-
-            <ul className="p-2 text-white space-y-1">
-              <li>- {offer.private} Sessions Personal Training</li>
-              <li>- {offer.Meals} Meals</li>
-              <li>- {offer.Shakes} Protein Shakes</li>
-              <li>- {offer.invite} Sessions Invitations</li>
-              <li>- {offer.water} Bottles of Water</li>
-              {offer.Freezing ? <li>- Unlimited Freezing</li> : ''} 
-              <li>- ALL Classes</li>
-              <li>- SPA</li>
-              {offer.boxing && <li>- {offer.boxing} Boxing</li>}
-              {offer.gifts && <li>- Free Coffee</li>}
-              <li
-                className="gold-text text-lg cursor-pointer hover:underline"
-                onClick={() => setShowPopup(true)}
-              >
-                <i className="fa-solid fa-gift gold-text ml-2"></i> Open Golden Box
-              </li>
-            </ul>
-
-            <ul className="p-2 text-xl gold-text space-y-1 font-bold mt-auto">
-              <li>You Will Save {offer.save} .LE</li>
-            </ul>
-
-            <div className="justify-center mx-auto text-center mt-auto">
-              <button
-                onClick={() => handlebook(offer)}
-                className="px-6 py-2 text-lg bg-yellow-500 text-black rounded-full font-bold shadow-md hover:bg-yellow-600 transition"
-              >
-                Book now
-              </button>
-            </div>
-          </div>
+            offer={offer}
+            onBook={handlebook}
+            onGift={() => setShowPopup(true)}
+          />
         ))}
       </div>
 
-      {/* Popup Modal (works for both mobile & desktop) */}
+      {/* 🎁 Popup المربع الذهبي */}
       {showPopup && (
         <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 p-4">
           <div className="relative bg-black p-4 rounded-2xl shadow-lg max-w-sm w-full">
@@ -207,5 +146,55 @@ export default function Gold() {
         </div>
       )}
     </>
+  );
+}
+
+// ✅ Component خاص بالكارد عشان يبقى موحد بين الموبايل والديسكتوب
+function OfferCard({ offer, onBook, onGift }) {
+  return (
+    <div className="m-4 text-start max-w-md bg-gray-900/40 backdrop-blur-md rounded-2xl p-5 shadow-lg flex flex-col">
+      <div className="p-2 font-bold text-lg gymfont gold-text flex flex-row-reverse justify-between items-center">
+        <img src="./goldlogo.png" alt="" className="ml-6 w-10" />
+        <div>
+          {offer.duration}{" "}
+          <span className="text-xs text-white font-normal w-8">
+            {offer.days} days
+          </span>
+        </div>
+      </div>
+
+      <ul className="p-2 text-white space-y-1">
+        <li>- {offer.private} Sessions Personal Training</li>
+        <li>- {offer.Meals} Meals</li>
+        <li>- {offer.Shakes} Protein Shakes</li>
+        <li>- {offer.invite} Sessions Invitations</li>
+        <li>- {offer.water} Bottles of Water</li>
+        <li>- Freezing: {offer.Freezing}</li>
+        <li>- Expiration: {offer.expiration}</li>
+        <li>- ALL Classes</li>
+        <li>- SPA</li>
+        {offer.boxing && <li>- Free {offer.boxing} Boxing Sessions</li>}
+        {offer.gifts && <li>- Free Coffee</li>}
+        <li
+          className="gold-text text-lg cursor-pointer hover:underline"
+          onClick={onGift}
+        >
+          <i className="fa-solid fa-gift gold-text ml-2"></i> Open Golden Box
+        </li>
+      </ul>
+
+      <ul className="p-2 text-xl gold-text space-y-1 font-bold">
+        <li>You Will Save {offer.save} LE</li>
+      </ul>
+
+      <div className="justify-center mx-auto text-center mt-auto">
+        <button
+          onClick={() => onBook(offer)}
+          className="px-6 py-2 text-lg bg-yellow-500 text-black rounded-full font-bold shadow-md hover:bg-yellow-600 transition"
+        >
+          Book now
+        </button>
+      </div>
+    </div>
   );
 }
