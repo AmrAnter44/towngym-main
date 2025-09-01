@@ -14,6 +14,7 @@ export default function Gold() {
       water: "60",
       boxing: "12",
       gifts: true,
+      Freezing: true,
     },
     {
       id: 1,
@@ -40,6 +41,7 @@ export default function Gold() {
       water: "120",
       boxing: "24",
       gifts: true,
+      Freezing: true,
     },
   ]);
 
@@ -109,6 +111,7 @@ export default function Gold() {
                 <li>- {offer.Shakes} Protein Shakes</li>
                 <li>- {offer.invite} Sessions Invitations</li>
                 <li>- {offer.water} Bottles of Water</li>
+              {offer.Freezing ? <li>- Unlimited Freezing</li> : ''} 
                 <li>- ALL Classes</li>
                 <li>- SPA</li>
                 {offer.boxing && <li> - Free {offer.boxing} Boxing Session</li>}
@@ -155,6 +158,7 @@ export default function Gold() {
               <li>- {offer.Shakes} Protein Shakes</li>
               <li>- {offer.invite} Sessions Invitations</li>
               <li>- {offer.water} Bottles of Water</li>
+              {offer.Freezing ? <li>- Unlimited Freezing</li> : ''} 
               <li>- ALL Classes</li>
               <li>- SPA</li>
               {offer.boxing && <li>- {offer.boxing} Boxing</li>}

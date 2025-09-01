@@ -66,13 +66,13 @@ export default function Home() {
     
     <h2 className='text-xl pt-9 text-white font-semibold gymfont'>VIP Buddy Package</h2>
     <div className="flex flex-wrap flex-row-reverse gap-4 justify-center pt-3 m-4">
-      {/* <div>
+        {/*  <div>
         <Link className="group relative silver-text glass-button  hover:bg-slate-500 hover:text-white font-bold px-6 py-2 m-2 rounded-full flex flex-row justify-center items-center overflow-hidden transition-all duration-500">
           <span className="m-auto">Silver</span>
           <img src="./silverlogo.png" alt="" className="ml-2 w-12 transform transition-all duration-500 group-hover:-rotate-90 group-hover:translate-x-10 group-hover:opacity-0" />
         </Link>
       </div>
-      <div>
+   <div>
         <Link className="group relative bronze-text glass-button hover:bg-orange-800 hover:text-white font-bold px-6 py-2 m-2 rounded-full flex flex-row justify-center items-center overflow-hidden transition-all duration-500">
           <span className="m-auto">Bronze</span>
           <img src="./bronzelogo.png" alt="" className="ml-2 w-12 transform transition-all duration-500 group-hover:-rotate-90 group-hover:translate-x-10 group-hover:opacity-0" />
