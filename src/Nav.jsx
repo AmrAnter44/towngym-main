@@ -9,7 +9,7 @@ export default function Nav() {
       <div className="flex flex-col lg:flex-row items-center justify-between glass-nav text-white lg:m-2 mb-5">
         {/* Logo */}
         <div className="lg:ml-4 flex justify-between w-full lg:w-auto px-4 lg:px-0">
-          <img src="/assets/bigLogo.png" alt="logo" className="w-28 mb-4" />
+          <img src="/assets/bigLogo.png" alt="logo" className="w-28 " />
 
           {/* Mobile Menu Button */}
           <button
@@ -22,8 +22,8 @@ export default function Nav() {
 
         {/* Links */}
         <div
-          className={`overflow-hidden transition-all duration-500 ease-in-out lg:flex flex-col lg:flex-row justify-between items-center font-bold text-center w-full lg:w-auto ${
-            open ? "max-h-96 opacity-100" : "max-h-0 opacity-0 lg:opacity-100"
+          className={`overflow-hidden transition-all duration-500 ease-in-out lg:flex flex-col lg:flex-row justify-between  items-center font-bold text-center w-full lg:w-auto ${
+            open ? "max-h-96 opacity-100 mt-4" : "max-h-0 opacity-0 lg:opacity-100 "
           }`}
         >
           <Link

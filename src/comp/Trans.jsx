@@ -33,7 +33,7 @@ export default function Trans() {
   return <>
   
 
-    <div className="w-72 mx-auto mt-10 lg:py-14 pb-4">
+    <div className="w-72 mx-auto my-10 lg:py-14 pb-4">
       <Slider {...settings}>
         {images.map((img, index) => (
           <div key={index}>
