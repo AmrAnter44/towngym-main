@@ -2,6 +2,7 @@ import React from 'react';
 import MapComp from '../Func/MapComp';
 
 export default function Cables() {
+  
   return (
     <MapComp src={['/assets/map/cables.jpg' ,'/assets/map/cables1.jpg']} alt="#">
       <ul className="list-disc">
