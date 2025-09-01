@@ -54,7 +54,7 @@ export default function Home() {
 
     // open WhatsApp link
     const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
-    window.open(url, "_blank");
+    window.open(url);
      navigate("/");
   }
 
