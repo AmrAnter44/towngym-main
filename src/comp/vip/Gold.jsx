@@ -48,7 +48,7 @@ gifts: false
 
   const handlebook = (offer) => {
     const phone = "201028188900";  
-    const message = `Hello, I would like to book the ${offer.duration} offer.`;
+    const message = `I would to book the Gold ${offer.duration} offer.`;
     const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
     window.open(url, "_blank");
   };
