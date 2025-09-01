@@ -9,7 +9,8 @@ export default function Nav() {
       <div className="flex flex-col lg:flex-row items-center justify-between glass-nav text-white lg:m-2 mb-5">
         {/* Logo */}
         <div className="lg:ml-4 flex justify-between w-full lg:w-auto px-4 lg:px-0">
-          <img src="/assets/bigLogo.png" alt="logo" className="w-28 " />
+<Link to={"/"}> 
+          <img src="/assets/bigLogo.png" alt="logo" className="w-28 " /></Link>
 
           {/* Mobile Menu Button */}
           <button
