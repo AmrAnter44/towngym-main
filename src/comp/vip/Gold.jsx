@@ -2,20 +2,7 @@ import React, { useState } from 'react';
 
 export default function Gold() {
   const [offers] = useState([
-    {
-      id: 1,
-      duration: "1 Month",
-      price: "0",
-      save: "6600",
-      private: "20",
-      invite: "10",
-      Meals : "40",
-      Shakes : "20",
-      water: "20",
-      boxing: false,
-gifts: false
-    },
-    {
+        {
       id: 2,
       duration: "3 Month",
       price: "0",
@@ -29,6 +16,20 @@ gifts: false
       gifts: true
 
     },
+    {
+      id: 1,
+      duration: "1 Month",
+      price: "0",
+      save: "6600",
+      private: "20",
+      invite: "10",
+      Meals : "40",
+      Shakes : "20",
+      water: "20",
+      boxing: false,
+gifts: false
+    },
+
     {
       id: 3,
       duration: "6 Month",
