@@ -14,12 +14,19 @@ export default function Nav() {
           </Link>
 
           {/* Mobile Menu Button */}
+          <div>
+            <Link to={'/shop'}>
+              <i className="fa-solid fa-cart-shopping text-2xl mr-4 mb-2" ></i>
+              </Link>
           <button
             className="lg:hidden text-white text-3xl"
             onClick={() => setOpen(!open)}
           >
             {open ? "✕" : "☰"}
           </button>
+          
+        </div>
+        
         </div>
 
         {/* Links */}
@@ -52,7 +59,10 @@ export default function Nav() {
             Map
           </Link>
         </div>
-      </div>
+            
+              </div>
+      
+
     </>
   );
 }

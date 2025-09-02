@@ -19,6 +19,7 @@ import Online from './comp/Online';
 import SignOnline from './comp/SignOnline';
 import Map from './comp/Map';
 import Gold from './comp/vip/Gold';
+import Shop from './comp/Shop';
 
 function App() {
   let router = createBrowserRouter([
@@ -43,6 +44,7 @@ function App() {
         { path: "/online", element: <Online /> },
         { path: "/sign", element: <SignOnline /> },
           { path: "/gold", element: <Gold/> },
+          { path: "/shop", element: <Shop/> },
       ],
     },
   ]);

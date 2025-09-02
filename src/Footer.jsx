@@ -20,10 +20,11 @@ export default function Footer() {
       <div>
         <img src="/pay.png" alt="" className='w-44 mr-8 mt-4' />
       </div>
-          {/* <p className="text-center">
-        Direct by <a href="https://tamyaz.online/" className="text-blue-600">Tamyaz</a>
-      </p> */}
+
     </footer>
+              <p className="text-center">
+        Direct by <a href="https://tamyaz.online/" className="text-blue-600">Tamyaz</a>
+      </p>
 
   </>
 }

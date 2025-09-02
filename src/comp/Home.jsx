@@ -64,7 +64,7 @@ export default function Home() {
   return (
     <>
     
-    <h2 className='text-xl pt-9 text-white font-semibold gymfont'>VIP Buddy Package</h2>
+    <h2 className='text-xl pt-9 text-white font-semibold gymfont'>VIP Body Package</h2>
     <div className="flex flex-wrap flex-row-reverse gap-4 justify-center pt-3 m-4">
         {/*  <div>
         <Link className="group relative silver-text glass-button  hover:bg-slate-500 hover:text-white font-bold px-6 py-2 m-2 rounded-full flex flex-row justify-center items-center overflow-hidden transition-all duration-500">
@@ -87,10 +87,7 @@ export default function Home() {
     </div>
       <div>
         <h2 className='text-3xl pt-9 text-white font-bold gymfont'>Our Offers</h2>
-        <div>
-          <p> We're open 24 hours</p>
-          <p>Get free Wi-Fi with your membership <i className="fa-solid fa-wifi"></i></p>
-        </div>
+
 
 
         <div className='md:flex md:flex-wrap flex-row-reverse gap-4 justify-center pt-3 m-4 '>
@@ -150,9 +147,11 @@ export default function Home() {
             <i className="text-3xl text-blue-700 p-4 m-4 fa-solid fa-spinner fa-spin"></i>
           )}
         </div>
-        <div class="marquee">
-  <p className='ml-11'><span className='text-black'>.#</span> INHALLE PASSION //  <span className='text-black'>.#</span> INHALLE PASSION</p>
-</div>
+        <div className="marquee">
+          <p className="ml-11">
+            <span className="text-black">#</span> INHALLE PASSION &nbsp; &nbsp; &nbsp; &nbsp; <span className="text-black">#</span> INHALLE PASSION
+          </p>
+        </div>
 
 <Coaches></Coaches>
 

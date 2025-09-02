@@ -46,6 +46,10 @@ export default function Trans() {
         ))}
       </Slider>
     </div>
+            <div>
+          <p> We're open 24 hours</p>
+          <p>Get free Wi-Fi with your membership <i className="fa-solid fa-wifi"></i></p>
+        </div>
     
   </>
 }
