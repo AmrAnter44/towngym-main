@@ -79,9 +79,9 @@ export default function Home() {
         </Link>
       </div> */}
       <div>
-        <Link to={'/gold'} className="group relative gold-text glass-button hover:bg-yellow-500 hover:text-white font-bold px-6 py-2 m-2 rounded-full flex flex-row justify-center items-center overflow-hidden transition-all duration-500">
+        <Link to={'/gold'} className="group relative gold-text glass-button hover:bg-blue-500 hover:text-white font-bold px-6 py-2 m-2 rounded-full flex flex-row justify-center items-center overflow-hidden transition-all duration-500">
           <span className="m-auto">Gold</span>
-          <img src="./goldlogo.png" alt="" className="ml-2 w-12 transform transition-all duration-500 group-hover:-rotate-90 group-hover:translate-x-10 group-hover:opacity-0" />
+          <img src="./logo.png" alt="" className="ml-2 w-12 transform transition-all duration-500 group-hover:-rotate-90 group-hover:translate-x-10 group-hover:opacity-0" />
         </Link>
       </div>
     </div>

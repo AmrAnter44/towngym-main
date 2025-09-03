@@ -79,14 +79,14 @@ export default function Gold() {
             className={`group relative gold-text glass-button font-bold px-6 py-2 m-2 rounded-full flex flex-row justify-center items-center overflow-hidden transition-all duration-500
               ${
                 selectedId === offer.id
-                  ? "bg-yellow-500 text-white shadow-lg scale-110"
-                  : "hover:bg-yellow-400 hover:text-white"
+                  ? "bg-blue-500 text-white shadow-lg scale-110"
+                  : "hover:bg-blue-400 hover:text-white"
               }
             `}
           >
             <span className="m-auto">{offer.duration.split(" ")[0]}</span>
             <img
-              src="./goldlogo.png"
+              src="./logo.png"
               alt=""
               className={`ml-2 w-10 transform transition-all duration-500 
                 ${
@@ -153,8 +153,8 @@ export default function Gold() {
 function OfferCard({ offer, onBook, onGift }) {
   return (
     <div className="m-4 text-start max-w-md bg-gray-900/40 backdrop-blur-md rounded-2xl p-5 shadow-lg flex flex-col">
-      <div className="p-2 font-bold text-lg gymfont gold-text flex flex-row-reverse justify-between items-center">
-        <img src="./goldlogo.png" alt="" className="ml-6 w-10" />
+      <div className="p-2 font-bold text-lg gymfont  flex flex-row-reverse justify-between items-center">
+        <img src="./logo.png" alt="" className="ml-6 w-10" />
         <div>
           {offer.duration}{" "}
           <span className="text-xs text-white font-normal w-8">
@@ -190,7 +190,7 @@ function OfferCard({ offer, onBook, onGift }) {
       <div className="justify-center mx-auto text-center mt-auto">
         <button
           onClick={() => onBook(offer)}
-          className="px-6 py-2 text-lg bg-yellow-500 text-black rounded-full font-bold shadow-md hover:bg-yellow-600 transition"
+          className="px-6 py-2 text-lg bg-blue-500 text-black rounded-full font-bold shadow-md hover:bg-blue-600 transition"
         >
           Book now
         </button>
