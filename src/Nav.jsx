@@ -13,23 +13,22 @@ export default function Nav() {
             <img src="/assets/bigLogo.png" alt="logo" className="w-28 " />
           </Link>
 
-          {/* Mobile Menu Button */}
-          <div>
-            <Link to={'/shop'}>
-              <i className="fa-solid fa-cart-shopping text-2xl mr-4 mb-2" ></i>
-              </Link>
-          <button
-            className="lg:hidden text-white text-3xl"
-            onClick={() => setOpen(!open)}
-          >
-            {open ? "✕" : "☰"}
-          </button>
-          
-        </div>
-        
+          {/* Mobile Menu Button + Cart */}
+          <div className="flex items-center lg:hidden">
+            <Link to={"/shop"}>
+              <i className="fa-solid fa-cart-shopping text-2xl mr-4 mb-2 mt-3"></i>
+            </Link>
+
+            <button
+              className="text-white text-3xl"
+              onClick={() => setOpen(!open)}
+            >
+              {open ? "✕" : "☰"}
+            </button>
+          </div>
         </div>
 
-        {/* Links */}
+        {/* Links + Cart for Desktop */}
         <div
           className={`overflow-hidden transition-all duration-500 ease-in-out flex-col lg:flex lg:flex-row justify-between items-center font-bold text-center w-full lg:w-auto ${
             open
@@ -58,11 +57,17 @@ export default function Nav() {
           >
             Map
           </Link>
-        </div>
-            
-              </div>
-      
 
+          {/* Cart icon (Desktop only) */}
+          <Link
+            to={"/shop"}
+            className="hidden lg:block ml-4 "
+            onClick={() => setOpen(false)}
+          >
+            <i className="fa-solid fa-cart-shopping text-2xl "></i>
+          </Link>
+        </div>
+      </div>
     </>
   );
 }
