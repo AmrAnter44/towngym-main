@@ -149,7 +149,7 @@ export default function Home() {
         </div>
         <div className="marquee">
           <p className="ml-11">
-            <span className="text-black">#</span> INHALLE PASSION &nbsp; &nbsp; &nbsp; &nbsp; <span className="text-black">#</span> INHALLE PASSION
+            <span># INHALLE PASSION</span> &nbsp; &nbsp; <span># INHALLE PASSION</span> &nbsp; &nbsp; <span># INHALLE PASSION</span> &nbsp; &nbsp; <span># INHALLE PASSION</span> &nbsp; &nbsp;
           </p>
         </div>
 
