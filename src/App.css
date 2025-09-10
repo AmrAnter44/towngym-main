@@ -146,7 +146,7 @@ li{
   backdrop-filter: blur(10px); /* glass blur effect */
   -webkit-backdrop-filter: blur(10px); /* Safari support */  
   padding: 20px;
-  border: 1px solid white;
+  border: 3px solid white;
 }
 .glass-class {
   background: rgba(0, 119, 255, 0.272); /* semi-transparent */
@@ -180,7 +180,7 @@ li{
 .marquee {
   width: 100%;
   overflow: hidden;
-  background: rgb(0, 102, 255);
+  background: rgba(0, 102, 255, 0.486);
   color: white;
   white-space: nowrap;
   position: relative;

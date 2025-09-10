@@ -135,7 +135,7 @@ if (activeTab === "shakes") {
   };
 
   return (
-    <div className="p-5">
+    <div className="p-5 mt-40">
       {/* Tabs */}
       <div className="flex gap-3 mb-5 justify-center">
         <button

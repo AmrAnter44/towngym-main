@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 function Map() {
   return (
     <>
-      <h3 className="text-2xl font-bold text-center ">
+      <h3 className="text-2xl font-bold text-center mt-40">
         Tap any section on the map to discover more details!
       </h3>
 

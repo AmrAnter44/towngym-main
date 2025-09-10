@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import logo from '../../public/assets/logo.png';
 import Coaches from './Coaches';
 import { Link, useNavigate } from 'react-router-dom';
-
-
+import Nav2 from '../Nav2';
 export default function Home() {
     const navigate = useNavigate(); 
   const [offers, setOffers] = useState([
@@ -63,6 +62,7 @@ export default function Home() {
 
   return (
     <>
+    <Nav2></Nav2>
     
     <h2 className='text-xl pt-9 text-white font-semibold gymfont'>VIP Body Package</h2>
     <div className="flex flex-wrap flex-row-reverse gap-4 justify-center pt-3 m-4">
@@ -95,26 +95,26 @@ export default function Home() {
             offers.map((offer) => {
               const offerClass =
                 offer.id === 1
-                  ? 'md:w-80 text-white offer mt-7 p-2 rounded-lg flex flex-col bg-blue-700 shadow-md border-b-8 border-white opacity-90'
-                  : 'md:w-80 text-blue-700 offer mt-7 p-2 rounded-lg flex flex-col bg-white shadow-md border-b-8 border-blue-600 opacity-90';
+                  ? 'md:w-80 text-white offer mt-0 p-1 rounded-lg flex flex-col bg-blue-700 shadow-md border-b-8 border-white opacity-90'
+                  : 'md:w-80 text-blue-700 offer mt-0 p-1 rounded-lg flex flex-col bg-white shadow-md border-b-8 border-blue-600 opacity-90';
 
               return (
-                <div key={offer.id} className={"glass m-3"}>
-                  <h3 className='p-2 font-bold text-xl gymfont text-blue-600'>
+                <div key={offer.id} className={"glass m-3 "}>
+                  <h3 className='p-1 font-bold text-xl gymfont text-blue-600'>
                     <i className="fa-solid fa-dumbbell pr-2"></i> {offer.duration}
                   </h3>
                   <div className='flex justify-between'>
                     {offer.price == "0" ? null : (
-                      <h3 className='p-2 font-bold text-lg line-through'>
+                      <h3 className='p-1 font-bold text-lg line-through'>
                         <i className="fa-solid fa-tag pr-1"></i>{offer.price.split('.00')}EGP
                       </h3>
                     )}
                     {offer.priceNew == "0" ? null : (
-                      <h3 className='p-2 font-bold text-lg'>{offer.priceNew.split('.00')} EGP</h3>
+                      <h3 className='p-1 font-bold text-lg'>{offer.priceNew.split('.00')} EGP</h3>
                     )}
                   </div>
 
-                  <ul className={offer.id === 1 ? 'p-2 text-start text-white' : 'p-2 text-start text-white-700'}>
+                  <ul className={offer.id === 1 ? 'p-2 text-start text-white' : 'p-1 text-start text-white-700'}>
                     <li className='p-1 font-semibold'>
                       <i className='pr-1 fa-solid fa-check'></i> {offer.private} Sessions Personal Training
                     </li>
@@ -135,7 +135,7 @@ export default function Home() {
                   <div>
                     <button
                       onClick={() => handlebook(offer)}
-                      className='px-4 text-lg py-2 bg-blue-700 text-white rounded-lg'
+                      className='px-4 text-lg py-1 bg-blue-700 text-white rounded-lg'
                     >
                       book now
                     </button>
@@ -147,7 +147,7 @@ export default function Home() {
             <i className="text-3xl text-blue-700 p-4 m-4 fa-solid fa-spinner fa-spin"></i>
           )}
         </div>
-        <div className="marquee">
+        <div className="marquee ">
           <p className="ml-11">
             <span># INHALLE PASSION</span> &nbsp; &nbsp; <span># INHALLE PASSION</span> &nbsp; &nbsp; <span># INHALLE PASSION</span> &nbsp; &nbsp; <span># INHALLE PASSION</span> &nbsp; &nbsp;
           </p>
