@@ -15,6 +15,7 @@ export default function Coaches() {
     { id: 6, name: "Amr", img: "/coaches/amr.jpg", title: "Coach" , link:"https://www.instagram.com/amr_tamer_22/" },
     { id: 7, name: "Ali", img: "/coaches/ali.jpg", title: "Coach",link:"https://www.instagram.com/_aliiayman_?igsh=OHlyMjdlazB2cGZh" },
     { id: 8, name: "Bogy", img: "/coaches/bogy.jpg", title: "Coach", link:"https://www.instagram.com/abdo_boogie?igsh=d3poMmRka3luNnpq" },
+    { id: 8, name: "Mohamed", img: "/coaches/mohamed.jpg", title: "Coach", link:"" },
   ]);
 
   // إعدادات السلايدر
