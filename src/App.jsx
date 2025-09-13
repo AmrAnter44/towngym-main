@@ -20,7 +20,7 @@ import SignOnline from './comp/SignOnline';
 import Map from './comp/Map';
 import Gold from './comp/vip/Gold';
 import Shop from './comp/Shop';
-
+import { Analytics } from "@vercel/analytics/react"
 function App() {
   let router = createBrowserRouter([
     {
@@ -49,7 +49,10 @@ function App() {
     },
   ]);
 
-  return <RouterProvider router={router} />;
+  return     <>
+      <RouterProvider router={router} />
+      <Analytics />   {/* ✅ هنا هيتسجل الترافيك */}
+    </>
 }
 
 export default App;
