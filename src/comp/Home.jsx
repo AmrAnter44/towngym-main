@@ -26,8 +26,8 @@ export default function Home() {
     {
       id: 4,
       duration: "3 Months",
-      price: "1800.00",
-      priceNew: "1500.00",
+      price: "0",
+      priceNew: "1800.00",
       private: "3",
       inbody: "3",
       invite: "3"
@@ -44,8 +44,8 @@ export default function Home() {
     {
       id: 6,
       duration: "12 Months",
-      price: "4500.00",
-      priceNew: "3800.00",
+      price: "0",
+      priceNew: "4500.00",
       private: "6",
       inbody: "12",
       invite: "12"
