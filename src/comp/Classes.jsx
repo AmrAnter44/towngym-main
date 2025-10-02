@@ -1,20 +1,31 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { motion, useInView } from 'framer-motion';
+import { supabase } from '../lib/supabaseClient';
 
 export default function Classes() {
-  const [classes, setClasses] = useState([
-    { id: 1, className: "Functional Training", day: "Saturday", time1: "8:30", coachName: "Zima", mix: "Mix" },
-    { id: 2, className: "Aerobics", day: "Sunday", time1: "8:30", coachName: "Aimlia", mix: "Ladies", ladies: true },
-    { id: 3, className: "Flexibility", day: "Sunday", time1: "9:30", coachName: "Aimlia", mix: "Ladies", ladies: true },
-    { id: 4, className: "Superman Kids", day: "Monday", time1: "6:00", coachName: "Zima", mix: "Mix", Mem: true },
-    { id: 5, className: "Boxing", day: "Monday", time1: "7:00", coachName: "Saif", mix: "Mix", Mem: true },
-    { id: 6, className: "Circuit", day: "Monday", time1: "8:30", coachName: "Menna", mix: "Ladies", ladies: true },
-    { id: 7, className: "Zumba", day: "Tuesday", time1: "8:30", coachName: "Menna", mix: "Ladies", ladies: true },
-    { id: 8, className: "Yoga", day: "Tuesday", time1: "9:30", coachName: "Aimlia", mix: "Mix" },
-    { id: 9, className: "belly dance", day: "Wednesday", time1: "8:30", coachName: "Samah", mix: "Ladies", ladies: true },
-    { id: 10, className: "Superman Kids", day: "Thursday", time1: "6:00", coachName: "Zima", mix: "Mix", Mem: true },
-    { id: 11, className: "core", day: "Thursday", time1: "8:30", coachName: "zima", mix: "Mix" },
-  ]);
+  const [classes, setClasses] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchClasses();
+  }, []);
+
+  const fetchClasses = async () => {
+    const { data, error } = await supabase
+      .from('classes')
+      .select('*')
+      .order('id', { ascending: true });
+
+    if (error) {
+      console.error('Error fetching classes:', error);
+    }
+    
+    if (data) {
+      console.log('Classes data:', data);
+      setClasses(data);
+    }
+    setLoading(false);
+  };
 
   const classesRef = useRef(null);
   const isInView = useInView(classesRef, { 
@@ -51,65 +62,72 @@ export default function Classes() {
     }
   };
 
+  if (loading) {
+    return (
+      <div className="text-center py-8 mt-40">
+        <i className="text-3xl text-blue-700 fa-solid fa-spinner fa-spin" />
+      </div>
+    );
+  }
+
   return (
-    <>
-      <motion.div 
-        ref={classesRef}
-        className="w-50% flex flex-col lg:flex-row gap-2 flex-wrap justify-center m-4 my-3 mt-40"
-        variants={containerVariants}
-        initial="hidden"
-        animate={isInView ? "visible" : "hidden"}
-      >
-        {classes.length ? (
-          classes.map(({ id, className, day, time1, coachName, mix, Mem, ladies }) => (
-            <motion.div
-              key={id}
-              className={`
-                min-w-28 border p-3 rounded-lg flex flex-col flex-wrap justify-center text-center
-                ${Mem ? "glass-class-mem" : "glass-class"} 
-              `}
-              variants={classCardVariants}
-            >
-              <h3 className="p-2 font-bold text-lg gymfont">
-                {className}
-              </h3>
+    <motion.div 
+      ref={classesRef}
+      className="w-full max-w-7xl mx-auto flex flex-col lg:flex-row gap-4 flex-wrap justify-center px-4 my-8 mt-40"
+      variants={containerVariants}
+      initial="hidden"
+      animate={isInView ? "visible" : "hidden"}
+    >
+      {classes.length > 0 ? (
+        classes.map((classItem) => (
+          <motion.div
+            key={classItem.id}
+            className={`
+              min-w-[280px] border-2 p-6 rounded-xl flex flex-col justify-center text-center shadow-lg
+              ${classItem.mem 
+                ? "bg-blue-500/10 border-blue-500/30 backdrop-blur-md" 
+                : classItem.ladies 
+                ? "bg-gray-500/10 border-gray-500/30 backdrop-blur-md" 
+                : "bg-slate-500/10 border-slate-500/20 backdrop-blur-md"
+              } 
+            `}
+            variants={classCardVariants}
+          >
+            <h3 className="p-2 font-bold text-xl gymfont">
+              {classItem.className}
+            </h3>
 
-              <h4 className="p-2 font-bold text-lg">
-                Day: {day}
-              </h4>
+            <h4 className="p-2 font-semibold text-lg">
+              Day: {classItem.day}
+            </h4>
 
-              <h5 className='p-2 font-bold text-lg'>
-                <span className="text-xl px-1">
-                  <span>C: </span>{coachName}
-                </span>
-              </h5>
+            <h5 className='p-2 font-semibold text-lg'>
+              <span className="text-xl px-1">
+                <span>Coach: </span>{classItem.coachName}
+              </span>
+            </h5>
 
-              <p className="p-2 font-bold text-lg">
-                <i className="fa-regular fa-clock" />
-                {" "}At:{" "}
-                <span className="text-xl px-1">{time1}</span> 
-                <span>pm</span>
-              </p>
+            <p className="p-2 font-semibold text-lg">
+              <i className="fa-regular fa-clock" />
+              {" "}At:{" "}
+              <span className="text-xl px-1">{classItem.time1}</span> 
+              <span>pm</span>
+            </p>
 
-              <p className={`p-2 font-bold text-lg ${ladies ? "text-fuchsia-400" : "."}`}>
-                {mix}
-              </p>
+            <p className="p-2 font-semibold text-lg text-gray-400">
+              {classItem.mix}
+            </p>
 
-              {Mem && (
-                <span className="text-sm px-1">
-                  out of Membership
-                </span>
-              )}
-            </motion.div>
-          ))
-        ) : (
-          <motion.i 
-            className="text-3xl text-blue-700 p-4 m-4 fa-solid fa-spinner fa-spin"
-            animate={{ rotate: 360 }}
-            transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-          />
-        )}
-      </motion.div>
-    </>
+            {classItem.mem && (
+              <span className="text-sm px-1 text-blue-400">
+                Out of Membership
+              </span>
+            )}
+          </motion.div>
+        ))
+      ) : (
+        <p className="text-center py-8 mt-40">No classes available.</p>
+      )}
+    </motion.div>
   );
 }

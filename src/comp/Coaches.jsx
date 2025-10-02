@@ -1,22 +1,32 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { motion, useInView } from 'framer-motion';
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import Trans from './Trans';
+import Trans from '../comp/Trans';
+import { supabase } from '../lib/supabaseClient';
 
 export default function Coaches() {
-  const [coaches, setCoaches] = useState([
-    { id: 1, name: "Mostafa", img: "/coaches/mostafa.jpg", title: "Leader", link: "https://www.instagram.com/mustafa.saeid1?igsh=dmMxc2QxMjV2cnpj" },
-    { id: 2, name: "Zima", img: "/coaches/zema.jpg", title: "Fitness Manager", link: "https://www.instagram.com/c.zemaa?igsh=eXpoNTJvMHVlaGt4&utm_source=qr" },
-    { id: 3, name: "Aimlia", img: "/coaches/aimlia.jpg", title: " Coach", link: "https://www.instagram.com/coach_amelia_abualyzid111?igsh=N3R6Z3M3NW1ldmt2" },
-    { id: 4, name: "Haitham", img: "/coaches/haitham.jpg", title: " Coach", link: "https://www.instagram.com/m_haithamm?igsh=MW0yYmh6Z2NxODQxZA==" },
-    { id: 5, name: "Saif", img: "/coaches/saif.jpg", title: " Coach", link: "https://www.instagram.com/coach.radwann?igsh=OHdjcmtsYWlmb3c0" },
-    { id: 6, name: "Amr", img: "/coaches/amr.jpg", title: " Trainer", link: "https://www.instagram.com/amr_tamer_22/" },
-    { id: 7, name: "Ali", img: "/coaches/ali.jpg", title: " Coach", link: "https://www.instagram.com/_aliiayman_?igsh=OHlyMjdlazB2cGZh" },
-    { id: 8, name: "Bogy", img: "/coaches/bogy.jpg", title: " Coach", link: "https://www.instagram.com/abdo_boogie?igsh=d3poMmRka3luNnpq" },
-    { id: 9, name: "Mohamed", img: "/coaches/mohamed.jpg", title: "Nutritionist", link: "" },
-  ]);
+  const [coaches, setCoaches] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchCoaches();
+  }, []);
+
+  const fetchCoaches = async () => {
+    const { data, error } = await supabase
+      .from('coaches')
+      .select('*')
+      .order('id', { ascending: true });
+
+    if (!error && data) {
+      setCoaches(data);
+    }
+    setLoading(false);
+  };
+  console.log(coaches);
+  
 
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { 
@@ -63,6 +73,14 @@ export default function Coaches() {
     }
   };
 
+  if (loading) {
+    return (
+      <div className="text-center py-8">
+        <i className="text-3xl text-blue-700 fa-solid fa-spinner fa-spin" />
+      </div>
+    );
+  }
+
   return (
     <motion.section
       ref={sectionRef}
@@ -95,7 +113,6 @@ export default function Coaches() {
                         <div className="block group cursor-pointer">
                           <div className="bg-black rounded-xl p-4 text-center">
                             
-                            {/* Coach Info - في الأعلى */}
                             <div className="mb-4">
                               <h3 className="text-lg md:text-xl font-bold text-white gymfont mb-1 group-hover:text-blue-400 transition-colors">
                                 {coach.name}
@@ -105,7 +122,6 @@ export default function Coaches() {
                               </p>
                             </div>
 
-                            {/* Coach Image - في الوسط */}
                             <div className="relative mb-4">
                               <div className="h-42 w-36 mx-auto relative overflow-hidden">
                                 <img
@@ -117,14 +133,11 @@ export default function Coaches() {
                             </div>
                           </div>
                         </div>
-                        
-                        {/* Social Icon - خارج الديف */}
-
                       </div>
                     ))
                   ) : (
                     <div className="text-center py-8">
-                      <i className="text-2xl text-blue-400 fa-solid fa-spinner fa-spin" />
+                      <p className="text-gray-400">No coaches available</p>
                     </div>
                   )}
                 </Slider>
