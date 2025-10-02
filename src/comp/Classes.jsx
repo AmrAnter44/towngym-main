@@ -38,7 +38,7 @@ export default function Classes() {
             `}
           >
             <h3 className="p-2 font-bold text-xl gymfont">
-              {classItem.className}
+              {classItem.classname}
             </h3>
 
             <h4 className="p-2 font-semibold text-lg">
