@@ -11,6 +11,7 @@ export default function AdminDashboard() {
   const [loading, setLoading] = useState(true);
   const [editingItem, setEditingItem] = useState(null);
   const navigate = useNavigate();
+console.log(classes);
 
   // Forms
   const [offerForm, setOfferForm] = useState({
@@ -131,6 +132,7 @@ export default function AdminDashboard() {
   const fetchAllData = async () => {
     setLoading(true);
     await Promise.all([fetchOffers(), fetchCoaches(), fetchClasses()]);
+
     setLoading(false);
   };
 
@@ -156,6 +158,8 @@ export default function AdminDashboard() {
       .select('*')
       .order('id', { ascending: true });
     if (data) setClasses(data);
+    console.log(data);
+    
   };
 
   const handleLogout = () => {
@@ -302,6 +306,7 @@ export default function AdminDashboard() {
     }
     resetClassForm();
     fetchClasses();
+          console.log(classes);
   };
 
   const handleClassEdit = (classItem) => {
@@ -321,6 +326,8 @@ export default function AdminDashboard() {
     if (confirm('Are you sure?')) {
       await supabase.from('classes').delete().eq('id', id);
       fetchClasses();
+
+      
     }
   };
 
@@ -755,10 +762,10 @@ export default function AdminDashboard() {
                   }`}
                   whileHover={{ scale: 1.02 }}
                 >
-                  <h3 className="text-xl font-bold mb-2">{classItem.className}</h3>
+                  <h3 className="text-xl font-bold mb-2">{classItem.classname}</h3>
                   <p>Day: {classItem.day}</p>
                   <p>Time: {classItem.time1} pm</p>
-                  <p>Coach: {classItem.coachName}</p>
+                  <p>Coach: {classItem.coachname}</p>
                   <p className={classItem.ladies ? 'text-fuchsia-400' : ''}>
                     {classItem.mix}
                   </p>
