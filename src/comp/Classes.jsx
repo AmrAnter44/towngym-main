@@ -14,6 +14,8 @@ export default function Classes() {
         if (data) setClasses(data);
       });
   }, []);
+  console.log(classes);
+  
 
   return (
     <div className="w-full max-w-7xl mx-auto flex flex-col lg:flex-row gap-4 flex-wrap justify-center px-4 my-8 mt-40">
@@ -29,8 +31,8 @@ export default function Classes() {
               min-w-[280px] border-2 p-6 rounded-xl flex flex-col justify-center text-center shadow-lg
               ${classItem.mem 
                 ? "bg-blue-500/10 border-blue-500/30 backdrop-blur-md" 
-                : classItem.ladies 
-                ? "bg-gray-500/10 border-gray-500/30 backdrop-blur-md" 
+                : classItem.mix === "Ladies" 
+                ? "bg-gray-500/10 border-gray-500/30 backdrop-blur-md " 
                 : "bg-slate-500/10 border-slate-500/20 backdrop-blur-md"
               } 
             `}
@@ -45,7 +47,7 @@ export default function Classes() {
 
             <h5 className='p-2 font-semibold text-lg'>
               <span className="text-xl px-1">
-                <span>Coach: </span>{classItem.coachName}
+                <span>Coach: </span>{classItem.coachname}
               </span>
             </h5>
 
@@ -56,7 +58,9 @@ export default function Classes() {
               <span>pm</span>
             </p>
 
-            <p className="p-2 font-semibold text-lg text-gray-400">
+            <p className={`p-2 font-semibold text-lg 
+                          ${classItem.mix == "Ladies" ? "text-fuchsia-400" : ""}
+            `}>
               {classItem.mix}
             </p>
 
