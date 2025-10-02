@@ -1,10 +1,10 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef , useEffect } from 'react';
 import { motion, useInView } from 'framer-motion';
 import logo from '../../public/assets/logo.png';
 import Coaches from './Coaches';
 import { Link, useNavigate } from 'react-router-dom';
 import Nav2 from '../Nav2';
-
+import { supabase } from '../lib/supabaseClient';
 export default function Home() {
   const navigate = useNavigate(); 
   const offersRef = useRef(null);
@@ -13,44 +13,28 @@ export default function Home() {
     threshold: 0.2,
     margin: "-100px 0px"
   }); 
-  const [offers, setOffers] = useState([
-    {
-      id: 2,
-      duration: "1 Month",
-      price: "0",
-      priceNew: "800.00",
-      private: "2",
-      inbody: "1",
-      invite: "2"
-    },
-    {
-      id: 4,
-      duration: "3 Months",
-      price: "0",
-      priceNew: "1800.00",
-      private: "3",
-      inbody: "3",
-      invite: "3"
-    },
-    {
-      id: 5,
-      duration: "6 Months",
-      price: "2800.00",
-      priceNew: "2200.00",
-      private: "4",
-      inbody: "6",
-      invite: "6"
-    },
-    {
-      id: 6,
-      duration: "12 Months",
-      price: "0",
-      priceNew: "4500.00",
-      private: "6",
-      inbody: "12",
-      invite: "12"
-    },
-  ]);
+  
+  const [offers, setOffers] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchOffers();
+  }, []);
+
+  const fetchOffers = async () => {
+    setLoading(true);
+    const { data, error } = await supabase
+      .from('offers')
+      .select('*')
+      .order('id', { ascending: true });
+
+    if (!error) {
+      setOffers(data);
+    }
+    setLoading(false);
+  };
+console.log(offers);
+
 
   function handlebook(offer) {
     const phone = "201028188900";  
@@ -218,14 +202,14 @@ export default function Home() {
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0.4, delay: 0.6 + index * 0.1 }}
                   >
-                    {offer.price !== "0" && (
-                      <h3 className='p-1 font-bold text-lg line-through'>
-                        <i className="fa-solid fa-tag pr-1"></i>{offer.price.split('.00')}EGP
-                      </h3>
-                    )}
-                    {offer.priceNew !== "0" && (
-                      <h3 className='p-1 font-bold text-lg'>{offer.priceNew.split('.00')} EGP</h3>
-                    )}
+{offer.price !== "0" && (
+  <h3 className='p-1 font-bold text-lg line-through'>
+    <i className="fa-solid fa-tag pr-1"></i>{offer.price}EGP  
+  </h3>
+)}
+{offer.priceNew !== "0" && (
+  <h3 className='p-1 font-bold text-lg'>{offer.price_new} EGP</h3> 
+)}
                   </motion.div>
 
                   <motion.ul 

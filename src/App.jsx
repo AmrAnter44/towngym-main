@@ -21,6 +21,8 @@ import Map from './comp/Map';
 import Gold from './comp/vip/Gold';
 import Shop from './comp/Shop';
 import { Analytics } from "@vercel/analytics/react"
+import AdminLogin from './comp/admin/AdminLogin';
+import AdminDashboard from './comp/admin/AdminDashboard';
 function App() {
   let router = createBrowserRouter([
     {
@@ -45,6 +47,8 @@ function App() {
         { path: "/sign", element: <SignOnline /> },
           { path: "/gold", element: <Gold/> },
           { path: "/shop", element: <Shop/> },
+                { path: "/admin-login", element: <AdminLogin /> },
+      { path: "/admin-dashboard", element: <AdminDashboard /> },
       ],
     },
   ]);
