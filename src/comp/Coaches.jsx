@@ -14,19 +14,33 @@ export default function Coaches() {
     fetchCoaches();
   }, []);
 
-  const fetchCoaches = async () => {
-    const { data, error } = await supabase
+const [error, setError] = useState(null);
+
+const fetchCoaches = async () => {
+  try {
+    setLoading(true);
+    setError(null);
+    
+    const { data, error: fetchError } = await supabase
       .from('coaches')
       .select('*')
       .order('id', { ascending: true });
 
-    if (!error && data) {
-      setCoaches(data);
+    if (fetchError) {
+      console.error('Error fetching coaches:', fetchError);
+      setError('Failed to load coaches');
+      return;
     }
+
+    console.log('Coaches loaded successfully:', data);
+    setCoaches(data || []);
+  } catch (err) {
+    console.error('Unexpected error:', err);
+    setError('An unexpected error occurred');
+  } finally {
     setLoading(false);
-  };
-  console.log(coaches);
-  
+  }
+};
 
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { 

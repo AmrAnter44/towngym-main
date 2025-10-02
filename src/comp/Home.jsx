@@ -1,10 +1,11 @@
-import React, { useState, useRef , useEffect } from 'react';
-import { motion, useInView } from 'framer-motion';
+import React, { useState, useRef, useEffect } from 'react';
+import { motion, useInView, AnimatePresence } from 'framer-motion';
 import logo from '../../public/assets/logo.png';
 import Coaches from './Coaches';
 import { Link, useNavigate } from 'react-router-dom';
 import Nav2 from '../Nav2';
 import { supabase } from '../lib/supabaseClient';
+
 export default function Home() {
   const navigate = useNavigate(); 
   const offersRef = useRef(null);
@@ -16,25 +17,37 @@ export default function Home() {
   
   const [offers, setOffers] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     fetchOffers();
   }, []);
 
   const fetchOffers = async () => {
-    setLoading(true);
-    const { data, error } = await supabase
-      .from('offers')
-      .select('*')
-      .order('id', { ascending: true });
+    try {
+      setLoading(true);
+      setError(null);
+      
+      const { data, error: fetchError } = await supabase
+        .from('offers')
+        .select('*')
+        .order('id', { ascending: true });
 
-    if (!error) {
-      setOffers(data);
+      if (fetchError) {
+        console.error('Error fetching offers:', fetchError);
+        setError('Failed to load offers');
+        return;
+      }
+
+      console.log('Offers loaded successfully:', data);
+      setOffers(data || []);
+    } catch (err) {
+      console.error('Unexpected error:', err);
+      setError('An unexpected error occurred');
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
-console.log(offers);
-
 
   function handlebook(offer) {
     const phone = "201028188900";  
@@ -42,7 +55,6 @@ console.log(offers);
     const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
     window.open(url, "whatsappWindow", "width=600,height=600,top=100,left=200");
   }
-
   // Animation variants
   const containerVariants = {
     hidden: { opacity: 0 },
