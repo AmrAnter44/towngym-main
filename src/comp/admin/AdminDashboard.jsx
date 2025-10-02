@@ -29,6 +29,83 @@ export default function AdminDashboard() {
     link: '',
   });
 
+  const [uploadingImage, setUploadingImage] = useState(false);
+  const [imageFile, setImageFile] = useState(null);
+  const [imagePreview, setImagePreview] = useState(null);
+
+  // ========== Image Processing ==========
+  const compressAndCropImage = (file) => {
+    return new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const img = new Image();
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          const ctx = canvas.getContext('2d');
+          
+          // Target dimensions (portrait ratio like the example: ~2:3)
+          const targetWidth = 800;
+          const targetHeight = 1200;
+          
+          canvas.width = targetWidth;
+          canvas.height = targetHeight;
+          
+          // Calculate crop dimensions to maintain aspect ratio
+          const imgRatio = img.width / img.height;
+          const targetRatio = targetWidth / targetHeight;
+          
+          let sx, sy, sWidth, sHeight;
+          
+          if (imgRatio > targetRatio) {
+            // Image is wider, crop width
+            sHeight = img.height;
+            sWidth = img.height * targetRatio;
+            sx = (img.width - sWidth) / 2;
+            sy = 0;
+          } else {
+            // Image is taller, crop height
+            sWidth = img.width;
+            sHeight = img.width / targetRatio;
+            sx = 0;
+            sy = (img.height - sHeight) / 2;
+          }
+          
+          // Draw cropped and resized image
+          ctx.drawImage(img, sx, sy, sWidth, sHeight, 0, 0, targetWidth, targetHeight);
+          
+          // Convert to blob with reduced quality
+          canvas.toBlob(
+            (blob) => {
+              const compressedFile = new File([blob], file.name, {
+                type: 'image/jpeg',
+                lastModified: Date.now(),
+              });
+              resolve(compressedFile);
+            },
+            'image/jpeg',
+            0.7 // 70% quality (قلل الجودة)
+          );
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    });
+  };
+
+  const handleImageSelect = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    
+    // Create preview
+    const reader = new FileReader();
+    reader.onload = (e) => setImagePreview(e.target.result);
+    reader.readAsDataURL(file);
+    
+    // Compress and crop
+    const compressedFile = await compressAndCropImage(file);
+    setImageFile(compressedFile);
+  };
+
   const [classForm, setClassForm] = useState({
     className: '',
     day: '',
@@ -130,13 +207,58 @@ export default function AdminDashboard() {
   };
 
   // ========== COACHES ==========
+  const handleImageUpload = async (file) => {
+    if (!file) return null;
+    
+    setUploadingImage(true);
+    try {
+      const fileExt = file.name.split('.').pop();
+      const fileName = `${Date.now()}_${Math.random().toString(36).substring(7)}.${fileExt}`;
+      const filePath = `coaches/${fileName}`;
+
+      const { error: uploadError } = await supabase.storage
+        .from('coaches')
+        .upload(filePath, file);
+
+      if (uploadError) throw uploadError;
+
+      const { data: { publicUrl } } = supabase.storage
+        .from('coaches')
+        .getPublicUrl(filePath);
+
+      return publicUrl;
+    } catch (error) {
+      console.error('Error uploading image:', error);
+      alert('فشل رفع الصورة');
+      return null;
+    } finally {
+      setUploadingImage(false);
+    }
+  };
+
   const handleCoachSubmit = async (e) => {
     e.preventDefault();
-    if (editingItem) {
-      await supabase.from('coaches').update(coachForm).eq('id', editingItem.id);
-    } else {
-      await supabase.from('coaches').insert([coachForm]);
+    
+    let imageUrl = coachForm.img;
+    
+    // إذا كان فيه صورة جديدة للرفع
+    if (imageFile) {
+      const uploadedUrl = await handleImageUpload(imageFile);
+      if (!uploadedUrl) return;
+      imageUrl = uploadedUrl;
     }
+
+    const coachData = {
+      ...coachForm,
+      img: imageUrl
+    };
+
+    if (editingItem) {
+      await supabase.from('coaches').update(coachData).eq('id', editingItem.id);
+    } else {
+      await supabase.from('coaches').insert([coachData]);
+    }
+    
     resetCoachForm();
     fetchCoaches();
   };
@@ -165,6 +287,8 @@ export default function AdminDashboard() {
       title: '',
       link: '',
     });
+    setImageFile(null);
+    setImagePreview(null);
     setEditingItem(null);
   };
 
@@ -362,7 +486,7 @@ export default function AdminDashboard() {
                   <div className="flex gap-2 mt-4">
                     <button
                       onClick={() => handleOfferEdit(offer)}
-                      className="flex-1 bg-yellow-600 py-2 rounded-lg hover:bg-yellow-700"
+                      className="flex-1 bg-blue-600 py-2 rounded-lg hover:bg-blue-700"
                     >
                       Edit
                     </button>
@@ -400,14 +524,46 @@ export default function AdminDashboard() {
                   className="p-3 border rounded-lg text-black"
                   required
                 />
-                <input
-                  type="text"
-                  placeholder="Image URL (e.g., /coaches/name.jpg)"
-                  value={coachForm.img}
-                  onChange={(e) => setCoachForm({ ...coachForm, img: e.target.value })}
-                  className="p-3 border rounded-lg text-black"
-                  required
-                />
+                
+                <div className="flex flex-col gap-2">
+                  <label className="text-black font-semibold">صورة الكوتش</label>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleImageSelect}
+                    className="p-3 border rounded-lg text-black bg-white"
+                  />
+                  
+                  {/* Image Preview */}
+                  {imagePreview && (
+                    <div className="mt-2 border-2 border-blue-500 rounded-lg p-2 bg-gray-100">
+                      <p className="text-sm text-black mb-2 font-semibold">معاينة الصورة:</p>
+                      <div className="flex justify-center">
+                        <img
+                          src={imagePreview}
+                          alt="Preview"
+                          className="max-h-48 rounded-lg shadow-lg object-cover"
+                          style={{ aspectRatio: '2/3' }}
+                        />
+                      </div>
+                      <p className="text-xs text-green-600 mt-2 text-center">
+                        ✓ تم ضغط الصورة وتحسين الجودة
+                      </p>
+                    </div>
+                  )}
+                  
+                  {coachForm.img && !imageFile && (
+                    <div className="mt-2 p-2 bg-gray-100 rounded-lg">
+                      <p className="text-sm text-gray-600">الصورة الحالية:</p>
+                      <img
+                        src={coachForm.img}
+                        alt="Current"
+                        className="max-h-32 rounded-lg mt-2 mx-auto"
+                      />
+                    </div>
+                  )}
+                </div>
+                
                 <input
                   type="text"
                   placeholder="Title (e.g., Fitness Manager)"
@@ -427,9 +583,17 @@ export default function AdminDashboard() {
                 <div className="col-span-1 md:col-span-2 flex gap-4">
                   <button
                     type="submit"
-                    className="flex-1 bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700"
+                    disabled={uploadingImage}
+                    className="flex-1 bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed"
                   >
-                    {editingItem ? 'Update' : 'Add'} Coach
+                    {uploadingImage ? (
+                      <span className="flex items-center justify-center gap-2">
+                        <i className="fa-solid fa-spinner fa-spin"></i>
+                        جاري الرفع...
+                      </span>
+                    ) : (
+                      <>{editingItem ? 'Update' : 'Add'} Coach</>
+                    )}
                   </button>
                   {editingItem && (
                     <button
@@ -462,7 +626,7 @@ export default function AdminDashboard() {
                   <div className="flex gap-2">
                     <button
                       onClick={() => handleCoachEdit(coach)}
-                      className="flex-1 bg-yellow-600 py-2 rounded-lg hover:bg-yellow-700"
+                      className="flex-1 bg-blue-600 py-2 rounded-lg hover:bg-blue-700"
                     >
                       Edit
                     </button>
@@ -603,7 +767,7 @@ export default function AdminDashboard() {
                   <div className="flex gap-2 mt-4">
                     <button
                       onClick={() => handleClassEdit(classItem)}
-                      className="flex-1 bg-yellow-600 py-2 rounded-lg hover:bg-yellow-700"
+                      className="flex-1 bg-blue-600 py-2 rounded-lg hover:bg-blue-700"
                     >
                       Edit
                     </button>
