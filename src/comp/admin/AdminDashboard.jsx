@@ -312,10 +312,10 @@ console.log(classes);
   const handleClassEdit = (classItem) => {
     setEditingItem(classItem);
     setClassForm({
-      className: classItem.className,
+      className: classItem.classname,
       day: classItem.day,
       time1: classItem.time1,
-      coachName: classItem.coachName,
+      coachName: classItem.coachname,
       mix: classItem.mix,
       ladies: classItem.ladies,
       mem: classItem.mem,
