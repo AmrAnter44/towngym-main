@@ -1,28 +1,7 @@
-import React, { useRef } from "react";
-import { motion, useInView } from "framer-motion";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import React, { useState, useEffect } from "react";
 
 export default function Trans() {
-  const transRef = useRef(null);
-  const isInView = useInView(transRef, { 
-    once: true, 
-    threshold: 0.2,
-    margin: "-30px 0px"
-  });
-
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 3000,
-    arrows: false,
-    pauseOnHover: true,
-  };
+  const [current, setCurrent] = useState(0);
 
   const images = [
     "/trans/1.png",
@@ -37,87 +16,50 @@ export default function Trans() {
     "/trans/10.png",
   ];
 
-  const sectionVariants = {
-    hidden: { 
-      opacity: 0, 
-      y: 30
-    },
-    visible: { 
-      opacity: 1, 
-      y: 0,
-      transition: {
-        duration: 0.5,
-        ease: "easeOut",
-        staggerChildren: 0.2
-      }
-    }
-  };
+  // Auto slide كل 3 ثواني
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrent((prev) => (prev + 1) % images.length);
+    }, 3000);
 
-  const itemVariants = {
-    hidden: { 
-      opacity: 0, 
-      scale: 0.95
-    },
-    visible: { 
-      opacity: 1, 
-      scale: 1,
-      transition: {
-        duration: 0.4,
-        ease: "easeOut"
-      }
-    }
-  };
+    return () => clearInterval(timer);
+  }, [images.length]);
 
   return (
-    <motion.div
-      ref={transRef}
-      className="w-full"
-      variants={sectionVariants}
-      initial="hidden"
-      animate={isInView ? "visible" : "hidden"}
-    >
+    <div className="w-full">
       {/* العنوان */}
-      <motion.div 
-        className="text-center mb-6"
-        variants={itemVariants}
-      >
+      <div className="text-center mb-6">
         <h2 className="text-xl md:text-2xl font-bold text-white gymfont mb-2">
           <span className="text-blue-400">Transformations</span>
         </h2>
         <div className="w-16 h-1 bg-blue-500 mx-auto rounded-full"></div>
-      </motion.div>
+      </div>
 
       {/* السلايدر */}
-      <motion.div 
-        className="max-w-sm mx-auto mb-6"
-        variants={itemVariants}
-      >
+      <div className="max-w-sm mx-auto mb-6">
         <div className="glass rounded-2xl p-4">
-          <Slider {...settings}>
-            {images.map((img, index) => (
-              <div key={index} className="focus:outline-none">
-                <div className="relative group">
-                  <div className="bg-black/50 rounded-xl p-2">
-                    <img
-                      src={img}
-                      alt={`transformation-${index + 1}`}
-                      className="w-38  h-62 object-cover rounded-lg group-hover:scale-105 transition-transform duration-300"
-                    />
-                  </div>
-                </div>
-              </div>
+          <div className="bg-black/50 rounded-xl p-2">
+            <img
+              src={images[current]}
+              alt={`transformation-${current + 1}`}
+              className="w-full h-62 object-cover rounded-lg"
+            />
+          </div>
+
+          {/* Dots للتنقل */}
+          <div className="flex justify-center gap-2 mt-4">
+            {images.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrent(index)}
+                className={`w-2 h-2 rounded-full transition-all ${
+                  index === current ? 'bg-blue-500 w-4' : 'bg-gray-500'
+                }`}
+              />
             ))}
-          </Slider>
+          </div>
         </div>
-      </motion.div>
-
-      {/* المعلومات */}
-      <motion.div 
-        className="grid grid-cols-2 gap-3 max-w-sm mx-auto"
-        variants={itemVariants}
-      >
-
-      </motion.div>
-    </motion.div>
+      </div>
+    </div>
   );
 }
