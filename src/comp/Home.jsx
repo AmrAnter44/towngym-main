@@ -202,14 +202,22 @@ console.log(offers);
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0.4, delay: 0.6 + index * 0.1 }}
                   >
-{offer.price !== "0" && (
-  <h3 className='p-1 font-bold text-lg line-through'>
-    <i className="fa-solid fa-tag pr-1"></i>{offer.price}EGP  
+{offer.price_new && offer.price_new !== "0" ? (
+  <>
+    <h3 className="p-1 font-bold text-lg line-through text-gray-400">
+      {offer.price} EGP
+    </h3>
+    <h3 className="p-1 font-bold text-lg text-blue-600">
+      {offer.price_new} EGP
+    </h3>
+  </>
+) : (
+  <h3 className="p-1 font-bold text-lg">
+    {offer.price} EGP
   </h3>
 )}
-{offer.priceNew !== "0" && (
-  <h3 className='p-1 font-bold text-lg'>{offer.price_new} EGP</h3> 
-)}
+
+
                   </motion.div>
 
                   <motion.ul 

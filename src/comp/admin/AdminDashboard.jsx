@@ -95,8 +95,8 @@ export default function AdminDashboard() {
   const resetForm = () => {
     setForm({
       duration: '',
-      price: '0',
-      price_new: '',
+      price: '',
+      price_new: '0',
       private: '',
       inbody: '',
       invite: '',
@@ -157,7 +157,7 @@ export default function AdminDashboard() {
               value={form.price_new}
               onChange={(e) => setForm({ ...form, price_new: e.target.value })}
               className="p-3 border rounded-lg text-black"
-              required
+            
             />
             <input
               type="text"
