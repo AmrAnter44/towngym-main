@@ -6,15 +6,32 @@ import { supabase } from '../lib/supabaseClient';
 
 export default function Home() {
   const [offers, setOffers] = useState([]);
+  const [offers33, setOffers33] = useState([]);
 
   useEffect(() => {
-    // fetch مباشر وبسيط
+    // fetch العروض العادية
     supabase
       .from('offers')
       .select('*')
       .order('id', { ascending: true })
       .then(({ data }) => {
-        if (data) setOffers(data);
+        if (data) {
+          setOffers(data);
+          
+          // حساب العروض بخصم 33%
+          const discountedOffers = data.map(offer => {
+            const originalPrice = parseFloat(offer.price);
+            const priceAfterDiscount = originalPrice * 0.67; // خصم 33%
+            const discountedPrice = Math.round(priceAfterDiscount / 10) * 10; // تقريب لأقرب 10
+            
+            return {
+              ...offer,
+              price: originalPrice,
+              price_new: discountedPrice
+            };
+          });
+          setOffers33(discountedOffers);
+        }
       });
   }, []);
 
@@ -48,6 +65,7 @@ export default function Home() {
           </Link>
         </div>
 
+        {/* قسم العروض العادية */}
         <h2 className='text-3xl pt-9 text-white font-bold gymfont'>
           Our Offers
         </h2>
@@ -100,6 +118,60 @@ export default function Home() {
                 <button
                   onClick={() => handlebook(offer)}
                   className='px-4 text-lg py-1 bg-blue-700 text-white rounded-lg hover:bg-blue-600'
+                >
+                  book now
+                </button>
+              </div>
+            ))
+          )}
+        </div>
+
+        {/* قسم العروض بخصم 33% */}
+        <h2 className='text-3xl pt-9 text-white font-bold gymfont'>
+          33% OFF Offers
+        </h2>
+        <p className='text-white-600 text-xl'>The offer is valid only from 3 AM to 3 PM.</p>
+
+        <div className='md:flex md:flex-wrap flex-row-reverse gap-4 justify-center pt-3 m-4'>
+          {offers33.length === 0 ? (
+            <i className="text-3xl text-white p-4 m-4 fa-solid fa-spinner fa-spin" />
+          ) : (
+            offers33.map((offer) => (
+              <div key={`33-${offer.id}`} className="glass m-3">
+                <h3 className='p-1 font-bold text-xl gymfont text-white'>
+                  <i className="fa-solid fa-dumbbell pr-2"></i> {offer.duration}
+                </h3>
+
+                <div className='flex justify-between'>
+                  <h3 className="p-1 font-bold text-lg line-through text-gray-400">
+                    {offer.price} EGP
+                  </h3>
+                  <h3 className="p-1 font-bold text-lg text-white-600">
+                    {offer.price_new} EGP
+                  </h3>
+                </div>
+
+                <ul className='p-1 text-start text-white-700'>
+                  <li className='p-1 font-semibold'>
+                    <i className='pr-1 fa-solid fa-check'></i> {offer.private} Sessions Personal Training
+                  </li>
+                  <li className='p-1 font-semibold'>
+                    <i className='pr-1 fa-solid fa-check'></i> {offer.inbody} Sessions In Inbody
+                  </li>
+                  <li className='p-1 font-semibold'>
+                    <i className='pr-1 fa-solid fa-check'></i> {offer.invite} Sessions Invitations
+                  </li>
+                  <li className='p-1 font-semibold'>
+                    <i className='pr-1 fa-solid fa-check'></i> ALL Classes
+                  </li>
+                  <li className='p-1 font-semibold'>
+                    <i className='pr-1 fa-solid fa-check'></i> SPA
+                  </li>
+                </ul>
+
+                <button
+                  onClick={() => handlebook(offer)}
+                  className='px-4 text-lg py-1 bg-gray-700 text-white rounded-lg hover:bg-blue-600'
                 >
                   book now
                 </button>
