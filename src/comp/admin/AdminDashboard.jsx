@@ -8,10 +8,10 @@ export default function AdminDashboard() {
   const [offers, setOffers] = useState([]);
   const [coaches, setCoaches] = useState([]);
   const [classes, setClasses] = useState([]);
+  const [ptPackages, setPtPackages] = useState([]);
   const [loading, setLoading] = useState(true);
   const [editingItem, setEditingItem] = useState(null);
   const navigate = useNavigate();
-console.log(classes);
 
   // Forms
   const [offerForm, setOfferForm] = useState({
@@ -34,79 +34,6 @@ console.log(classes);
   const [imageFile, setImageFile] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
 
-  // ========== Image Processing ==========
-  const compressAndCropImage = (file) => {
-    return new Promise((resolve) => {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        const img = new Image();
-        img.onload = () => {
-          const canvas = document.createElement('canvas');
-          const ctx = canvas.getContext('2d');
-          
-          // Target dimensions (portrait ratio like the example: ~2:3)
-          const targetWidth = 800;
-          const targetHeight = 1200;
-          
-          canvas.width = targetWidth;
-          canvas.height = targetHeight;
-          
-          // Calculate crop dimensions to maintain aspect ratio
-          const imgRatio = img.width / img.height;
-          const targetRatio = targetWidth / targetHeight;
-          
-          let sx, sy, sWidth, sHeight;
-          
-          if (imgRatio > targetRatio) {
-            // Image is wider, crop width
-            sHeight = img.height;
-            sWidth = img.height * targetRatio;
-            sx = (img.width - sWidth) / 2;
-            sy = 0;
-          } else {
-            // Image is taller, crop height
-            sWidth = img.width;
-            sHeight = img.width / targetRatio;
-            sx = 0;
-            sy = (img.height - sHeight) / 2;
-          }
-          
-          // Draw cropped and resized image
-          ctx.drawImage(img, sx, sy, sWidth, sHeight, 0, 0, targetWidth, targetHeight);
-          
-          // Convert to blob with reduced quality
-          canvas.toBlob(
-            (blob) => {
-              const compressedFile = new File([blob], file.name, {
-                type: 'image/jpeg',
-                lastModified: Date.now(),
-              });
-              resolve(compressedFile);
-            },
-            'image/jpeg',
-            0.7 // 70% quality (قلل الجودة)
-          );
-        };
-        img.src = e.target.result;
-      };
-      reader.readAsDataURL(file);
-    });
-  };
-
-  const handleImageSelect = async (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-    
-    // Create preview
-    const reader = new FileReader();
-    reader.onload = (e) => setImagePreview(e.target.result);
-    reader.readAsDataURL(file);
-    
-    // Compress and crop
-    const compressedFile = await compressAndCropImage(file);
-    setImageFile(compressedFile);
-  };
-
   const [classForm, setClassForm] = useState({
     className: '',
     day: '',
@@ -115,6 +42,13 @@ console.log(classes);
     mix: 'Mix',
     ladies: false,
     mem: false,
+  });
+
+  // ========== NEW: PT Package Form ==========
+  const [ptForm, setPtForm] = useState({
+    sessions: '',
+    price: '',
+    price_discount: '0',
   });
 
   useEffect(() => {
@@ -131,8 +65,7 @@ console.log(classes);
 
   const fetchAllData = async () => {
     setLoading(true);
-    await Promise.all([fetchOffers(), fetchCoaches(), fetchClasses()]);
-
+    await Promise.all([fetchOffers(), fetchCoaches(), fetchClasses(), fetchPtPackages()]);
     setLoading(false);
   };
 
@@ -158,8 +91,15 @@ console.log(classes);
       .select('*')
       .order('id', { ascending: true });
     if (data) setClasses(data);
-    console.log(data);
-    
+  };
+
+  // ========== NEW: Fetch PT Packages ==========
+  const fetchPtPackages = async () => {
+    const { data } = await supabase
+      .from('pt_packages')
+      .select('*')
+      .order('sessions', { ascending: true });
+    if (data) setPtPackages(data);
   };
 
   const handleLogout = () => {
@@ -211,6 +151,70 @@ console.log(classes);
   };
 
   // ========== COACHES ==========
+  const compressAndCropImage = (file) => {
+    return new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const img = new Image();
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          const ctx = canvas.getContext('2d');
+          
+          const targetWidth = 800;
+          const targetHeight = 1200;
+          
+          canvas.width = targetWidth;
+          canvas.height = targetHeight;
+          
+          const imgRatio = img.width / img.height;
+          const targetRatio = targetWidth / targetHeight;
+          
+          let sx, sy, sWidth, sHeight;
+          
+          if (imgRatio > targetRatio) {
+            sHeight = img.height;
+            sWidth = img.height * targetRatio;
+            sx = (img.width - sWidth) / 2;
+            sy = 0;
+          } else {
+            sWidth = img.width;
+            sHeight = img.width / targetRatio;
+            sx = 0;
+            sy = (img.height - sHeight) / 2;
+          }
+          
+          ctx.drawImage(img, sx, sy, sWidth, sHeight, 0, 0, targetWidth, targetHeight);
+          
+          canvas.toBlob(
+            (blob) => {
+              const compressedFile = new File([blob], file.name, {
+                type: 'image/jpeg',
+                lastModified: Date.now(),
+              });
+              resolve(compressedFile);
+            },
+            'image/jpeg',
+            0.7
+          );
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    });
+  };
+
+  const handleImageSelect = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    
+    const reader = new FileReader();
+    reader.onload = (e) => setImagePreview(e.target.result);
+    reader.readAsDataURL(file);
+    
+    const compressedFile = await compressAndCropImage(file);
+    setImageFile(compressedFile);
+  };
+
   const handleImageUpload = async (file) => {
     if (!file) return null;
     
@@ -245,7 +249,6 @@ console.log(classes);
     
     let imageUrl = coachForm.img;
     
-    // إذا كان فيه صورة جديدة للرفع
     if (imageFile) {
       const uploadedUrl = await handleImageUpload(imageFile);
       if (!uploadedUrl) return;
@@ -306,7 +309,6 @@ console.log(classes);
     }
     resetClassForm();
     fetchClasses();
-          console.log(classes);
   };
 
   const handleClassEdit = (classItem) => {
@@ -326,8 +328,6 @@ console.log(classes);
     if (confirm('Are you sure?')) {
       await supabase.from('classes').delete().eq('id', id);
       fetchClasses();
-
-      
     }
   };
 
@@ -340,6 +340,43 @@ console.log(classes);
       mix: 'Mix',
       ladies: false,
       mem: false,
+    });
+    setEditingItem(null);
+  };
+
+  // ========== NEW: PT PACKAGES CRUD ==========
+  const handlePtSubmit = async (e) => {
+    e.preventDefault();
+    if (editingItem) {
+      await supabase.from('pt_packages').update(ptForm).eq('id', editingItem.id);
+    } else {
+      await supabase.from('pt_packages').insert([ptForm]);
+    }
+    resetPtForm();
+    fetchPtPackages();
+  };
+
+  const handlePtEdit = (ptPackage) => {
+    setEditingItem(ptPackage);
+    setPtForm({
+      sessions: ptPackage.sessions,
+      price: ptPackage.price,
+      price_discount: ptPackage.price_discount || '0',
+    });
+  };
+
+  const handlePtDelete = async (id) => {
+    if (confirm('Are you sure you want to delete this PT package?')) {
+      await supabase.from('pt_packages').delete().eq('id', id);
+      fetchPtPackages();
+    }
+  };
+
+  const resetPtForm = () => {
+    setPtForm({
+      sessions: '',
+      price: '',
+      price_discount: '0',
     });
     setEditingItem(null);
   };
@@ -375,6 +412,14 @@ console.log(classes);
             }`}
           >
             Offers
+          </button>
+          <button
+            onClick={() => setActiveTab('pt')}
+            className={`px-6 py-2 rounded-lg ${
+              activeTab === 'pt' ? 'bg-blue-600' : 'bg-gray-700'
+            }`}
+          >
+            PT Packages
           </button>
           <button
             onClick={() => setActiveTab('coaches')}
@@ -510,6 +555,131 @@ console.log(classes);
           </>
         )}
 
+        {/* ========== NEW: PT PACKAGES TAB ========== */}
+        {activeTab === 'pt' && (
+          <>
+            <motion.div
+              className="glass-white p-4 md:p-6 rounded-2xl mb-8"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+            >
+              <h2 className="text-xl md:text-2xl font-bold mb-4 text-black">
+                {editingItem ? 'Edit PT Package' : 'Add New PT Package'}
+              </h2>
+
+              <form onSubmit={handlePtSubmit} className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <input
+                  type="number"
+                  placeholder="Number of Sessions"
+                  value={ptForm.sessions}
+                  onChange={(e) => setPtForm({ ...ptForm, sessions: e.target.value })}
+                  className="p-3 border rounded-lg text-black"
+                  required
+                  min="1"
+                />
+                <input
+                  type="number"
+                  placeholder="Price (EGP)"
+                  value={ptForm.price}
+                  onChange={(e) => setPtForm({ ...ptForm, price: e.target.value })}
+                  className="p-3 border rounded-lg text-black"
+                  required
+                  min="0"
+                  step="0.01"
+                />
+                <input
+                  type="number"
+                  placeholder="Discount Price (0 = no discount)"
+                  value={ptForm.price_discount}
+                  onChange={(e) => setPtForm({ ...ptForm, price_discount: e.target.value })}
+                  className="p-3 border rounded-lg text-black"
+                  min="0"
+                  step="0.01"
+                />
+
+                <div className="col-span-1 md:col-span-3 flex gap-4">
+                  <button
+                    type="submit"
+                    className="flex-1 bg-green-600 text-white py-3 rounded-lg hover:bg-green-700"
+                  >
+                    {editingItem ? 'Update' : 'Add'} PT Package
+                  </button>
+                  {editingItem && (
+                    <button
+                      type="button"
+                      onClick={resetPtForm}
+                      className="bg-gray-600 text-white px-6 py-3 rounded-lg hover:bg-gray-700"
+                    >
+                      Cancel
+                    </button>
+                  )}
+                </div>
+              </form>
+            </motion.div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {ptPackages.map((pkg) => {
+                const hasDiscount = pkg.price_discount && parseFloat(pkg.price_discount) > 0;
+                const finalPrice = hasDiscount ? parseFloat(pkg.price_discount) : parseFloat(pkg.price);
+                const pricePerSession = Math.round(finalPrice / pkg.sessions);
+
+                return (
+                  <motion.div
+                    key={pkg.id}
+                    className="glass p-4 md:p-6 rounded-2xl border-2 border-green-500/30"
+                    whileHover={{ scale: 1.02 }}
+                  >
+                    <div className="bg-green-600 text-white p-3 rounded-lg mb-4">
+                      <h3 className="text-xl md:text-2xl font-bold text-center">
+                        <i className="fa-solid fa-dumbbell pr-2"></i>
+                        {pkg.sessions} Sessions
+                      </h3>
+                    </div>
+
+                    <div className="space-y-2 text-sm md:text-base mb-4">
+                      <div className="flex justify-between items-center">
+                        <span className="text-gray-400">Price:</span>
+                        {hasDiscount ? (
+                          <div className="flex gap-2">
+                            <span className="line-through text-gray-400">{pkg.price} EGP</span>
+                            <span className="text-green-400 font-bold">{pkg.price_discount} EGP</span>
+                          </div>
+                        ) : (
+                          <span className="font-bold">{pkg.price} EGP</span>
+                        )}
+                      </div>
+                      
+                      <div className="bg-green-900/30 p-3 rounded-lg border border-green-500/20">
+                        <div className="flex justify-between items-center">
+                          <span className="text-gray-300">Per Session:</span>
+                          <span className="text-2xl font-bold text-green-400">
+                            {pricePerSession} EGP
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="flex gap-2">
+                      <button
+                        onClick={() => handlePtEdit(pkg)}
+                        className="flex-1 bg-blue-600 py-2 rounded-lg hover:bg-blue-700"
+                      >
+                        Edit
+                      </button>
+                      <button
+                        onClick={() => handlePtDelete(pkg.id)}
+                        className="flex-1 bg-red-600 py-2 rounded-lg hover:bg-red-700"
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </div>
+          </>
+        )}
+
         {/* ========== COACHES TAB ========== */}
         {activeTab === 'coaches' && (
           <>
@@ -541,7 +711,6 @@ console.log(classes);
                     className="p-3 border rounded-lg text-black bg-white"
                   />
                   
-                  {/* Image Preview */}
                   {imagePreview && (
                     <div className="mt-2 border-2 border-blue-500 rounded-lg p-2 bg-gray-100">
                       <p className="text-sm text-black mb-2 font-semibold">معاينة الصورة:</p>
