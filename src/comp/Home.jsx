@@ -97,7 +97,7 @@ export default function Home() {
             {/* الزر الأخضر */}
             <button
               onClick={() => setShowPT(!showPT)}
-              className='w-full max-w-2xl mx-auto text-2xl md:text-3xl text-white font-bold gymfont bg-green-600 hover:bg-green-700 px-6 md:px-8 py-4 rounded-lg transition-all duration-300 flex items-center justify-center gap-3 shadow-lg'
+              className='w-full max-w-2xl mx-auto text-2xl md:text-3xl text-blue-600 font-bold gymfont bg-white hover:bg-white/80 px-6 md:px-8 py-4 rounded-lg transition-all duration-300 flex items-center justify-center gap-3 shadow-lg'
             >
               <i className="fa-solid fa-dumbbell"></i>
               Personal Training (PT)
@@ -110,8 +110,8 @@ export default function Home() {
                 <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
                   {ptPackages.length === 0 ? (
                     <div className="col-span-full text-center py-8">
-                      <i className="text-3xl text-green-400 fa-solid fa-spinner fa-spin" />
-                      <p className="text-white mt-4">Loading PT Packages...</p>
+                      <i className="text-3xl text-white fa-solid fa-spinner fa-spin" />
+                      <p className="text-blue-600 mt-4">Loading PT Packages...</p>
                     </div>
                   ) : (
                     ptPackages.map((pkg) => {
@@ -120,8 +120,8 @@ export default function Home() {
                       const pricePerSession = calculatePricePerSession(finalPrice, pkg.sessions);
 
                       return (
-                        <div key={pkg.id} className="glass w-full border-2 border-green-500/30 hover:border-green-500/50 transition-all">
-                          <div className="bg-green-600 text-white p-3 rounded-t-lg">
+                        <div key={pkg.id} className="glass w-full border-2 border-blue-500/30 hover:border-blue-500/50 transition-all">
+                          <div className="bg-white text-blue-600 p-3 rounded-t-lg">
                             <h3 className='font-bold text-2xl gymfont text-center'>
                               <i className="fa-solid fa-dumbbell pr-2"></i> 
                               {pkg.sessions} Sessions
@@ -138,7 +138,7 @@ export default function Home() {
                                     <span className="text-lg line-through text-gray-400">
                                       {pkg.price} EGP
                                     </span>
-                                    <span className="text-2xl font-bold text-green-400">
+                                    <span className="text-2xl font-bold text-blue-400">
                                       {pkg.price_discount} EGP
                                     </span>
                                   </>
@@ -151,11 +151,11 @@ export default function Home() {
                             </div>
 
                             {/* سعر الحصة الواحدة */}
-                            <div className='bg-green-900/30 p-3 rounded-lg mb-4 border border-green-500/20'>
+                            <div className='bg-blue-900/30 p-3 rounded-lg mb-4 border border-blue-500/20'>
                               <p className='text-sm text-gray-300 mb-1 text-center'>Price per session:</p>
                               <div className='flex items-center justify-center gap-2'>
-                                <i className="fa-solid fa-tag text-green-400"></i>
-                                <span className='text-3xl font-bold text-green-400'>
+                                <i className="fa-solid fa-tag text-blue-400"></i>
+                                <span className='text-3xl font-bold text-blue-400'>
                                   {pricePerSession} EGP
                                 </span>
                               </div>
@@ -164,15 +164,15 @@ export default function Home() {
                             {/* تفاصيل إضافية */}
                             <ul className='text-start text-gray-300 space-y-2 mb-4'>
                               <li className='flex items-center gap-2'>
-                                <i className='fa-solid fa-check text-green-400'></i>
+                                <i className='fa-solid fa-check text-blue-400'></i>
                                 <span>{pkg.sessions} Personal Training Sessions</span>
                               </li>
                               <li className='flex items-center gap-2'>
-                                <i className='fa-solid fa-check text-green-400'></i>
+                                <i className='fa-solid fa-check text-blue-400'></i>
                                 <span>Professional Coach</span>
                               </li>
                               <li className='flex items-center gap-2'>
-                                <i className='fa-solid fa-check text-green-400'></i>
+                                <i className='fa-solid fa-check text-blue-400'></i>
                                 <span>Customized Training Plan</span>
                               </li>
                             </ul>
@@ -180,7 +180,7 @@ export default function Home() {
                             {/* زر الحجز */}
                             <button
                               onClick={() => handlePTBook(pkg)}
-                              className='w-full px-4 text-lg py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-all duration-300 font-bold'
+                              className='w-full px-4 text-lg py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all duration-300 font-bold'
                             >
                               Book Now
                             </button>
