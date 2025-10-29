@@ -253,13 +253,12 @@ export default function Home() {
                           <i className='pr-1 fa-solid fa-check'></i> SPA
                         </li>
                       </ul>
-
-                      <button
-                        onClick={() => handlebook(offer)}
-                        className='px-4 text-lg py-1 bg-blue-700 text-white rounded-lg hover:bg-blue-600'
-                      >
-                        book now
-                      </button>
+                            <button
+                              onClick={() => handlePTBook(pkg)}
+                              className='w-full px-4 text-lg py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all duration-300 font-bold'
+                            >
+                              Book Now
+                            </button>
                     </div>
                   ))
                 )}
@@ -322,12 +321,12 @@ export default function Home() {
                           </li>
                         </ul>
 
-                        <button
-                          onClick={() => handlebook(offer)}
-                          className='px-4 text-lg py-1 bg-gray-700 text-white rounded-lg hover:bg-blue-600'
-                        >
-                          book now
-                        </button>
+                            <button
+                              onClick={() => handlePTBook(pkg)}
+                              className='w-full px-4 text-lg py-2 bg-gray-600 text-white rounded-lg hover:bg-blue-700 transition-all duration-300 font-bold'
+                            >
+                              Book Now
+                            </button>
                       </div>
                     ))
                   )}
