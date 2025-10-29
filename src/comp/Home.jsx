@@ -314,9 +314,6 @@ export default function Home() {
                             <i className='pr-1 fa-solid fa-check'></i> {offer.invite} Sessions Invitations
                           </li>
                           <li className='p-1 font-semibold'>
-                            <i className='pr-1 fa-solid fa-check'></i> ALL Classes
-                          </li>
-                          <li className='p-1 font-semibold'>
                             <i className='pr-1 fa-solid fa-check'></i> SPA
                           </li>
                         </ul>
@@ -325,7 +322,7 @@ export default function Home() {
                               onClick={() => handlePTBook(pkg)}
                               className='w-full px-4 text-lg py-2 bg-gray-600 text-white rounded-lg hover:bg-blue-700 transition-all duration-300 font-bold'
                             >
-                              Book Now
+                              Book Now 
                             </button>
                       </div>
                     ))
