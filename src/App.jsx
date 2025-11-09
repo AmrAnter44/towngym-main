@@ -15,7 +15,6 @@ import Spa from './comp/Map/Spa';
 import Caples from './comp/Map/Cables';
 import Machines from './comp/Map/Machines';
 import Bar from './comp/Map/Bar';
-import SignOnline from './comp/SignOnline';
 import Map from './comp/Map';
 import Gold from './comp/vip/Gold';
 import Shop from './comp/Shop';
@@ -42,8 +41,6 @@ function App() {
         { path: "/Caples", element: <Caples /> },
         { path: "/Machines", element: <Machines /> },
         { path: "/Bar", element: <Bar /> },
-
-        { path: "/sign", element: <SignOnline /> },
           { path: "/gold", element: <Gold/> },
           { path: "/shop", element: <Shop/> },
                 { path: "/admin-login", element: <AdminLogin /> },
