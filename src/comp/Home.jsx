@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Coaches from './Coaches';
 import { Link } from 'react-router-dom';
 import Nav2 from '../Nav2';
-import { supabase } from '../lib/supabaseClient';
+import { dataService } from '../data/dataService';
 
 export default function Home() {
   const [offers, setOffers] = useState([]);
@@ -14,38 +14,30 @@ export default function Home() {
 
   useEffect(() => {
     // fetch العروض العادية
-    supabase
-      .from('offers')
-      .select('*')
-      .order('id', { ascending: true })
-      .then(({ data }) => {
-        if (data) {
-          setOffers(data);
+    dataService.getOffers().then(({ data }) => {
+      if (data) {
+        setOffers(data);
+        
+        // حساب العروض بخصم 33%
+        const discountedOffers = data.map(offer => {
+          const originalPrice = parseFloat(offer.price);
+          const priceAfterDiscount = originalPrice * 0.67;
+          const discountedPrice = Math.round(priceAfterDiscount / 10) * 10;
           
-          // حساب العروض بخصم 33%
-          const discountedOffers = data.map(offer => {
-            const originalPrice = parseFloat(offer.price);
-            const priceAfterDiscount = originalPrice * 0.67;
-            const discountedPrice = Math.round(priceAfterDiscount / 10) * 10;
-            
-            return {
-              ...offer,
-              price: originalPrice,
-              price_new: discountedPrice
-            };
-          });
-          setOffers33(discountedOffers);
-        }
-      });
+          return {
+            ...offer,
+            price: originalPrice,
+            price_new: discountedPrice
+          };
+        });
+        setOffers33(discountedOffers);
+      }
+    });
 
     // fetch باقات PT
-    supabase
-      .from('pt_packages')
-      .select('*')
-      .order('sessions', { ascending: true })
-      .then(({ data }) => {
-        if (data) setPtPackages(data);
-      });
+    dataService.getPtPackages().then(({ data }) => {
+      if (data) setPtPackages(data);
+    });
   }, []);
 
   function handlebook(offer) {
@@ -253,12 +245,12 @@ export default function Home() {
                           <i className='pr-1 fa-solid fa-check'></i> SPA
                         </li>
                       </ul>
-                            <button
-                              onClick={() => handlePTBook(pkg)}
-                              className='w-full px-4 text-lg py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all duration-300 font-bold'
-                            >
-                              Book Now
-                            </button>
+                      <button
+                        onClick={() => handlebook(offer)}
+                        className='w-full px-4 text-lg py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all duration-300 font-bold'
+                      >
+                        Book Now
+                      </button>
                     </div>
                   ))
                 )}
@@ -318,12 +310,12 @@ export default function Home() {
                           </li>
                         </ul>
 
-                            <button
-                              onClick={() => handlePTBook(pkg)}
-                              className='w-full px-4 text-lg py-2 bg-gray-600 text-white rounded-lg hover:bg-blue-700 transition-all duration-300 font-bold'
-                            >
-                              Book Now 
-                            </button>
+                        <button
+                          onClick={() => handlebook(offer)}
+                          className='w-full px-4 text-lg py-2 bg-gray-600 text-white rounded-lg hover:bg-blue-700 transition-all duration-300 font-bold'
+                        >
+                          Book Now 
+                        </button>
                       </div>
                     ))
                   )}

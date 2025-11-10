@@ -1,21 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { supabase } from '../lib/supabaseClient';
+import { dataService } from '../data/dataService';
 
 export default function Classes() {
   const [classes, setClasses] = useState([]);
 
   useEffect(() => {
     // مباشر وبسيط - fetch لما الصفحة تفتح
-    supabase
-      .from('classes')
-      .select('*')
-      .order('id', { ascending: true })
-      .then(({ data }) => {
-        if (data) setClasses(data);
-      });
+    dataService.getClasses().then(({ data }) => {
+      if (data) setClasses(data);
+    });
   }, []);
-  console.log(classes);
-  
 
   return (
     <div className="w-full max-w-7xl mx-auto flex flex-col lg:flex-row gap-4 flex-wrap justify-center px-4 my-8 mt-40">

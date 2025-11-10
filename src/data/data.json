@@ -1,0 +1,203 @@
+{
+  "offers": [
+    {
+      "id": 1,
+      "duration": "1 Month",
+      "price": "800",
+      "price_new": "0",
+      "private": "4",
+      "inbody": "2",
+      "invite": "2"
+    },
+    {
+      "id": 2,
+      "duration": "2 Months",
+      "price": "1600",
+      "price_new": "1000",
+      "private": "12",
+      "inbody": "6",
+      "invite": "6"
+    },
+    {
+      "id": 3,
+      "duration": "6 Months",
+      "price": "2800",
+      "price_new": "2000",
+      "private": "24",
+      "inbody": "12",
+      "invite": "12"
+    },
+    {
+      "id": 4,
+      "duration": "12 Months",
+      "price": "4500",
+      "price_new": "0",
+      "private": "48",
+      "inbody": "24",
+      "invite": "24"
+    }
+  ],
+  "pt_packages": [
+    {
+      "id": 1,
+      "sessions": 10,
+      "price": "2500",
+      "price_discount": "0"
+    },
+    {
+      "id": 2,
+      "sessions": 20,
+      "price": "4000",
+      "price_discount": "0"
+    },
+    {
+      "id": 3,
+      "sessions": 30,
+      "price": "5000",
+      "price_discount": "0"
+    },
+    {
+      "id": 4,
+      "sessions": 40,
+      "price": "6000",
+      "price_discount": "4500"
+    }
+  ],
+  "coaches": [
+    {
+      "id": 1,
+      "name": "Zema",
+      "img": "/coaches/zema.jpg",
+      "title": "Fitness Manager",
+      "link": "https://instagram.com/coach1"
+    },
+    {
+      "id": 2,
+      "name": "Ali",
+      "img": "/coaches/ali.jpg",
+      "title": "Coach",
+      "link": "https://instagram.com/coach2"
+    },
+    {
+      "id": 3,
+      "name": "Mohamed",
+      "img": "/coaches/mohamed.jpg",
+      "title": "Coach",
+      "link": "https://instagram.com/coach3"
+    },
+    {
+      "id": 4,
+      "name": "Bogy",
+      "img": "/coaches/bogy.jpg",
+      "title": "Coach",
+      "link": "https://instagram.com/coach3"
+    },
+    {
+      "id": 5,
+      "name": "Saif",
+      "img": "/coaches/saif.jpg",
+      "title": "Coach",
+      "link": "https://instagram.com/coach3"
+    }
+  ],
+  "classes": [
+    {
+      "id": 1,
+      "classname": "Functional Training",
+      "day": "Saturday",
+      "time1": "8:30",
+      "coachname": "Zima",
+      "mix": "Mix",
+      "mem": false
+    },
+    {
+      "id": 2,
+      "classname": "Aerobics",
+      "day": "Sunday",
+      "time1": "8:30",
+      "coachname": "Aimlia",
+      "mix": "Ladies",
+      "mem": false
+    },
+    {
+      "id": 3,
+      "classname": "Flexibility",
+      "day": "Sunday",
+      "time1": "9:30",
+      "coachname": "Aimlia",
+      "mix": "Ladies",
+      "mem": false
+    },
+    {
+      "id": 4,
+      "classname": "Superman Kids",
+      "day": "Monday",
+      "time1": "6:00",
+      "coachname": "Zima",
+      "mix": "Mix",
+      "mem": true
+    },
+    {
+      "id": 5,
+      "classname": "Boxing",
+      "day": "Monday",
+      "time1": "7:00",
+      "coachname": "Saif",
+      "mix": "Mix",
+      "mem": true
+    },
+    {
+      "id": 6,
+      "classname": "Circuit",
+      "day": "Monday",
+      "time1": "8:30",
+      "coachname": "Menna",
+      "mix": "Ladies",
+      "mem": false
+    },
+    {
+      "id": 7,
+      "classname": "Zumba",
+      "day": "Tuesday",
+      "time1": "8:30",
+      "coachname": "Menna",
+      "mix": "Ladies",
+      "mem": false
+    },
+    {
+      "id": 8,
+      "classname": "Yoga",
+      "day": "Tuesday",
+      "time1": "9:30",
+      "coachname": "Aimlia",
+      "mix": "Mix",
+      "mem": false
+    },
+    {
+      "id": 9,
+      "classname": "Belly Dance",
+      "day": "Wednesday",
+      "time1": "8:30",
+      "coachname": "Samah",
+      "mix": "Ladies",
+      "mem": false
+    },
+    {
+      "id": 10,
+      "classname": "Superman Kids",
+      "day": "Thursday",
+      "time1": "6:00",
+      "coachname": "Zima",
+      "mix": "Mix",
+      "mem": true
+    },
+    {
+      "id": 11,
+      "classname": "Core",
+      "day": "Thursday",
+      "time1": "8:30",
+      "coachname": "Zima",
+      "mix": "Mix",
+      "mem": false
+    }]
+}

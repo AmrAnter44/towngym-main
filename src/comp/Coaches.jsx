@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Trans from '../comp/Trans';
-import { supabase } from '../lib/supabaseClient';
+import { dataService } from '../data/dataService';
 import { Link } from 'react-router-dom';
 
 export default function Coaches() {
@@ -9,13 +9,9 @@ export default function Coaches() {
 
   useEffect(() => {
     // fetch الداتا
-    supabase
-      .from('coaches')
-      .select('*')
-      .order('id', { ascending: true })
-      .then(({ data }) => {
-        if (data) setCoaches(data);
-      });
+    dataService.getCoaches().then(({ data }) => {
+      if (data) setCoaches(data);
+    });
   }, []);
 
   // Auto slide كل 3.5 ثانية
@@ -28,8 +24,6 @@ export default function Coaches() {
 
     return () => clearInterval(timer);
   }, [coaches.length]);
-  console.log(coaches);
-  
 
   return (
     <section className="py-8 px-4">
@@ -53,7 +47,7 @@ export default function Coaches() {
                   <div className="text-center py-8">
                     <i className="text-3xl text-blue-700 fa-solid fa-spinner fa-spin" />
                   </div>
-                ) :  (<a  href={coaches[current].link} target="_blank">
+                ) :  (<a  href={coaches[current].link} target="_blank" rel="noopener noreferrer">
                   <div className="bg-black rounded-xl p-4 text-center">
                     <div className="mb-4">
                       <h3 className="text-lg md:text-xl font-bold text-white gymfont mb-1">

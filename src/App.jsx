@@ -19,13 +19,12 @@ import Map from './comp/Map';
 import Gold from './comp/vip/Gold';
 import Shop from './comp/Shop';
 import { Analytics } from "@vercel/analytics/react"
-import AdminLogin from './comp/admin/AdminLogin';
-import AdminDashboard from './comp/admin/AdminDashboard';
+
 function App() {
   let router = createBrowserRouter([
     {
       path: "/",
-      element: <Layout />,   // هنا حاطين الـ Layout فيه Footer و Outlet
+      element: <Layout />,
       children: [
         { index: true, element: <Home /> },
         { path: "/coaches", element: <Coaches /> },
@@ -41,18 +40,19 @@ function App() {
         { path: "/Caples", element: <Caples /> },
         { path: "/Machines", element: <Machines /> },
         { path: "/Bar", element: <Bar /> },
-          { path: "/gold", element: <Gold/> },
-          { path: "/shop", element: <Shop/> },
-                { path: "/admin-login", element: <AdminLogin /> },
-      { path: "/admin-dashboard", element: <AdminDashboard /> },
+        { path: "/gold", element: <Gold/> },
+        { path: "/shop", element: <Shop/> },
+        // ✅ شلنا Admin routes
       ],
     },
   ]);
 
-  return     <>
+  return (
+    <>
       <RouterProvider router={router} />
-      <Analytics />   {/* ✅ هنا هيتسجل الترافيك */}
+      <Analytics />
     </>
+  );
 }
 
 export default App;
