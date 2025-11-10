@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Trans from '../comp/Trans';
-import { dataService } from '../../public/data/dataService';
-import { Link } from 'react-router-dom';
+import { dataService } from '../data/dataService';
+
 
 export default function Coaches() {
   const [coaches, setCoaches] = useState([]);
