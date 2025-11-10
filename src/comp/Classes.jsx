@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { dataService } from '../data/dataService';
+import { dataService } from '../../public/data/dataService';
 
 export default function Classes() {
   const [classes, setClasses] = useState([]);
