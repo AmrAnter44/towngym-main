@@ -3,6 +3,7 @@ import Coaches from './Coaches';
 import { Link } from 'react-router-dom';
 import Nav2 from '../Nav2';
 import { dataService } from '../data/dataService';
+import BlackFridayOffer from './BlackFridayOffer'; // حط المسار الصح
 
 export default function Home() {
   const [offers, setOffers] = useState([]);
@@ -11,6 +12,7 @@ export default function Home() {
   const [showOffers, setShowOffers] = useState(false);
   const [showOffers33, setShowOffers33] = useState(false);
   const [showPT, setShowPT] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     // fetch العروض العادية
@@ -32,6 +34,7 @@ export default function Home() {
         });
         setOffers33(discountedOffers);
       }
+      setIsLoading(false);
     });
 
     // fetch باقات PT
@@ -63,79 +66,90 @@ export default function Home() {
     <>
       <Nav2 />
       
-      <div className="mt-20">
-        {/* ==================== VIP GOLD ==================== */}
-        <h2 className='text-xl pt-9 text-white font-semibold gymfont'>
-          VIP Body Package
-        </h2>
-
-        <div className="flex flex-wrap flex-row-reverse gap-4 justify-center pt-3 m-4">
-          <Link 
-            to={'/gold'} 
-            className="group relative gold-text glass-button hover:bg-blue-500 hover:text-white font-bold px-6 py-2 m-2 rounded-full flex flex-row justify-center items-center overflow-hidden transition-all duration-500"
-          >
-            <span className="m-auto">Gold</span>
-            <img 
-              src="./logo.png" 
-              alt="" 
-              className="ml-2 w-12 transform transition-all duration-500 group-hover:-rotate-90 group-hover:translate-x-10 group-hover:opacity-0" 
-            />
-          </Link>
-        </div>
+      <div className="mt-20 space-y-8">
+    <BlackFridayOffer />
 
         {/* ==================== قسم PT (الجديد) ==================== */}
-        <div className='w-full py-9'>
-          <div className="max-w-4xl mx-auto px-4">
-            {/* الزر الأخضر */}
+        <section className='relative w-full py-16 px-4 overflow-hidden'>
+          {/* Background */}
+          <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 via-blue-900/30 to-transparent"></div>
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-blue-500/20 via-transparent to-transparent"></div>
+          
+          {/* Decorative Elements */}
+          <div className="absolute top-10 right-10 w-32 h-32 bg-blue-500/10 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-10 left-10 w-40 h-40 bg-blue-600/10 rounded-full blur-3xl"></div>
+          <div className="relative z-10 max-w-6xl mx-auto">
+            {/* Header */}
+            <div className="text-center mb-8">
+              <span className="inline-block px-4 py-1 bg-gradient-to-r from-blue-500 to-blue-600 text-white text-xs font-bold rounded-full mb-4">
+                PROFESSIONAL COACHING
+              </span>
+              <h2 className='text-3xl md:text-4xl text-white font-bold gymfont mb-2'>
+                Personal Training
+              </h2>
+              <p className="text-gray-300 text-sm md:text-base">Transform your body with expert guidance</p>
+              <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-blue-600 mx-auto mt-4 rounded-full"></div>
+            </div>
+
+            {/* الزر */}
             <button
               onClick={() => setShowPT(!showPT)}
-              className='w-full max-w-2xl mx-auto text-2xl md:text-3xl text-blue-600 font-bold gymfont bg-white hover:bg-white/80 px-6 md:px-8 py-4 rounded-lg transition-all duration-300 flex items-center justify-center gap-3 shadow-lg'
+              className='w-full max-w-2xl mx-auto text-xl md:text-2xl text-white font-bold gymfont bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 px-6 md:px-8 py-5 rounded-2xl transition-all duration-500 flex items-center justify-center gap-3 shadow-2xl transform hover:scale-105 active:scale-95 border-2 border-blue-400/30'
             >
               <i className="fa-solid fa-dumbbell"></i>
-              Personal Training (PT)
-              <i className={`fas fa-chevron-${showPT ? 'up' : 'down'} transition-transform duration-300`}></i>
+              {showPT ? 'Hide' : 'View'} PT Packages
+              <i className={`fas fa-chevron-${showPT ? 'up' : 'down'} transition-all duration-500 transform ${showPT ? 'rotate-180' : ''}`}></i>
             </button>
 
             {/* محتوى PT عند الفتح */}
-            {showPT && (
-              <div className='pt-6 animate-fade-in'>
+            <div className={`overflow-hidden transition-all duration-700 ease-in-out ${showPT ? 'max-h-[5000px] opacity-100' : 'max-h-0 opacity-0'}`}>
+              <div className='pt-8'>
                 <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
                   {ptPackages.length === 0 ? (
                     <div className="col-span-full text-center py-8">
-                      <i className="text-3xl text-white fa-solid fa-spinner fa-spin" />
-                      <p className="text-blue-600 mt-4">Loading PT Packages...</p>
+                      <i className="text-3xl text-blue-400 fa-solid fa-spinner fa-spin" />
+                      <p className="text-blue-400 mt-4 animate-pulse">Loading PT Packages...</p>
                     </div>
                   ) : (
-                    ptPackages.map((pkg) => {
+                    ptPackages.map((pkg, index) => {
                       const hasDiscount = pkg.price_discount && parseFloat(pkg.price_discount) > 0;
                       const finalPrice = hasDiscount ? parseFloat(pkg.price_discount) : parseFloat(pkg.price);
                       const pricePerSession = calculatePricePerSession(finalPrice, pkg.sessions);
 
                       return (
-                        <div key={pkg.id} className="glass w-full border-2 border-blue-500/30 hover:border-blue-500/50 transition-all">
-                          <div className="bg-white text-blue-600 p-3 rounded-t-lg">
-                            <h3 className='font-bold text-2xl gymfont text-center'>
-                              <i className="fa-solid fa-dumbbell pr-2"></i> 
+                        <div 
+                          key={pkg.id} 
+                          className="group relative bg-gradient-to-br from-blue-900/40 via-blue-800/30 to-transparent backdrop-blur-sm border-2 border-blue-500/30 hover:border-blue-400 rounded-2xl transition-all duration-500 transform hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/30 hover:-translate-y-2 overflow-hidden"
+                          style={{
+                            animation: `fadeInUp 0.6s ease-out ${index * 0.1}s both`
+                          }}
+                        >
+                          {/* Shine effect */}
+                          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                          
+                          <div className="relative bg-gradient-to-r from-blue-600 to-blue-500 p-4 rounded-t-2xl">
+                            <h3 className='font-bold text-2xl gymfont text-center text-white flex items-center justify-center gap-2'>
+                              <i className="fa-solid fa-dumbbell transform group-hover:rotate-180 transition-transform duration-500"></i> 
                               {pkg.sessions} Sessions
                             </h3>
                           </div>
 
-                          <div className='p-4'>
+                          <div className='p-6'>
                             {/* السعر */}
                             <div className='mb-4'>
-                              <p className='text-sm text-gray-400 mb-1'>Total Price:</p>
+                              <p className='text-xs text-gray-400 mb-2 uppercase tracking-wider'>Total Investment:</p>
                               <div className='flex items-center justify-between'>
                                 {hasDiscount ? (
                                   <>
-                                    <span className="text-lg line-through text-gray-400">
+                                    <span className="text-lg line-through text-gray-500">
                                       {pkg.price} EGP
                                     </span>
-                                    <span className="text-2xl font-bold text-blue-400">
+                                    <span className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-blue-300 bg-clip-text text-transparent">
                                       {pkg.price_discount} EGP
                                     </span>
                                   </>
                                 ) : (
-                                  <span className="text-2xl font-bold text-white">
+                                  <span className="text-3xl font-bold text-white">
                                     {pkg.price} EGP
                                   </span>
                                 )}
@@ -143,38 +157,47 @@ export default function Home() {
                             </div>
 
                             {/* سعر الحصة الواحدة */}
-                            <div className='bg-blue-900/30 p-3 rounded-lg mb-4 border border-blue-500/20'>
-                              <p className='text-sm text-gray-300 mb-1 text-center'>Price per session:</p>
-                              <div className='flex items-center justify-center gap-2'>
-                                <i className="fa-solid fa-tag text-blue-400"></i>
-                                <span className='text-3xl font-bold text-blue-400'>
-                                  {pricePerSession} EGP
+                            <div className='relative bg-gradient-to-br from-blue-600/40 to-blue-800/40 p-4 rounded-xl mb-4 border border-blue-400/30 backdrop-blur-sm overflow-hidden group/price hover:scale-105 transition-transform duration-300'>
+                              <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-transparent opacity-0 group-hover/price:opacity-100 transition-opacity duration-500"></div>
+                              <p className='text-xs text-gray-300 mb-2 text-center uppercase tracking-wider relative z-10'>Price per session:</p>
+                              <div className='flex items-center justify-center gap-2 relative z-10'>
+                                <i className="fa-solid fa-tag text-blue-400 animate-pulse"></i>
+                                <span className='text-4xl font-bold bg-gradient-to-r from-blue-300 to-blue-400 bg-clip-text text-transparent'>
+                                  {pricePerSession}
                                 </span>
+                                <span className='text-2xl font-bold text-blue-300'>EGP</span>
                               </div>
                             </div>
 
                             {/* تفاصيل إضافية */}
-                            <ul className='text-start text-gray-300 space-y-2 mb-4'>
-                              <li className='flex items-center gap-2'>
-                                <i className='fa-solid fa-check text-blue-400'></i>
-                                <span>{pkg.sessions} Personal Training Sessions</span>
-                              </li>
-                              <li className='flex items-center gap-2'>
-                                <i className='fa-solid fa-check text-blue-400'></i>
-                                <span>Professional Coach</span>
-                              </li>
-                              <li className='flex items-center gap-2'>
-                                <i className='fa-solid fa-check text-blue-400'></i>
-                                <span>Customized Training Plan</span>
-                              </li>
+                            <ul className='space-y-3 mb-6'>
+                              {[
+                                { icon: 'fa-user-tie', text: `${pkg.sessions} Personal Training Sessions` },
+                                { icon: 'fa-medal', text: 'Professional Coach' },
+                                { icon: 'fa-clipboard-list', text: 'Customized Training Plan' }
+                              ].map((item, i) => (
+                                <li 
+                                  key={i}
+                                  className='flex items-center gap-3 text-gray-200 transform transition-all duration-300 hover:translate-x-2 hover:text-white group/item'
+                                >
+                                  <div className="w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center group-hover/item:bg-blue-500/40 transition-colors duration-300">
+                                    <i className={`fa-solid ${item.icon} text-blue-400 text-sm group-hover/item:scale-125 transition-transform duration-300`}></i>
+                                  </div>
+                                  <span className="text-sm font-medium">{item.text}</span>
+                                </li>
+                              ))}
                             </ul>
 
                             {/* زر الحجز */}
                             <button
                               onClick={() => handlePTBook(pkg)}
-                              className='w-full px-4 text-lg py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all duration-300 font-bold'
+                              className='w-full px-6 text-lg py-4 bg-gradient-to-r from-blue-600 to-blue-500 text-white rounded-xl hover:from-blue-500 hover:to-blue-400 transition-all duration-500 font-bold transform hover:scale-105 hover:shadow-xl hover:shadow-blue-500/50 active:scale-95 relative overflow-hidden group/btn'
                             >
-                              Book Now
+                              <span className="relative z-10 flex items-center justify-center gap-2">
+                                <i className="fa-solid fa-calendar-check"></i>
+                                Book Now
+                              </span>
+                              <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-blue-300 transform scale-x-0 group-hover/btn:scale-x-100 transition-transform duration-500 origin-left"></div>
                             </button>
                           </div>
                         </div>
@@ -183,147 +206,260 @@ export default function Home() {
                   )}
                 </div>
               </div>
-            )}
+            </div>
           </div>
-        </div>
+        </section>
 
         {/* ==================== قسم العروض العادية ==================== */}
-        <div className='w-full py-9'>
-          <div className="max-w-4xl mx-auto px-4">
+        <section className='relative w-full py-16 px-4 overflow-hidden'>
+          {/* Background */}
+          <div className="absolute inset-0 bg-gradient-to-br from-blue-500/15 via-blue-900/25 to-transparent"></div>
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-blue-400/15 via-transparent to-transparent"></div>
+          
+          {/* Decorative Elements */}
+          <div className="absolute top-20 left-20 w-40 h-40 bg-blue-500/10 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-20 right-20 w-48 h-48 bg-blue-600/10 rounded-full blur-3xl"></div>
+          
+          <div className="relative z-10 max-w-6xl mx-auto">
+            {/* Header */}
+            <div className="text-center mb-8">
+              <span className="inline-block px-4 py-1 bg-gradient-to-r from-blue-500 to-blue-600 text-white text-xs font-bold rounded-full mb-4">
+                BEST VALUE
+              </span>
+              <h2 className='text-3xl md:text-4xl text-white font-bold gymfont mb-2'>
+                Our Offers
+              </h2>
+              <p className="text-gray-300 text-sm md:text-base">Complete packages for your fitness journey</p>
+              <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-blue-600 mx-auto mt-4 rounded-full"></div>
+            </div>
+
             <button
               onClick={() => setShowOffers(!showOffers)}
-              className='w-full max-w-2xl mx-auto text-2xl md:text-3xl text-white font-bold gymfont bg-blue-600 hover:bg-blue-700 px-6 md:px-8 py-4 rounded-lg transition-all duration-300 flex items-center justify-center gap-3 shadow-lg'
+              className='w-full max-w-2xl mx-auto text-xl md:text-2xl text-white font-bold gymfont bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 px-6 md:px-8 py-5 rounded-2xl transition-all duration-500 flex items-center justify-center gap-3 shadow-2xl transform hover:scale-105 active:scale-95 border-2 border-blue-400/30'
             >
-              Our Offers
-              <i className={`fas fa-chevron-${showOffers ? 'up' : 'down'} transition-transform duration-300`}></i>
+              <span className="relative z-10">{showOffers ? 'Hide' : 'View'} All Offers</span>
+              <i className={`fas fa-chevron-${showOffers ? 'up' : 'down'} transition-all duration-500 transform ${showOffers ? 'rotate-180' : ''} relative z-10`}></i>
             </button>
 
-            {showOffers && (
-              <div className='pt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-fade-in'>
+            <div className={`overflow-hidden transition-all duration-700 ease-in-out ${showOffers ? 'max-h-[5000px] opacity-100' : 'max-h-0 opacity-0'}`}>
+              <div className='pt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
                 {offers.length === 0 ? (
                   <div className="col-span-full text-center py-8">
                     <i className="text-3xl text-blue-400 fa-solid fa-spinner fa-spin" />
                   </div>
                 ) : (
-                  offers.map((offer) => (
-                    <div key={offer.id} className="glass">
-                      <h3 className='p-1 font-bold text-xl gymfont text-blue-600'>
-                        <i className="fa-solid fa-dumbbell pr-2"></i> {offer.duration}
-                      </h3>
-
-                      <div className='flex justify-between'>
-                        {offer.price_new && offer.price_new !== "0" ? (
-                          <>
-                            <h3 className="p-1 font-bold text-lg line-through text-gray-400">
-                              {offer.price} EGP
-                            </h3>
-                            <h3 className="p-1 font-bold text-lg text-blue-600">
-                              {offer.price_new} EGP
-                            </h3>
-                          </>
-                        ) : (
-                          <h3 className="p-1 font-bold text-lg">
-                            {offer.price} EGP
-                          </h3>
-                        )}
+                  offers.map((offer, index) => (
+                    <div 
+                      key={offer.id} 
+                      className="group relative bg-gradient-to-br from-blue-900/40 via-blue-800/30 to-transparent backdrop-blur-sm border-2 border-blue-500/30 hover:border-blue-400 rounded-2xl transition-all duration-500 transform hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/30 hover:-translate-y-2 overflow-hidden"
+                      style={{
+                        animation: `fadeInUp 0.6s ease-out ${index * 0.1}s both`
+                      }}
+                    >
+                      {/* Shine effect */}
+                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                      
+                      {/* Header */}
+                      <div className="relative bg-gradient-to-r from-blue-600 to-blue-500 p-4 rounded-t-2xl">
+                        <h3 className='font-bold text-xl gymfont text-white flex items-center justify-center gap-2'>
+                          <i className="fa-solid fa-dumbbell transform group-hover:rotate-180 transition-transform duration-500"></i>
+                          {offer.duration}
+                        </h3>
                       </div>
 
-                      <ul className='p-1 text-start text-white-700'>
-                        <li className='p-1 font-semibold'>
-                          <i className='pr-1 fa-solid fa-check'></i> {offer.private} Sessions Personal Training
-                        </li>
-                        <li className='p-1 font-semibold'>
-                          <i className='pr-1 fa-solid fa-check'></i> {offer.inbody} Sessions In Inbody
-                        </li>
-                        <li className='p-1 font-semibold'>
-                          <i className='pr-1 fa-solid fa-check'></i> {offer.invite} Sessions Invitations
-                        </li>
-                        <li className='p-1 font-semibold'>
-                          <i className='pr-1 fa-solid fa-check'></i> ALL Classes
-                        </li>
-                        <li className='p-1 font-semibold'>
-                          <i className='pr-1 fa-solid fa-check'></i> SPA
-                        </li>
-                      </ul>
-                      <button
-                        onClick={() => handlebook(offer)}
-                        className='w-full px-4 text-lg py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all duration-300 font-bold'
-                      >
-                        Book Now
-                      </button>
+                      <div className='p-6'>
+                        {/* Price */}
+                        <div className='flex items-center justify-between mb-6 pb-4 border-b border-blue-500/20'>
+                          {offer.price_new && offer.price_new !== "0" ? (
+                            <>
+                              <div className="flex flex-col">
+                                <span className="text-xs text-gray-400 uppercase tracking-wider mb-1">Was</span>
+                                <span className="text-lg line-through text-gray-500">
+                                  {offer.price} EGP
+                                </span>
+                              </div>
+                              <div className="flex flex-col items-end">
+                                <span className="text-xs text-blue-400 uppercase tracking-wider mb-1">Now</span>
+                                <span className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-blue-300 bg-clip-text text-transparent">
+                                  {offer.price_new} EGP
+                                </span>
+                              </div>
+                            </>
+                          ) : (
+                            <span className="text-3xl font-bold text-white mx-auto">
+                              {offer.price} EGP
+                            </span>
+                          )}
+                        </div>
+
+                        {/* Features */}
+                        <ul className='space-y-3 mb-6'>
+                          {[
+                            { icon: 'fa-user-tie', text: `${offer.private} Sessions Personal Training` },
+                            { icon: 'fa-weight-scale', text: `${offer.inbody} Sessions In Inbody` },
+                            { icon: 'fa-user-plus', text: `${offer.invite} Sessions Invitations` },
+                            { icon: 'fa-calendar-days', text: 'ALL Classes' },
+                            { icon: 'fa-spa', text: 'SPA' }
+                          ].map((item, i) => (
+                            <li 
+                              key={i}
+                              className='flex items-center gap-3 text-gray-200 transform transition-all duration-300 hover:translate-x-2 hover:text-white group/item'
+                            >
+                              <div className="w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center group-hover/item:bg-blue-500/40 transition-colors duration-300 flex-shrink-0">
+                                <i className={`fa-solid ${item.icon} text-blue-400 text-xs group-hover/item:scale-125 transition-transform duration-300`}></i>
+                              </div>
+                              <span className="text-sm font-medium">{item.text}</span>
+                            </li>
+                          ))}
+                        </ul>
+
+                        {/* Book Button */}
+                        <button
+                          onClick={() => handlebook(offer)}
+                          className='w-full px-6 text-lg py-4 bg-gradient-to-r from-blue-600 to-blue-500 text-white rounded-xl hover:from-blue-500 hover:to-blue-400 transition-all duration-500 font-bold transform hover:scale-105 hover:shadow-xl hover:shadow-blue-500/50 active:scale-95 relative overflow-hidden group/btn'
+                        >
+                          <span className="relative z-10 flex items-center justify-center gap-2">
+                            <i className="fa-solid fa-calendar-check"></i>
+                            Book Now
+                          </span>
+                          <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-blue-300 transform scale-x-0 group-hover/btn:scale-x-100 transition-transform duration-500 origin-left"></div>
+                        </button>
+                      </div>
                     </div>
                   ))
                 )}
               </div>
-            )}
+            </div>
           </div>
-        </div>
+        </section>
 
-        {/* ==================== قسم العروض بخصم 33% ==================== */}
-        <div className='w-full py-9'>
-          <div className="max-w-4xl mx-auto px-4">
+ {/* ==================== قسم العروض بخصم 33% ==================== */}
+        <section className='relative w-full py-16 px-4 overflow-hidden'>
+          {/* Background */}
+          <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 via-blue-900/30 to-transparent"></div>
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-500/20 via-transparent to-transparent"></div>
+          
+          {/* Decorative Elements */}
+          <div className="absolute top-10 left-10 w-32 h-32 bg-blue-500/10 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-10 right-10 w-40 h-40 bg-blue-600/10 rounded-full blur-3xl"></div>
+          
+          <div className="relative z-10 max-w-6xl mx-auto">
+            {/* Header */}
+            <div className="text-center mb-8">
+              <span className="inline-block px-4 py-1 bg-gradient-to-r from-blue-500 to-blue-600 text-white text-xs font-bold rounded-full mb-4 animate-pulse">
+                LIMITED TIME OFFER
+              </span>
+              <h2 className='text-3xl md:text-4xl text-white font-bold gymfont mb-2'>
+                33% OFF 
+              </h2>
+              <p className="text-gray-300 text-sm md:text-base">Valid only from 3 AM to 3 PM</p>
+              <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-blue-600 mx-auto mt-4 rounded-full"></div>
+            </div>
+
+            {/* الزر */}
             <button
               onClick={() => setShowOffers33(!showOffers33)}
-              className='w-full max-w-2xl mx-auto text-2xl md:text-3xl text-white font-bold gymfont bg-gray-700 hover:bg-gray-600 px-6 md:px-8 py-4 rounded-lg transition-all duration-300 flex items-center justify-center gap-3 shadow-lg'
+              className='w-full max-w-2xl mx-auto text-xl md:text-2xl text-white font-bold gymfont bg-gradient-to-r from-blue-600 to-blue-600 hover:from-blue-500 hover:to-blue-500 px-6 md:px-8 py-5 rounded-2xl transition-all duration-500 flex items-center justify-center gap-3 shadow-2xl transform hover:scale-105 active:scale-95 border-2 border-blue-400/30'
             >
-              33% OFF Offers
-              <i className={`fas fa-chevron-${showOffers33 ? 'up' : 'down'} transition-transform duration-300`}></i>
+              <i className="fa-solid fa-tag"></i>
+              {showOffers33 ? 'Hide' : 'View'} 33% OFF Offers
+              <i className={`fas fa-chevron-${showOffers33 ? 'up' : 'down'} transition-all duration-500 transform ${showOffers33 ? 'rotate-180' : ''}`}></i>
             </button>
-            
-            {showOffers33 && (
-              <>
-                <p className='text-white text-xl mt-4 text-center'>The offer is valid only from 3 AM to 3 PM.</p>
-                
-                <div className='pt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-fade-in'>
+
+            {/* محتوى العروض عند الفتح */}
+            <div className={`overflow-hidden transition-all duration-700 ease-in-out ${showOffers33 ? 'max-h-[5000px] opacity-100' : 'max-h-0 opacity-0'}`}>
+              <div className='pt-8'>
+                <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
                   {offers33.length === 0 ? (
                     <div className="col-span-full text-center py-8">
-                      <i className="text-3xl text-white fa-solid fa-spinner fa-spin" />
+                      <i className="text-3xl text-blue-400 fa-solid fa-spinner fa-spin" />
+                      <p className="text-blue-400 mt-4 animate-pulse">Loading Special Offers...</p>
                     </div>
                   ) : (
-                    offers33.map((offer) => (
-                      <div key={`33-${offer.id}`} className="glass">
-                        <h3 className='p-1 font-bold text-xl gymfont text-white'>
-                          <i className="fa-solid fa-dumbbell pr-2"></i> {offer.duration}
-                        </h3>
+                    offers33.map((offer, index) => (
+                      <div 
+                        key={`33-${offer.id}`} 
+                        className="group relative bg-gradient-to-br from-blue-900/40 via-blue-800/30 to-transparent backdrop-blur-sm border-2 border-blue-500/30 hover:border-blue-400 rounded-2xl transition-all duration-500 transform hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/30 hover:-translate-y-2 overflow-hidden"
+                        style={{
+                          animation: `fadeInUp 0.6s ease-out ${index * 0.1}s both`
+                        }}
+                      >
+                        {/* Shine effect */}
+                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                        
+                        {/* Discount Badge */}
+                        <div className="absolute top-4 right-4 z-20">
+                          <div className="bg-gradient-to-r from-blue-500 to-blue-600 text-white px-3 py-1 rounded-full text-xs font-bold animate-pulse shadow-lg">
+                            33% OFF
+                          </div>
+                        </div>
 
-                        <div className='flex justify-between'>
-                          <h3 className="p-1 font-bold text-lg line-through text-gray-400">
-                            {offer.price} EGP
-                          </h3>
-                          <h3 className="p-1 font-bold text-lg text-white-600">
-                            {offer.price_new} EGP
+                        {/* Header */}
+                        <div className="relative bg-gradient-to-r from-blue-600 to-blue-600 p-4 rounded-t-2xl">
+                          <h3 className='font-bold text-2xl gymfont text-center text-white flex items-center justify-center gap-2'>
+                            <i className="fa-solid fa-dumbbell transform group-hover:rotate-180 transition-transform duration-500"></i> 
+                            {offer.duration}
                           </h3>
                         </div>
 
-                        <ul className='p-1 text-start text-white-700'>
-                          <li className='p-1 font-semibold'>
-                            <i className='pr-1 fa-solid fa-check'></i> {offer.private} Sessions Personal Training
-                          </li>
-                          <li className='p-1 font-semibold'>
-                            <i className='pr-1 fa-solid fa-check'></i> {offer.inbody} Sessions In Inbody
-                          </li>
-                          <li className='p-1 font-semibold'>
-                            <i className='pr-1 fa-solid fa-check'></i> {offer.invite} Sessions Invitations
-                          </li>
-                          <li className='p-1 font-semibold'>
-                            <i className='pr-1 fa-solid fa-check'></i> SPA
-                          </li>
-                        </ul>
+                        <div className='p-6'>
+                          {/* السعر */}
+                          <div className='flex items-center justify-between mb-6 pb-4 border-b border-blue-500/20'>
+                            <div className="flex flex-col">
+                              <span className="text-xs text-gray-400 uppercase tracking-wider mb-1">Was</span>
+                              <span className="text-lg line-through text-gray-500">
+                                {offer.price} EGP
+                              </span>
+                            </div>
+                            <div className="flex flex-col items-end">
+                              <span className="text-xs text-blue-400 uppercase tracking-wider mb-1">Now</span>
+                              <span className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-blue-400 bg-clip-text text-transparent animate-pulse">
+                                {offer.price_new} EGP
+                              </span>
+                            </div>
+                          </div>
 
-                        <button
-                          onClick={() => handlebook(offer)}
-                          className='w-full px-4 text-lg py-2 bg-gray-600 text-white rounded-lg hover:bg-blue-700 transition-all duration-300 font-bold'
-                        >
-                          Book Now 
-                        </button>
+                          {/* Features */}
+                          <ul className='space-y-3 mb-6'>
+                            {[
+                              { icon: 'fa-user-tie', text: `${offer.private} Sessions Personal Training` },
+                              { icon: 'fa-weight-scale', text: `${offer.inbody} Sessions In Inbody` },
+                              { icon: 'fa-user-plus', text: `${offer.invite} Sessions Invitations` },
+                              { icon: 'fa-calendar-days', text: 'ALL Classes' },
+                              { icon: 'fa-spa', text: 'SPA' }
+                            ].map((item, i) => (
+                              <li 
+                                key={i}
+                                className='flex items-center gap-3 text-gray-200 transform transition-all duration-300 hover:translate-x-2 hover:text-white group/item'
+                              >
+                                <div className="w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center group-hover/item:bg-blue-500/40 transition-colors duration-300 flex-shrink-0">
+                                  <i className={`fa-solid ${item.icon} text-blue-400 text-xs group-hover/item:scale-125 transition-transform duration-300`}></i>
+                                </div>
+                                <span className="text-sm font-medium">{item.text}</span>
+                              </li>
+                            ))}
+                          </ul>
+
+                          {/* Book Button */}
+                          <button
+                            onClick={() => handlebook(offer)}
+                            className='w-full px-6 text-lg py-4 bg-gradient-to-r from-blue-600 to-blue-600 text-white rounded-xl hover:from-blue-500 hover:to-blue-500 transition-all duration-500 font-bold transform hover:scale-105 hover:shadow-xl hover:shadow-blue-500/50 active:scale-95 relative overflow-hidden group/btn'
+                          >
+                            <span className="relative z-10 flex items-center justify-center gap-2">
+                              <i className="fa-solid fa-calendar-check"></i>
+                              Book Now
+                            </span>
+                            <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-blue-400 transform scale-x-0 group-hover/btn:scale-x-100 transition-transform duration-500 origin-left"></div>
+                          </button>
+                        </div>
                       </div>
                     ))
                   )}
                 </div>
-              </>
-            )}
+              </div>
+            </div>
           </div>
-        </div>
+        </section>
 
         <div className="marquee">
           <p className="ml-11">
@@ -336,20 +472,33 @@ export default function Home() {
 
         <Coaches />
 
-        <div className='flex justify-evenly'>
-          <div className="w-1/3 rounded-xl p-3 text-center">
-            <i className="fas fa-clock text-xl text-blue-400 mb-1"></i>
+        <div className='flex justify-evenly transform transition-all duration-700 ease-out'>
+          <div className="w-1/3 rounded-xl p-3 text-center transform transition-all duration-500 hover:scale-110 hover:-translate-y-2">
+            <i className="fas fa-clock text-xl text-blue-400 mb-1 animate-pulse"></i>
             <p className="text-white font-bold text-sm">24/7</p>
             <p className="text-gray-300 text-xs">Open</p>
           </div>
 
-          <div className="w-1/3 rounded-xl p-3 text-center">
-            <i className="fas fa-wifi text-xl text-blue-400 mb-1"></i>
+          <div className="w-1/3 rounded-xl p-3 text-center transform transition-all duration-500 hover:scale-110 hover:-translate-y-2">
+            <i className="fas fa-wifi text-xl text-blue-400 mb-1 animate-pulse"></i>
             <p className="text-white font-bold text-sm">FREE</p>
             <p className="text-gray-300 text-xs">Wi-Fi</p>
           </div>
         </div>
       </div>
+
+      <style jsx>{`
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+      `}</style>
     </>
   );
 }

@@ -11,12 +11,12 @@
     },
     {
       "id": 2,
-      "duration": "2 Months",
+      "duration": "3 Months",
       "price": "1600",
       "price_new": "1000",
-      "private": "2",
-      "inbody": "2",
-      "invite": "2"
+      "private": "3",
+      "inbody": "3",
+      "invite": "3"
     },
     {
       "id": 3,
