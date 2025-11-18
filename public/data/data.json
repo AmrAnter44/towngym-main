@@ -105,7 +105,7 @@
       "id": 1,
       "classname": "Functional Training",
       "day": "Saturday",
-      "time1": "8:30",
+      "time1": "8",
       "coachname": "Zima",
       "mix": "Mix",
       "mem": false
@@ -182,20 +182,12 @@
       "mix": "Ladies",
       "mem": false
     },
-    {
-      "id": 10,
-      "classname": "Superman Kids",
-      "day": "Thursday",
-      "time1": "6:00",
-      "coachname": "Zima",
-      "mix": "Mix",
-      "mem": true
-    },
+
     {
       "id": 11,
       "classname": "Core",
       "day": "Thursday",
-      "time1": "8:30",
+      "time1": "8",
       "coachname": "Zima",
       "mix": "Mix",
       "mem": false
