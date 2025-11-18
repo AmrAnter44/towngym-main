@@ -11,10 +11,10 @@
     },
     {
       "id": 2,
-      "duration": "2 Months",
-      "price": "1600",
-      "price_new": "1000",
-      "private": "2",
+      "duration": "3 Months",
+      "price": "1800",
+      "price_new": "1500",
+      "private": "3",
       "inbody": "2",
       "invite": "2"
     },
@@ -22,19 +22,19 @@
       "id": 3,
       "duration": "6 Months",
       "price": "2800",
-      "price_new": "2000",
-      "private": "6",
-      "inbody": "6",
-      "invite": "6"
+      "price_new": "0",
+      "private": "4",
+      "inbody": "4",
+      "invite": "4"
     },
     {
       "id": 4,
-      "duration": "12 Months",
+      "duration": "12 Months + 1 Month Free",
       "price": "4500",
       "price_new": "0",
-      "private": "12",
-      "inbody": "12",
-      "invite": "12"
+      "private": "6",
+      "inbody": "6",
+      "invite": "6"
     }
   ],
   "pt_packages": [
