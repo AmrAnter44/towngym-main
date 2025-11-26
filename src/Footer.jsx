@@ -27,9 +27,9 @@ export default function Footer() {
       </footer>
 
       <p className="text-center bg-black">
-        Direct by{" "}
-        <a href="https://tamyaz.online/" className="text-blue-600">
-          Tamyaz
+          Powered by{" "}
+        <a href="https://fitboost.website/" className="text-blue-600">
+         FitBoost           {" "}© {new Date().getFullYear()}
         </a>
       </p>
 
