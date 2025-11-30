@@ -67,7 +67,7 @@ export default function Home() {
       <Nav2 />
       
       <div className="mt-20 space-y-8">
-    <BlackFridayOffer />
+    {/* <BlackFridayOffer /> */}
 
         {/* ==================== قسم PT (الجديد) ==================== */}
         <section className='relative w-full py-16 px-4 overflow-hidden'>
