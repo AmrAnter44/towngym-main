@@ -65,6 +65,13 @@
   ],
   "coaches": [
     {
+      "id": 0,
+      "name": "mostafa",
+      "img": "/coaches/mostafa.jpg",
+      "title": "Genreal Manager",
+      "link": "https://instagram.com/coach1"
+    },
+    {
       "id": 1,
       "name": "Zema",
       "img": "/coaches/zema.jpg",
@@ -80,20 +87,27 @@
     },
     {
       "id": 3,
+      "name": "mostafa",
+      "img": "/coaches/cmostafa.jpg",
+      "title": "Coach",
+      "link": "https://instagram.com/coach2"
+    },
+    {
+      "id": 4,
       "name": "Mohamed",
       "img": "/coaches/mohamed.jpg",
       "title": "Coach",
       "link": "https://instagram.com/coach3"
     },
     {
-      "id": 4,
+      "id": 5,
       "name": "Bogy",
       "img": "/coaches/bogy.jpg",
       "title": "Coach",
       "link": "https://instagram.com/coach3"
     },
     {
-      "id": 5,
+      "id": 6,
       "name": "Saif",
       "img": "/coaches/saif.jpg",
       "title": "Coach",
