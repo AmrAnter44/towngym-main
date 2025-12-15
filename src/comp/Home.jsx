@@ -333,18 +333,18 @@ export default function Home() {
           </div>
         </section>
 
- {/* ==================== قسم العروض بخصم 33% ==================== */}
-        <section className='relative w-full py-16 px-4 overflow-hidden'>
-          {/* Background */}
+ ==================== قسم العروض بخصم 33% ====================
+        {/* <section className='relative w-full py-16 px-4 overflow-hidden'>
+  
           <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 via-blue-900/30 to-transparent"></div>
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-500/20 via-transparent to-transparent"></div>
           
-          {/* Decorative Elements */}
+
           <div className="absolute top-10 left-10 w-32 h-32 bg-blue-500/10 rounded-full blur-3xl"></div>
           <div className="absolute bottom-10 right-10 w-40 h-40 bg-blue-600/10 rounded-full blur-3xl"></div>
           
           <div className="relative z-10 max-w-6xl mx-auto">
-            {/* Header */}
+           
             <div className="text-center mb-8">
               <span className="inline-block px-4 py-1 bg-gradient-to-r from-blue-500 to-blue-600 text-white text-xs font-bold rounded-full mb-4 animate-pulse">
                 LIMITED TIME OFFER
@@ -356,7 +356,7 @@ export default function Home() {
               <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-blue-600 mx-auto mt-4 rounded-full"></div>
             </div>
 
-            {/* الزر */}
+     
             <button
               onClick={() => setShowOffers33(!showOffers33)}
               className='w-full max-w-2xl mx-auto text-xl md:text-2xl text-white font-bold gymfont bg-gradient-to-r from-blue-600 to-blue-600 hover:from-blue-500 hover:to-blue-500 px-6 md:px-8 py-5 rounded-2xl transition-all duration-500 flex items-center justify-center gap-3 shadow-2xl transform hover:scale-105 active:scale-95 border-2 border-blue-400/30'
@@ -366,7 +366,7 @@ export default function Home() {
               <i className={`fas fa-chevron-${showOffers33 ? 'up' : 'down'} transition-all duration-500 transform ${showOffers33 ? 'rotate-180' : ''}`}></i>
             </button>
 
-            {/* محتوى العروض عند الفتح */}
+    
             <div className={`overflow-hidden transition-all duration-700 ease-in-out ${showOffers33 ? 'max-h-[5000px] opacity-100' : 'max-h-0 opacity-0'}`}>
               <div className='pt-8'>
                 <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
@@ -384,17 +384,16 @@ export default function Home() {
                           animation: `fadeInUp 0.6s ease-out ${index * 0.1}s both`
                         }}
                       >
-                        {/* Shine effect */}
+                   
                         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
                         
-                        {/* Discount Badge */}
                         <div className="absolute top-4 right-4 z-20">
                           <div className="bg-gradient-to-r from-blue-500 to-blue-600 text-white px-3 py-1 rounded-full text-xs font-bold animate-pulse shadow-lg">
                             33% OFF
                           </div>
                         </div>
 
-                        {/* Header */}
+                    
                         <div className="relative bg-gradient-to-r from-blue-600 to-blue-600 p-4 rounded-t-2xl">
                           <h3 className='font-bold text-2xl gymfont text-center text-white flex items-center justify-center gap-2'>
                             <i className="fa-solid fa-dumbbell transform group-hover:rotate-180 transition-transform duration-500"></i> 
@@ -403,7 +402,7 @@ export default function Home() {
                         </div>
 
                         <div className='p-6'>
-                          {/* السعر */}
+                      
                           <div className='flex items-center justify-between mb-6 pb-4 border-b border-blue-500/20'>
                             <div className="flex flex-col">
                               <span className="text-xs text-gray-400 uppercase tracking-wider mb-1">Was</span>
@@ -419,7 +418,7 @@ export default function Home() {
                             </div>
                           </div>
 
-                          {/* Features */}
+                     
                           <ul className='space-y-3 mb-6'>
                             {[
                               { icon: 'fa-user-tie', text: `${offer.private} Sessions Personal Training` },
@@ -440,8 +439,7 @@ export default function Home() {
                             ))}
                           </ul>
 
-                          {/* Book Button */}
-                          <button
+                                    <button
                             onClick={() => handlebook(offer)}
                             className='w-full px-6 text-lg py-4 bg-gradient-to-r from-blue-600 to-blue-600 text-white rounded-xl hover:from-blue-500 hover:to-blue-500 transition-all duration-500 font-bold transform hover:scale-105 hover:shadow-xl hover:shadow-blue-500/50 active:scale-95 relative overflow-hidden group/btn'
                           >
@@ -459,7 +457,7 @@ export default function Home() {
               </div>
             </div>
           </div>
-        </section>
+        </section> */}
 
         <div className="marquee">
           <p className="ml-11">
