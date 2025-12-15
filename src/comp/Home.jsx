@@ -333,7 +333,7 @@ export default function Home() {
           </div>
         </section>
 
- ==================== قسم العروض بخصم 33% ====================
+
         {/* <section className='relative w-full py-16 px-4 overflow-hidden'>
   
           <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 via-blue-900/30 to-transparent"></div>
