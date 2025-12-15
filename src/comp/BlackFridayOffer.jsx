@@ -11,7 +11,7 @@ export default function BlackFridayOffer() {
 
   useEffect(() => {
     const calculateTimeLeft = () => {
-      const endDate = new Date('2025-11-29T23:59:59');
+      const endDate = new Date('2025-12-29T23:59:59');
       const now = new Date();
       const difference = endDate - now;
 
@@ -35,7 +35,7 @@ export default function BlackFridayOffer() {
 
   const handleBook = () => {
     const phone = "201028188900";  
-    const message = "Hello, I would like to book the Black Friday offer: 3 months + 2 free months for 1800 EGP";
+    const message = "Hello, I would like to book the Black Friday offer: 3 months for 1400 EGP";
     const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
     window.open(url, "whatsappWindow", "width=600,height=600,top=100,left=200");
   };
@@ -77,7 +77,7 @@ export default function BlackFridayOffer() {
           {/* Badge */}
           <div>
             <span className="inline-block px-4 py-1 bg-gradient-to-r from-blue-500 to-blue-600 text-white text-sm font-bold rounded-full">
-              BLACK FRIDAY
+              Offer
             </span>
           </div>
 
@@ -87,18 +87,18 @@ export default function BlackFridayOffer() {
               <div className="text-5xl font-bold text-white gymfont">3</div>
               <div className="text-xs text-blue-400 font-semibold">Months</div>
             </div>
-
+{/* 
             <div className="text-3xl text-blue-400 font-bold">+</div>
 
             <div className="text-center">
-              <div className="text-5xl font-bold text-blue-400 gymfont">2</div>
+              <div className="text-5xl font-bold text-blue-400 gymfont">1</div>
               <div className="text-xs text-white font-semibold">Free</div>
-            </div>
+            </div> */}
           </div>
 
           {/* Price */}
           <div className="flex items-center gap-2">
-            <span className="text-5xl font-bold text-white gymfont">1800</span>
+            <span className="text-5xl font-bold text-white gymfont">1400</span>
             <span className="text-xl font-bold text-blue-400">EGP</span>
           </div>
 
