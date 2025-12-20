@@ -87,6 +87,11 @@ export default function BlackFridayOffer() {
               <div className="text-5xl font-bold text-white gymfont">3</div>
               <div className="text-xs text-blue-400 font-semibold">Months</div>
             </div>
+                          <div className="text-5xl font-bold text-white gymfont">+</div>
+            <div className="text-center">
+              <div className="text-5xl font-bold text-white gymfont">1</div>
+              <div className="text-xs text-blue-400 font-semibold">PT</div>
+            </div>
 {/* 
             <div className="text-3xl text-blue-400 font-bold">+</div>
 
