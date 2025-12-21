@@ -77,20 +77,20 @@ export default function BlackFridayOffer() {
           {/* Badge */}
           <div>
             <span className="inline-block px-4 py-1 bg-gradient-to-r from-blue-500 to-blue-600 text-white text-sm font-bold rounded-full">
-              Offer
+             Winter Offer
             </span>
           </div>
 
           {/* Offer */}
           <div className="flex items-center gap-4">
             <div className="text-center">
-              <div className="text-5xl font-bold text-white gymfont">3</div>
-              <div className="text-xs text-blue-400 font-semibold">Months</div>
+              <div className="text-5xl font-bold text-white gymfont">1</div>
+              <div className="text-xs text-blue-400 font-semibold">Month</div>
             </div>
                           <div className="text-5xl font-bold text-white gymfont">+</div>
             <div className="text-center">
-              <div className="text-5xl font-bold text-white gymfont">1</div>
-              <div className="text-xs text-blue-400 font-semibold">PT</div>
+              <div className="text-5xl font-bold text-white gymfont">PT</div>
+              <div className="text-xs text-blue-400 font-semibold">Month</div>
             </div>
 {/* 
             <div className="text-3xl text-blue-400 font-bold">+</div>
@@ -103,7 +103,7 @@ export default function BlackFridayOffer() {
 
           {/* Price */}
           <div className="flex items-center gap-2">
-            <span className="text-5xl font-bold text-white gymfont">1400</span>
+            <span className="text-5xl font-bold text-white gymfont">2000</span>
             <span className="text-xl font-bold text-blue-400">EGP</span>
           </div>
 
