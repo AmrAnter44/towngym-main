@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import Nav2 from '../Nav2';
 import { dataService } from '../data/dataService';
 import BlackFridayOffer from './BlackFridayOffer'; // حط المسار الصح
+import Boxing from './Boxing';
+
 
 export default function Home() {
   const [offers, setOffers] = useState([]);
@@ -68,7 +70,7 @@ export default function Home() {
       
       <div className="mt-20 space-y-8">
     <BlackFridayOffer />
-
+    <Boxing/>
         {/* ==================== قسم PT (الجديد) ==================== */}
         <section className='relative w-full py-16 px-4 overflow-hidden'>
           {/* Background */}

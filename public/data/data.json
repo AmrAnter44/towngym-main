@@ -11,7 +11,7 @@
     },
     {
       "id": 2,
-      "duration": "3 Months",
+      "duration": "3 Months + 1 Free",
       "price": "1800",
       "price_new": "0",
       "private": "3",
@@ -60,7 +60,7 @@
       "id": 4,
       "sessions": 40,
       "price": "6000",
-      "price_discount": "0"
+      "price_discount": "4500"
     }
   ],
   "coaches": [

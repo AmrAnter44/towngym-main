@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 export default function BlackFridayOffer() {
-  const [isVisible, setIsVisible] = useState(true);
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
     hours: 0,
@@ -11,7 +10,7 @@ export default function BlackFridayOffer() {
 
   useEffect(() => {
     const calculateTimeLeft = () => {
-      const endDate = new Date('2025-12-29T23:59:59');
+      const endDate = new Date('2026-02-02T23:59:59');
       const now = new Date();
       const difference = endDate - now;
 
@@ -40,25 +39,15 @@ export default function BlackFridayOffer() {
     window.open(url, "whatsappWindow", "width=600,height=600,top=100,left=200");
   };
 
-  if (!isVisible) return null;
-
   return (
     <section className='relative w-full py-8 px-4 overflow-hidden'>
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 via-gray-900/30 to-black/50"></div>
-      
-      {/* Close Button */}
-      <button
-        onClick={() => setIsVisible(false)}
-        className="absolute top-2 right-2 z-20 w-7 h-7 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition-all duration-300"
-      >
-        <i className="fas fa-times text-white text-xs"></i>
-      </button>
 
       <div className="relative z-10 max-w-5xl mx-auto space-y-4">
         
         {/* Timer */}
-        <div className="flex justify-center gap-3">
+        {/* <div className="flex justify-center gap-3">
           {[
             { label: 'Days', value: timeLeft.days },
             { label: 'Hours', value: timeLeft.hours },
@@ -70,7 +59,7 @@ export default function BlackFridayOffer() {
               <div className="text-[10px] text-blue-400 font-semibold uppercase">{item.label}</div>
             </div>
           ))}
-        </div>
+        </div> */}
 
         <div className="bg-gradient-to-r from-blue-900/40 via-gray-900/50 to-black/60 backdrop-blur-sm border-2 border-blue-500/30 rounded-2xl p-6 flex flex-col md:flex-row items-center justify-between gap-6">
           
@@ -103,7 +92,7 @@ export default function BlackFridayOffer() {
 
           {/* Price */}
           <div className="flex items-center gap-2">
-            <span className="text-5xl font-bold text-white gymfont">2000</span>
+            <span className="text-5xl font-bold text-white gymfont">2500</span>
             <span className="text-xl font-bold text-blue-400">EGP</span>
           </div>
 
