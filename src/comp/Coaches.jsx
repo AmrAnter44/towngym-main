@@ -47,7 +47,7 @@ export default function Coaches() {
                   <div className="text-center py-8">
                     <i className="text-3xl text-blue-700 fa-solid fa-spinner fa-spin" />
                   </div>
-                ) :  (<a  href={coaches[current].link} target="_blank" rel="noopener noreferrer">
+                ) :  (
                   <div className="bg-black rounded-xl p-4 text-center">
                     <div className="mb-4">
                       <h3 className="text-lg md:text-xl font-bold text-white gymfont mb-1">
@@ -82,7 +82,7 @@ export default function Coaches() {
                         
                     </div>
                   </div>
-                  </a>
+                  
                 )}
               </div>
             </div>
