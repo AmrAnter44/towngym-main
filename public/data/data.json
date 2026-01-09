@@ -117,9 +117,9 @@
   "classes": [
     {
       "id": 1,
-      "classname": "Functional Training",
+      "classname": "Belly Dance",
       "day": "Saturday",
-      "time1": "8",
+      "time1": "8:30",
       "coachname": "Zima",
       "mix": "Mix",
       "mem": false
@@ -143,15 +143,6 @@
       "mem": false
     },
     {
-      "id": 4,
-      "classname": "Superman Kids",
-      "day": "Monday",
-      "time1": "6:00",
-      "coachname": "Zima",
-      "mix": "Mix",
-      "mem": true
-    },
-    {
       "id": 5,
       "classname": "Boxing",
       "day": "Monday",
@@ -171,10 +162,10 @@
     },
     {
       "id": 7,
-      "classname": "Zumba",
+      "classname": "brazillian",
       "day": "Tuesday",
-      "time1": "8:30",
-      "coachname": "Menna",
+      "time1": "9",
+      "coachname": "Sama",
       "mix": "Ladies",
       "mem": false
     },
@@ -182,18 +173,18 @@
       "id": 8,
       "classname": "Yoga",
       "day": "Tuesday",
-      "time1": "9:30",
+      "time1": "8",
       "coachname": "Aimlia",
       "mix": "Mix",
       "mem": false
     },
     {
       "id": 9,
-      "classname": "Belly Dance",
+      "classname": "functional training",
       "day": "Wednesday",
-      "time1": "8:30",
-      "coachname": "Samah",
-      "mix": "Ladies",
+      "time1": "8",
+      "coachname": "zima",
+      "mix": "Mix",
       "mem": false
     },
 
@@ -205,5 +196,15 @@
       "coachname": "Zima",
       "mix": "Mix",
       "mem": false
-    }]
+    },
+    {
+      "id": 12,
+      "classname": "Boxing",
+      "day": "Thursday",
+      "time1": "7",
+      "coachname": "Saif",
+      "mix": "Mix",
+      "mem": false
+    }
+  ]
 }
