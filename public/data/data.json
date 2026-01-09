@@ -160,22 +160,23 @@
       "mix": "Ladies",
       "mem": false
     },
+
     {
       "id": 7,
-      "classname": "brazillian",
-      "day": "Tuesday",
-      "time1": "9",
-      "coachname": "Sama",
-      "mix": "Ladies",
-      "mem": false
-    },
-    {
-      "id": 8,
       "classname": "Yoga",
       "day": "Tuesday",
       "time1": "8",
       "coachname": "Aimlia",
       "mix": "Mix",
+      "mem": false
+    },
+        {
+      "id": 8,
+      "classname": "brazillian",
+      "day": "Tuesday",
+      "time1": "9",
+      "coachname": "Sama",
+      "mix": "Ladies",
       "mem": false
     },
     {
@@ -187,24 +188,25 @@
       "mix": "Mix",
       "mem": false
     },
+        {
+      "id": 11,
+      "classname": "Boxing",
+      "day": "Thursday",
+      "time1": "7",
+      "coachname": "Saif",
+      "mix": "Mix",
+      "mem": true
+    }
 
     {
-      "id": 11,
+      "id": 12,
       "classname": "Core",
       "day": "Thursday",
       "time1": "8",
       "coachname": "Zima",
       "mix": "Mix",
       "mem": false
-    },
-    {
-      "id": 12,
-      "classname": "Boxing",
-      "day": "Thursday",
-      "time1": "7",
-      "coachname": "Saif",
-      "mix": "Mix",
-      "mem": false
     }
+
   ]
 }
