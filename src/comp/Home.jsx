@@ -4,50 +4,66 @@ import { Link } from 'react-router-dom';
 import Nav2 from '../Nav2';
 import { dataService } from '../data/dataService';
 import BlackFridayOffer from './BlackFridayOffer'; // حط المسار الصح
-import Boxing from './Boxing';
+
 
 
 export default function Home() {
-  const [offers, setOffers] = useState([]);
-  const [offers33, setOffers33] = useState([]);
+  const [memberships, setMemberships] = useState([]);
   const [ptPackages, setPtPackages] = useState([]);
-  const [showOffers, setShowOffers] = useState(false);
-  const [showOffers33, setShowOffers33] = useState(false);
+  const [showMemberships, setShowMemberships] = useState(false);
   const [showPT, setShowPT] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // fetch العروض العادية
-    dataService.getOffers().then(({ data }) => {
-      if (data) {
-        setOffers(data);
-        
-        // حساب العروض بخصم 33%
-        const discountedOffers = data.map(offer => {
-          const originalPrice = parseFloat(offer.price);
-          const priceAfterDiscount = originalPrice * 0.67;
-          const discountedPrice = Math.round(priceAfterDiscount / 10) * 10;
-          
+    // fetch Memberships
+    dataService.getMemberships().then(({ data, error }) => {
+      if (error) {
+        console.error('Error loading memberships:', error);
+      }
+      if (data && data.length > 0) {
+        console.log('🏋️ Memberships data:', data);
+
+        // تحويل البيانات من Supabase format إلى format المتوقع
+        const formattedMemberships = data.map(membership => {
+          const metadata = membership.metadata || {};
+
           return {
-            ...offer,
-            price: originalPrice,
-            price_new: discountedPrice
+            ...membership,
+            duration: membership.title_en || membership.duration || 'N/A',
+            // جرب الـ direct fields الأول ثم الـ metadata
+            private: membership.private || metadata.private || 0,
+            inbody: membership.inbody || metadata.inbody || 0,
+            invite: membership.invite || metadata.invite || 0,
+            price_new: membership.price_new || metadata.price_new || membership.original_price || null
           };
         });
-        setOffers33(discountedOffers);
+
+        console.log('✅ Formatted memberships:', formattedMemberships);
+        setMemberships(formattedMemberships);
       }
       setIsLoading(false);
     });
 
     // fetch باقات PT
-    dataService.getPtPackages().then(({ data }) => {
-      if (data) setPtPackages(data);
+    dataService.getPtPackages().then(({ data, error }) => {
+      if (error) {
+        console.error('Error loading PT packages:', error);
+      }
+      if (data && data.length > 0) {
+        // تحويل البيانات من Supabase format
+        const formattedPackages = data.map(pkg => ({
+          ...pkg,
+          sessions: pkg.metadata?.sessions || parseInt(pkg.title_en) || 0,
+          price_discount: pkg.metadata?.price_discount || null
+        }));
+        setPtPackages(formattedPackages);
+      }
     });
   }, []);
 
-  function handlebook(offer) {
-    const phone = "201028188900";  
-    const message = `Hello, I would like to book the ${offer.duration} offer.`;
+  function handleMembershipBook(membership) {
+    const phone = "201028188900";
+    const message = `Hello, I would like to book the ${membership.duration} membership.`;
     const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
     window.open(url, "whatsappWindow", "width=600,height=600,top=100,left=200");
   }
@@ -70,7 +86,7 @@ export default function Home() {
       
       <div className="mt-20 space-y-8">
     <BlackFridayOffer />
-    <Boxing/>
+
         {/* ==================== قسم PT (الجديد) ==================== */}
         <section className='relative w-full py-16 px-4 overflow-hidden'>
           {/* Background */}
@@ -114,9 +130,10 @@ export default function Home() {
                     </div>
                   ) : (
                     ptPackages.map((pkg, index) => {
-                      const hasDiscount = pkg.price_discount && parseFloat(pkg.price_discount) > 0;
-                      const finalPrice = hasDiscount ? parseFloat(pkg.price_discount) : parseFloat(pkg.price);
-                      const pricePerSession = calculatePricePerSession(finalPrice, pkg.sessions);
+                      // Check if there's an actual discount (original price > current price)
+                      const hasDiscount = pkg.original_price && parseFloat(pkg.original_price) > parseFloat(pkg.price);
+                      const currentPrice = parseFloat(pkg.price) || 0;
+                      const pricePerSession = calculatePricePerSession(currentPrice, pkg.sessions);
 
                       return (
                         <div 
@@ -144,10 +161,10 @@ export default function Home() {
                                 {hasDiscount ? (
                                   <>
                                     <span className="text-lg line-through text-gray-500">
-                                      {pkg.price} EGP
+                                      {pkg.original_price} EGP
                                     </span>
                                     <span className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-blue-300 bg-clip-text text-transparent">
-                                      {pkg.price_discount} EGP
+                                      {pkg.price} EGP
                                     </span>
                                   </>
                                 ) : (
@@ -212,47 +229,47 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ==================== قسم العروض العادية ==================== */}
+        {/* ==================== قسم Memberships ==================== */}
         <section className='relative w-full py-16 px-4 overflow-hidden'>
           {/* Background */}
           <div className="absolute inset-0 bg-gradient-to-br from-blue-500/15 via-blue-900/25 to-transparent"></div>
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-blue-400/15 via-transparent to-transparent"></div>
-          
+
           {/* Decorative Elements */}
           <div className="absolute top-20 left-20 w-40 h-40 bg-blue-500/10 rounded-full blur-3xl"></div>
           <div className="absolute bottom-20 right-20 w-48 h-48 bg-blue-600/10 rounded-full blur-3xl"></div>
-          
+
           <div className="relative z-10 max-w-6xl mx-auto">
             {/* Header */}
             <div className="text-center mb-8">
               <span className="inline-block px-4 py-1 bg-gradient-to-r from-blue-500 to-blue-600 text-white text-xs font-bold rounded-full mb-4">
-                BEST VALUE
+                MEMBERSHIP PLANS
               </span>
               <h2 className='text-3xl md:text-4xl text-white font-bold gymfont mb-2'>
-                Our Offers
+                Our Memberships
               </h2>
-              <p className="text-gray-300 text-sm md:text-base">Complete packages for your fitness journey</p>
+              <p className="text-gray-300 text-sm md:text-base">Choose the perfect plan for your fitness goals</p>
               <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-blue-600 mx-auto mt-4 rounded-full"></div>
             </div>
 
             <button
-              onClick={() => setShowOffers(!showOffers)}
+              onClick={() => setShowMemberships(!showMemberships)}
               className='w-full max-w-2xl mx-auto text-xl md:text-2xl text-white font-bold gymfont bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 px-6 md:px-8 py-5 rounded-2xl transition-all duration-500 flex items-center justify-center gap-3 shadow-2xl transform hover:scale-105 active:scale-95 border-2 border-blue-400/30'
             >
-              <span className="relative z-10">{showOffers ? 'Hide' : 'View'} All Offers</span>
-              <i className={`fas fa-chevron-${showOffers ? 'up' : 'down'} transition-all duration-500 transform ${showOffers ? 'rotate-180' : ''} relative z-10`}></i>
+              <span className="relative z-10">{showMemberships ? 'Hide' : 'View'} Memberships</span>
+              <i className={`fas fa-chevron-${showMemberships ? 'up' : 'down'} transition-all duration-500 transform ${showMemberships ? 'rotate-180' : ''} relative z-10`}></i>
             </button>
 
-            <div className={`overflow-hidden transition-all duration-700 ease-in-out ${showOffers ? 'max-h-[5000px] opacity-100' : 'max-h-0 opacity-0'}`}>
+            <div className={`overflow-hidden transition-all duration-700 ease-in-out ${showMemberships ? 'max-h-[5000px] opacity-100' : 'max-h-0 opacity-0'}`}>
               <div className='pt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
-                {offers.length === 0 ? (
+                {memberships.length === 0 ? (
                   <div className="col-span-full text-center py-8">
                     <i className="text-3xl text-blue-400 fa-solid fa-spinner fa-spin" />
                   </div>
                 ) : (
-                  offers.map((offer, index) => (
-                    <div 
-                      key={offer.id} 
+                  memberships.map((membership, index) => (
+                    <div
+                      key={membership.id}
                       className="group relative bg-gradient-to-br from-blue-900/40 via-blue-800/30 to-transparent backdrop-blur-sm border-2 border-blue-500/30 hover:border-blue-400 rounded-2xl transition-all duration-500 transform hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/30 hover:-translate-y-2 overflow-hidden"
                       style={{
                         animation: `fadeInUp 0.6s ease-out ${index * 0.1}s both`
@@ -260,69 +277,77 @@ export default function Home() {
                     >
                       {/* Shine effect */}
                       <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                      
+
                       {/* Header */}
                       <div className="relative bg-gradient-to-r from-blue-600 to-blue-500 p-4 rounded-t-2xl">
                         <h3 className='font-bold text-xl gymfont text-white flex items-center justify-center gap-2'>
-                          <i className="fa-solid fa-dumbbell transform group-hover:rotate-180 transition-transform duration-500"></i>
-                          {offer.duration}
+                          <i className="fa-solid fa-id-card transform group-hover:rotate-12 transition-transform duration-500"></i>
+                          {membership.duration}
                         </h3>
                       </div>
 
                       <div className='p-6'>
+                        {/* Description */}
+                        {membership.description_en && (
+                          <p className="text-gray-300 text-sm text-center mb-4 pb-4 border-b border-blue-500/10">
+                            {membership.description_en}
+                          </p>
+                        )}
+
                         {/* Price */}
                         <div className='flex items-center justify-between mb-6 pb-4 border-b border-blue-500/20'>
-                          {offer.price_new && offer.price_new !== "0" ? (
+                          {membership.price_new && membership.price_new !== "0" ? (
                             <>
                               <div className="flex flex-col">
                                 <span className="text-xs text-gray-400 uppercase tracking-wider mb-1">Was</span>
                                 <span className="text-lg line-through text-gray-500">
-                                  {offer.price} EGP
+                                  {membership.price} EGP
                                 </span>
                               </div>
                               <div className="flex flex-col items-end">
                                 <span className="text-xs text-blue-400 uppercase tracking-wider mb-1">Now</span>
                                 <span className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-blue-300 bg-clip-text text-transparent">
-                                  {offer.price_new} EGP
+                                  {membership.price_new} EGP
                                 </span>
                               </div>
                             </>
                           ) : (
                             <span className="text-3xl font-bold text-white mx-auto">
-                              {offer.price} EGP
+                              {membership.price} EGP
                             </span>
                           )}
                         </div>
 
-                        {/* Features */}
+                        {/* Features من السيرفر */}
                         <ul className='space-y-3 mb-6'>
-                          {[
-                            { icon: 'fa-user-tie', text: `${offer.private} Sessions Personal Training` },
-                            { icon: 'fa-weight-scale', text: `${offer.inbody} Sessions In Inbody` },
-                            { icon: 'fa-user-plus', text: `${offer.invite} Sessions Invitations` },
-                            { icon: 'fa-calendar-days', text: 'ALL Classes' },
-                            { icon: 'fa-spa', text: 'SPA' }
-                          ].map((item, i) => (
-                            <li 
-                              key={i}
-                              className='flex items-center gap-3 text-gray-200 transform transition-all duration-300 hover:translate-x-2 hover:text-white group/item'
-                            >
-                              <div className="w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center group-hover/item:bg-blue-500/40 transition-colors duration-300 flex-shrink-0">
-                                <i className={`fa-solid ${item.icon} text-blue-400 text-xs group-hover/item:scale-125 transition-transform duration-300`}></i>
-                              </div>
-                              <span className="text-sm font-medium">{item.text}</span>
+                          {membership.features && membership.features.length > 0 ? (
+                            membership.features.map((feature, i) => (
+                              <li
+                                key={i}
+                                className='flex items-center gap-3 text-gray-200 transform transition-all duration-300 hover:translate-x-2 hover:text-white group/item'
+                              >
+                                <div className="w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center group-hover/item:bg-blue-500/40 transition-colors duration-300 flex-shrink-0">
+                                  <i className="fa-solid fa-check text-blue-400 text-xs group-hover/item:scale-125 transition-transform duration-300"></i>
+                                </div>
+                                <span className="text-sm font-medium">{feature}</span>
+                              </li>
+                            ))
+                          ) : (
+                            <li className='flex items-center gap-3 text-gray-400'>
+                              <i className="fa-solid fa-circle-info text-xs"></i>
+                              <span className="text-sm">No features available</span>
                             </li>
-                          ))}
+                          )}
                         </ul>
 
                         {/* Book Button */}
                         <button
-                          onClick={() => handlebook(offer)}
+                          onClick={() => handleMembershipBook(membership)}
                           className='w-full px-6 text-lg py-4 bg-gradient-to-r from-blue-600 to-blue-500 text-white rounded-xl hover:from-blue-500 hover:to-blue-400 transition-all duration-500 font-bold transform hover:scale-105 hover:shadow-xl hover:shadow-blue-500/50 active:scale-95 relative overflow-hidden group/btn'
                         >
                           <span className="relative z-10 flex items-center justify-center gap-2">
                             <i className="fa-solid fa-calendar-check"></i>
-                            Book Now
+                            Join Now
                           </span>
                           <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-blue-300 transform scale-x-0 group-hover/btn:scale-x-100 transition-transform duration-500 origin-left"></div>
                         </button>

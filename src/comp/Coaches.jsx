@@ -1,16 +1,53 @@
 import React, { useState, useEffect } from 'react';
 import Trans from '../comp/Trans';
 import { dataService } from '../data/dataService';
+import { supabase } from '../lib/supabase';
 
 
 export default function Coaches() {
   const [coaches, setCoaches] = useState([]);
   const [current, setCurrent] = useState(0);
 
+  // Helper function لتحويل relative path لـ full Supabase Storage URL
+  const getImageUrl = (imagePath) => {
+    if (!imagePath) return '/assets/default-coach.jpg';
+
+    // لو الصورة full URL خلاص، استخدمها زي ما هي
+    if (imagePath.startsWith('http')) return imagePath;
+
+    // لو relative path، احصل على الـ public URL من Supabase Storage
+    const { data } = supabase.storage
+      .from('gym-media') // اسم الـ bucket في Supabase
+      .getPublicUrl(imagePath);
+
+    console.log('🖼️ Image URL:', imagePath, '→', data.publicUrl);
+    return data.publicUrl;
+  };
+
   useEffect(() => {
     // fetch الداتا
-    dataService.getCoaches().then(({ data }) => {
-      if (data) setCoaches(data);
+    dataService.getCoaches().then(({ data, error }) => {
+      if (error) {
+        console.error('Error loading coaches:', error);
+      }
+      if (data && data.length > 0) {
+        console.log('🔍 Raw coaches data from Supabase:', data);
+
+        // تحويل البيانات من Supabase format
+        const formattedCoaches = data.map(coach => {
+          console.log('🔍 Coach before mapping:', coach);
+          const formatted = {
+            ...coach,
+            name: coach.title_en || coach.name || 'Coach',
+            title: coach.description_en || coach.title || 'Fitness Trainer',
+            img: getImageUrl(coach.image_url || coach.img)
+          };
+          console.log('✅ Coach after mapping:', formatted);
+          return formatted;
+        });
+
+        setCoaches(formattedCoaches);
+      }
     });
   }, []);
 

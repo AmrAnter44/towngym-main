@@ -1,13 +1,53 @@
 import React, { useState, useEffect } from 'react';
 import { dataService } from '../data/dataService';
+import { supabase } from '../lib/supabase';
 
 export default function Classes() {
   const [classes, setClasses] = useState([]);
 
+  // Helper function لتحويل relative path لـ full Supabase Storage URL
+  const getImageUrl = (imagePath) => {
+    if (!imagePath) return null;
+    if (imagePath.startsWith('http')) return imagePath;
+
+    const { data } = supabase.storage
+      .from('gym-media')
+      .getPublicUrl(imagePath);
+
+    return data.publicUrl;
+  };
+
   useEffect(() => {
-    // مباشر وبسيط - fetch لما الصفحة تفتح
-    dataService.getClasses().then(({ data }) => {
-      if (data) setClasses(data);
+    // fetch الداتا من Supabase
+    dataService.getClasses().then(({ data, error }) => {
+      if (error) {
+        console.error('Error loading classes:', error);
+      }
+      if (data && data.length > 0) {
+        console.log('🔍 Raw classes data:', data);
+
+        // تحويل البيانات من Supabase format للـ component format
+        const formattedClasses = data.map(classItem => {
+          const schedule = classItem.schedule || {};
+          const features = classItem.features || [];
+
+          return {
+            ...classItem,
+            classname: classItem.title_en || classItem.classname || 'Class',
+            day: schedule.day || classItem.day || 'N/A',
+            coachname: schedule.coach || classItem.coachname || 'Coach',
+            time1: schedule.time || classItem.time1 || 'N/A',
+            mix: features.includes('Ladies Only') ? 'Ladies' :
+                 features.includes('Mixed Class') ? 'Mixed Class' :
+                 classItem.mix || '',
+            mem: features.includes('Members Only') || classItem.mem || false,
+            img: getImageUrl(classItem.image_url)
+          };
+        });
+
+        console.log('✅ Formatted classes:', formattedClasses);
+        setClasses(formattedClasses);
+      }
     });
   }, []);
 
@@ -48,8 +88,7 @@ export default function Classes() {
             <p className="p-2 font-semibold text-lg">
               <i className="fa-regular fa-clock" />
               {" "}At:{" "}
-              <span className="text-xl px-1">{classItem.time1}</span> 
-              <span>pm</span>
+              <span className="text-xl px-1">{classItem.time1}</span>
             </p>
 
             <p className={`p-2 font-semibold text-lg 

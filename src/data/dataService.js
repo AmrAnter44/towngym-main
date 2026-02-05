@@ -1,74 +1,160 @@
-// الحل: نقرأ من JSON مباشرة من public folder
+import { supabase } from '../lib/supabase.js';
+
+// Configuration
+const GYM_SLUG = 'x-gym';
+const BRANCH_SLUG = 'haram';
+
 class DataService {
   constructor() {
-    // الملف موجود في public/data/data.json
-    // Vercel هيقدر يوصله من /data/data.json
-    this.dataUrl = '/data/data.json';
+    this.gymId = null;
+    this.branchId = null;
+    this.initialized = false;
   }
 
-  async loadData() {
+  // Initialize gym and branch IDs
+  async initialize() {
+    if (this.initialized) return;
+
     try {
-      // fetch يقرأ الملف مباشرة من public folder
-      const response = await fetch(this.dataUrl + '?t=' + Date.now());
-      
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      
-      const data = await response.json();
-      return data;
+      // Get gym by slug
+      const { data: gym, error: gymError } = await supabase
+        .from('gyms')
+        .select('id')
+        .eq('slug', GYM_SLUG)
+        .eq('is_active', true)
+        .single();
+
+      if (gymError) throw gymError;
+      if (!gym) throw new Error(`Gym '${GYM_SLUG}' not found`);
+
+      this.gymId = gym.id;
+
+      // Get branch by slug
+      const { data: branch, error: branchError } = await supabase
+        .from('branches')
+        .select('id')
+        .eq('gym_id', this.gymId)
+        .eq('slug', BRANCH_SLUG)
+        .eq('is_active', true)
+        .single();
+
+      if (branchError) throw branchError;
+      if (!branch) throw new Error(`Branch '${BRANCH_SLUG}' not found`);
+
+      this.branchId = branch.id;
+      this.initialized = true;
+
+      console.log('✅ DataService initialized:', { gymId: this.gymId, branchId: this.branchId });
     } catch (error) {
-      console.error('Error loading data:', error);
-      // في حالة الخطأ، نرجع بيانات افتراضية
-      return this.getDefaultData();
+      console.error('❌ DataService initialization failed:', error);
+      throw error;
     }
   }
 
-  getDefaultData() {
-    return {
-      offers: [],
-      pt_packages: [],
-      coaches: [],
-      classes: []
-    };
+  // Helper to get branch data by type
+  async getBranchData(dataType) {
+    try {
+      await this.initialize();
+
+      const { data, error } = await supabase
+        .from('branch_data')
+        .select('*')
+        .eq('branch_id', this.branchId)
+        .eq('data_type', dataType)
+        .eq('is_active', true)
+        .order('display_order', { ascending: true });
+
+      if (error) throw error;
+
+      return {
+        data: data || [],
+        error: null
+      };
+    } catch (error) {
+      console.error(`Error fetching ${dataType}:`, error);
+      return {
+        data: [],
+        error: error.message
+      };
+    }
+  }
+
+  // ==================== GYMS ====================
+  async getGym() {
+    try {
+      const { data, error } = await supabase
+        .from('gyms')
+        .select('*')
+        .eq('slug', GYM_SLUG)
+        .eq('is_active', true)
+        .single();
+
+      if (error) throw error;
+
+      return {
+        data: data || null,
+        error: null
+      };
+    } catch (error) {
+      console.error('Error fetching gym:', error);
+      return {
+        data: null,
+        error: error.message
+      };
+    }
+  }
+
+  // ==================== BRANCHES ====================
+  async getBranch() {
+    try {
+      await this.initialize();
+
+      const { data, error } = await supabase
+        .from('branches')
+        .select('*')
+        .eq('id', this.branchId)
+        .single();
+
+      if (error) throw error;
+
+      return {
+        data: data || null,
+        error: null
+      };
+    } catch (error) {
+      console.error('Error fetching branch:', error);
+      return {
+        data: null,
+        error: error.message
+      };
+    }
   }
 
   // ==================== OFFERS ====================
   async getOffers() {
-    const data = await this.loadData();
-    return {
-      data: data.offers || [],
-      error: null
-    };
+    return this.getBranchData('offer');
   }
 
   // ==================== PT PACKAGES ====================
   async getPtPackages() {
-    const data = await this.loadData();
-    return {
-      data: data.pt_packages || [],
-      error: null
-    };
+    return this.getBranchData('pt_package');
   }
 
   // ==================== COACHES ====================
   async getCoaches() {
-    const data = await this.loadData();
-    return {
-      data: data.coaches || [],
-      error: null
-    };
+    return this.getBranchData('coach');
   }
 
   // ==================== CLASSES ====================
   async getClasses() {
-    const data = await this.loadData();
-    return {
-      data: data.classes || [],
-      error: null
-    };
+    return this.getBranchData('class');
+  }
+
+  // ==================== MEMBERSHIPS ====================
+  async getMemberships() {
+    return this.getBranchData('membership');
   }
 }
 
-// إنشاء instance واحد فقط
+// Create singleton instance
 export const dataService = new DataService();
