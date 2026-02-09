@@ -117,13 +117,15 @@ export default function BlackFridayOffer() {
                 </div>
               </div>
 
-              {/* Price */}
-              <div className="flex items-center gap-2">
-                <span className="text-5xl font-bold text-white gymfont">
-                  {offer.price || metadata.price || 'N/A'}
-                </span>
-                <span className="text-xl font-bold text-blue-400">EGP</span>
-              </div>
+              {/* Price - يختفي لو السعر = 0 */}
+              {(offer.price && parseFloat(offer.price) !== 0) || (metadata.price && parseFloat(metadata.price) !== 0) ? (
+                <div className="flex items-center gap-2">
+                  <span className="text-5xl font-bold text-white gymfont">
+                    {offer.price || metadata.price || 'N/A'}
+                  </span>
+                  <span className="text-xl font-bold text-blue-400">EGP</span>
+                </div>
+              ) : null}
 
               {/* Button */}
               <button
