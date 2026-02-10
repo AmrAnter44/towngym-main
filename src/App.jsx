@@ -1,24 +1,30 @@
+import { lazy, Suspense } from 'react';
 import './App.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import Home from './comp/Home';
+import { Analytics } from "@vercel/analytics/react";
+import LoadingSpinner from './components/LoadingSpinner';
+
+// Eager load critical components
 import Layout from './Layout';
-import Coaches from './comp/Coaches';
-import Classes from './comp/Classes';
-import Men from './comp/Map/Men';
-import Ladies from './comp/Map/Ladies';
-import Cardio from './comp/Map/Cardio';
-import Weight from './comp/Map/Weight';
-import Leg from './comp/Map/Leg';
-import Fitness from './comp/Map/Fitness';
-import Spa from './comp/Map/Spa';
-import Caples from './comp/Map/Cables';
-import Machines from './comp/Map/Machines';
-import Bar from './comp/Map/Bar';
-import Map from './comp/Map';
-import Gold from './comp/vip/Gold';
-import Shop from './comp/Shop';
-import { Analytics } from "@vercel/analytics/react"
+
+// Lazy load route components for code splitting
+const Home = lazy(() => import('./comp/Home'));
+const Coaches = lazy(() => import('./comp/Coaches'));
+const Classes = lazy(() => import('./comp/Classes'));
+const Map = lazy(() => import('./comp/Map'));
+const Men = lazy(() => import('./comp/Map/Men'));
+const Ladies = lazy(() => import('./comp/Map/Ladies'));
+const Cardio = lazy(() => import('./comp/Map/Cardio'));
+const Weight = lazy(() => import('./comp/Map/Weight'));
+const Leg = lazy(() => import('./comp/Map/Leg'));
+const Fitness = lazy(() => import('./comp/Map/Fitness'));
+const Spa = lazy(() => import('./comp/Map/Spa'));
+const Caples = lazy(() => import('./comp/Map/Cables'));
+const Machines = lazy(() => import('./comp/Map/Machines'));
+const Bar = lazy(() => import('./comp/Map/Bar'));
+const Gold = lazy(() => import('./comp/vip/Gold'));
+const Shop = lazy(() => import('./comp/Shop'));
 
 function App() {
   let router = createBrowserRouter([
@@ -49,7 +55,9 @@ function App() {
 
   return (
     <>
-      <RouterProvider router={router} />
+      <Suspense fallback={<LoadingSpinner />}>
+        <RouterProvider router={router} />
+      </Suspense>
       <Analytics />
     </>
   );
