@@ -301,13 +301,13 @@ export default function Home() {
                               <div className="flex flex-col">
                                 <span className="text-xs text-gray-400 uppercase tracking-wider mb-1">Was</span>
                                 <span className="text-lg line-through text-gray-500">
-                                  {membership.price} EGP
+                                  {membership.price_new} EGP
                                 </span>
                               </div>
                               <div className="flex flex-col items-end">
                                 <span className="text-xs text-blue-400 uppercase tracking-wider mb-1">Now</span>
                                 <span className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-blue-300 bg-clip-text text-transparent">
-                                  {membership.price_new} EGP
+                                  {membership.price} EGP
                                 </span>
                               </div>
                             </>
