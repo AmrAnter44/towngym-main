@@ -35,15 +35,12 @@ export default function Coaches() {
 
         // تحويل البيانات من Supabase format
         const formattedCoaches = data.map(coach => {
-          console.log('🔍 Coach before mapping:', coach);
-          const formatted = {
+          return {
             ...coach,
-            name: coach.title_en || coach.name || 'Coach',
-            title: coach.description_en || coach.title || 'Fitness Trainer',
-            img: getImageUrl(coach.image_url || coach.img)
+            name: coach.name || 'Coach',
+            title: coach.role || 'Fitness Trainer',
+            img: getImageUrl(coach.image_url)
           };
-          console.log('✅ Coach after mapping:', formatted);
-          return formatted;
         });
 
         setCoaches(formattedCoaches);

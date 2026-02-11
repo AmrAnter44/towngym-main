@@ -55,7 +55,7 @@ export default function BlackFridayOffer() {
   const handleBook = (offer) => {
     const phone = "201028188900";
     const price = offer.price || offer.metadata?.price || 'N/A';
-    const message = `Hello, I would like to book: ${offer.title_en} for ${price} EGP`;
+    const message = `Hello, I would like to book: ${offer.name} for ${price} EGP`;
     const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
     window.open(url, "whatsappWindow", "width=600,height=600,top=100,left=200");
   };
@@ -93,7 +93,6 @@ export default function BlackFridayOffer() {
           const metadata = typeof offer.metadata === 'string'
             ? JSON.parse(offer.metadata)
             : (offer.metadata || {});
-          const features = offer.features || [];
 
           return (
             <div key={offer.id} className="bg-gradient-to-r from-blue-900/40 via-gray-900/50 to-black/60 backdrop-blur-sm border-2 border-blue-500/30 rounded-2xl p-6 flex flex-col md:flex-row items-center justify-between gap-6">
@@ -101,7 +100,7 @@ export default function BlackFridayOffer() {
               {/* Badge */}
               <div>
                 <span className="inline-block px-4 py-1 bg-gradient-to-r from-blue-500 to-blue-600 text-white text-sm font-bold rounded-full">
-                  {offer.title_ar || 'Special Offer'}
+                  {offer.discount_percentage ? `${offer.discount_percentage}% OFF` : 'Special Offer'}
                 </span>
               </div>
 
@@ -109,10 +108,10 @@ export default function BlackFridayOffer() {
               <div className="flex items-center gap-4">
                 <div className="text-center">
                   <div className="text-3xl md:text-4xl font-bold text-white gymfont">
-                    {offer.title_en}
+                    {offer.name}
                   </div>
-                  {offer.description_en && (
-                    <div className="text-sm text-blue-400 mt-1">{offer.description_en}</div>
+                  {offer.description && (
+                    <div className="text-sm text-blue-400 mt-1">{offer.description}</div>
                   )}
                 </div>
               </div>

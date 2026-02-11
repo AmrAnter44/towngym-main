@@ -14,6 +14,24 @@ export default function Home() {
   const [showPT, setShowPT] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
+  // Get icon based on feature text
+  function getFeatureIcon(feature) {
+    const text = feature.toLowerCase();
+    if (text.includes('pt') || text.includes('personal') || text.includes('training')) return 'fa-dumbbell';
+    if (text.includes('inbody') || text.includes('scan')) return 'fa-weight-scale';
+    if (text.includes('guest') || text.includes('invite')) return 'fa-user-plus';
+    if (text.includes('freez')) return 'fa-snowflake';
+    if (text.includes('class')) return 'fa-users';
+    if (text.includes('vip') || text.includes('locker')) return 'fa-key';
+    if (text.includes('spa') || text.includes('sauna')) return 'fa-spa';
+    if (text.includes('pool') || text.includes('swim')) return 'fa-water-ladder';
+    if (text.includes('nutrition') || text.includes('diet')) return 'fa-apple-whole';
+    if (text.includes('24/7') || text.includes('access')) return 'fa-clock';
+    if (text.includes('massage')) return 'fa-hand-sparkles';
+    if (text.includes('supplement')) return 'fa-pills';
+    return 'fa-check';
+  }
+
   useEffect(() => {
     // fetch Memberships
     dataService.getMemberships().then(({ data, error }) => {
@@ -25,16 +43,14 @@ export default function Home() {
 
         // تحويل البيانات من Supabase format إلى format المتوقع
         const formattedMemberships = data.map(membership => {
-          const metadata = membership.metadata || {};
-
           return {
             ...membership,
-            duration: membership.title_en || membership.duration || 'N/A',
-            // جرب الـ direct fields الأول ثم الـ metadata
-            private: membership.private || metadata.private || 0,
-            inbody: membership.inbody || metadata.inbody || 0,
-            invite: membership.invite || metadata.invite || 0,
-            price_new: membership.price_new || metadata.price_new || membership.original_price || null
+            duration: membership.name || 'N/A',
+            private: membership.pt_sessions_included || 0,
+            inbody: membership.inbody_scans || 0,
+            invite: membership.guest_invites || 0,
+            freeze_weeks: membership.freeze_weeks || 0,
+            price_new: membership.original_price || null
           };
         });
 
@@ -53,8 +69,8 @@ export default function Home() {
         // تحويل البيانات من Supabase format
         const formattedPackages = data.map(pkg => ({
           ...pkg,
-          sessions: pkg.metadata?.sessions || parseInt(pkg.title_en) || 0,
-          price_discount: pkg.metadata?.price_discount || null
+          sessions: pkg.sessions_count || 0,
+          price_discount: pkg.original_price || null
         }));
         setPtPackages(formattedPackages);
       }
@@ -288,9 +304,9 @@ export default function Home() {
 
                       <div className='p-6'>
                         {/* Description */}
-                        {membership.description_en && (
+                        {membership.description && (
                           <p className="text-gray-300 text-sm text-center mb-4 pb-4 border-b border-blue-500/10">
-                            {membership.description_en}
+                            {membership.description}
                           </p>
                         )}
 
@@ -318,16 +334,16 @@ export default function Home() {
                           )}
                         </div>
 
-                        {/* Features من السيرفر */}
+                        {/* Features - 100% Custom from metadata with smart icons */}
                         <ul className='space-y-3 mb-6'>
-                          {membership.features && membership.features.length > 0 ? (
-                            membership.features.map((feature, i) => (
+                          {membership.metadata?.features && Array.isArray(membership.metadata.features) && membership.metadata.features.length > 0 ? (
+                            membership.metadata.features.map((feature, idx) => (
                               <li
-                                key={i}
+                                key={idx}
                                 className='flex items-center gap-3 text-gray-200 transform transition-all duration-300 hover:translate-x-2 hover:text-white group/item'
                               >
                                 <div className="w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center group-hover/item:bg-blue-500/40 transition-colors duration-300 flex-shrink-0">
-                                  <i className="fa-solid fa-check text-blue-400 text-xs group-hover/item:scale-125 transition-transform duration-300"></i>
+                                  <i className={`fa-solid ${getFeatureIcon(feature)} text-blue-400 text-xs group-hover/item:scale-125 transition-transform duration-300`}></i>
                                 </div>
                                 <span className="text-sm font-medium">{feature}</span>
                               </li>
@@ -335,7 +351,7 @@ export default function Home() {
                           ) : (
                             <li className='flex items-center gap-3 text-gray-400'>
                               <i className="fa-solid fa-circle-info text-xs"></i>
-                              <span className="text-sm">No features available</span>
+                              <span className="text-sm">Add features in metadata</span>
                             </li>
                           )}
                         </ul>

@@ -27,20 +27,15 @@ export default function Classes() {
         console.log('🔍 Raw classes data:', data);
 
         // تحويل البيانات من Supabase format للـ component format
-        const formattedClasses = data.map(classItem => {
-          const schedule = classItem.schedule || {};
-          const features = classItem.features || [];
-
+        const formattedClasses = data.map((classItem) => {
           return {
             ...classItem,
-            classname: classItem.title_en || classItem.classname || 'Class',
-            day: schedule.day || classItem.day || 'N/A',
-            coachname: schedule.coach || classItem.coachname || 'Coach',
-            time1: schedule.time || classItem.time1 || 'N/A',
-            mix: features.includes('Ladies Only') ? 'Ladies' :
-                 features.includes('Mixed Class') ? 'Mixed Class' :
-                 classItem.mix || '',
-            mem: features.includes('Members Only') || classItem.mem || false,
+            classname: classItem.name || 'Class',
+            day: classItem.day_of_week || 'N/A',
+            coachname: classItem.coach_name || 'Coach',
+            time1: classItem.time || 'N/A',
+            mix: classItem.class_type || '',
+            mem: classItem.booking_required || false,
             img: getImageUrl(classItem.image_url)
           };
         });
