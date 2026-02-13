@@ -17,6 +17,23 @@ export default function Classes() {
     return data.publicUrl;
   };
 
+  // Helper function لتحويل الوقت من نظام 24 ساعة إلى 12 ساعة
+  const convertTo12Hour = (time24) => {
+    if (!time24 || time24 === 'N/A') return time24;
+
+    const [hours, minutes] = time24.split(':');
+    let hour = parseInt(hours);
+    const period = hour >= 12 ? 'PM' : 'AM';
+
+    if (hour === 0) {
+      hour = 12;
+    } else if (hour > 12) {
+      hour = hour - 12;
+    }
+
+    return `${hour}:${minutes} ${period}`;
+  };
+
   useEffect(() => {
     // fetch الداتا من Supabase
     dataService.getClasses().then(({ data, error }) => {
@@ -83,7 +100,7 @@ export default function Classes() {
             <p className="p-2 font-semibold text-lg">
               <i className="fa-regular fa-clock" />
               {" "}At:{" "}
-              <span className="text-xl px-1">{classItem.time1}</span>
+              <span className="text-xl px-1">{convertTo12Hour(classItem.time1)}</span>
             </p>
 
             <p className={`p-2 font-semibold text-lg 
