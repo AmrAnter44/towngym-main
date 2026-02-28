@@ -23,8 +23,6 @@ const Spa = lazy(() => import('./comp/Map/Spa'));
 const Caples = lazy(() => import('./comp/Map/Cables'));
 const Machines = lazy(() => import('./comp/Map/Machines'));
 const Bar = lazy(() => import('./comp/Map/Bar'));
-const Gold = lazy(() => import('./comp/vip/Gold'));
-const Shop = lazy(() => import('./comp/Shop'));
 
 function App() {
   let router = createBrowserRouter([
@@ -46,8 +44,6 @@ function App() {
         { path: "/Caples", element: <Caples /> },
         { path: "/Machines", element: <Machines /> },
         { path: "/Bar", element: <Bar /> },
-        { path: "/gold", element: <Gold/> },
-        { path: "/shop", element: <Shop/> },
         // ✅ شلنا Admin routes
       ],
     },

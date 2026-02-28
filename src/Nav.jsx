@@ -1,184 +1,136 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
+import { Link, useLocation } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function Nav() {
-  const [open, setOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const location = useLocation();
 
-  const navVariants = {
-    hidden: { 
-      opacity: 0, 
-      y: -20 
-    },
-    visible: { 
-      opacity: 1, 
-      y: 0,
-      transition: {
-        duration: 0.5,
-        ease: "easeOut"
-      }
-    }
-  };
+  // Detect scroll for navbar effect
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
-  const logoVariants = {
-    hidden: { 
-      opacity: 0, 
-      scale: 0.8,
-      rotate: -180
-    },
-    visible: { 
-      opacity: 1, 
-      scale: 1,
-      rotate: 0,
-      transition: {
-        duration: 0.6,
-        ease: "easeOut"
-      }
-    },
-    hover: {
-      scale: 1.05,
-      rotate: 5,
-      transition: {
-        duration: 0.3,
-        ease: "easeInOut"
-      }
-    }
-  };
+  // Close mobile menu on route change
+  useEffect(() => {
+    setIsOpen(false);
+  }, [location]);
 
-  const buttonVariants = {
-    rest: { scale: 1 },
-    hover: { 
-      scale: 1.1,
-      backgroundColor: "rgba(75, 85, 99, 0.8)",
-      transition: { duration: 0.2 }
-    },
-    tap: { 
-      scale: 0.95,
-      transition: { duration: 0.1 }
-    }
-  };
-
-  const cartIconVariants = {
-    rest: { scale: 1, rotate: 0 },
-    hover: { 
-      scale: 1.2,
-      rotate: 10,
-      color: "#3b82f6",
-      transition: { duration: 0.2 }
-    }
-  };
+  const isActive = (path) => location.pathname === path;
 
   return (
-    <>
-      <motion.div 
-        className="fixed top-0 left-0 w-full z-50"
-        initial="hidden"
-        animate="visible"
-        variants={navVariants}
-      >
-        <div className="flex flex-col lg:flex-row items-center justify-between glass-nav text-white lg:m-2 mb-5">
-          
-          <div className="lg:ml-4 flex justify-between w-full lg:w-auto px-4 lg:px-0">
-            <Link to={"/"}>
-              <motion.img 
-                src="/assets/bigLogo.png" 
-                alt="logo" 
-                className="w-28" 
-                variants={logoVariants}
-                initial="hidden"
-                animate="visible"
-                whileHover="hover"
-              />
-            </Link>
+    <motion.nav
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.5 }}
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
+        scrolled ? 'glass-nav shadow-2xl' : 'bg-black/40 backdrop-blur-md'
+      }`}
+    >
+      <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-6">
+        <div className="flex items-center justify-between h-16">
+          {/* Logo */}
+          <Link to="/" className="flex items-center group">
+            <motion.img
+              whileHover={{ scale: 1.1, rotate: 5 }}
+              transition={{ type: "spring", stiffness: 300 }}
+              src="/assets/bigLogo.png"
+              alt="X-GYM Logo"
+              className=" w-28 object-contain p-0 m-0"
+            />
+          </Link>
 
-            <div className="flex items-center lg:hidden">
-              <Link to={"/shop"}>
-                <motion.i 
-                  className="fa-solid fa-cart-shopping text-2xl mr-4 mb-2 mt-3"
-                  variants={cartIconVariants}
-                  initial="rest"
-                  whileHover="hover"
-                />
+          {/* Desktop Menu */}
+          <div className="hidden md:flex items-center space-x-2">
+            {[
+              { path: "/", label: "Home", icon: "fa-home" },
+              { path: "/classes", label: "Classes", icon: "fa-dumbbell" },
+              { path: "/map", label: "Map", icon: "fa-map-marked-alt" },
+            ].map((item) => (
+              <Link
+                key={item.path}
+                to={item.path}
+                className="relative group"
+              >
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className={`px-3 py-1.5 rounded-lg font-medium transition-all duration-300 ${
+                    isActive(item.path)
+                      ? 'bg-blue-500/20 text-blue-400'
+                      : 'text-gray-300 hover:text-white hover:bg-white/10'
+                  }`}
+                >
+                  <i className={`fas ${item.icon} mr-2`}></i>
+                  {item.label}
+                </motion.div>
+                {isActive(item.path) && (
+                  <motion.div
+                    layoutId="activeTab"
+                    className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-500"
+                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                  />
+                )}
               </Link>
-
-              <motion.button
-                className="text-white text-3xl"
-                onClick={() => setOpen(!open)}
-                variants={buttonVariants}
-                initial="rest"
-                whileHover="hover"
-                whileTap="tap"
-              >
-                {open ? "✕" : "☰"}
-              </motion.button>
-            </div>
+            ))}
           </div>
 
-          {/* استخدام الكود الأصلي بدون تعديل للـ desktop */}
-          <div
-            className={`overflow-hidden transition-all duration-500 ease-in-out flex-col lg:flex lg:flex-row justify-between items-center font-bold text-center w-full lg:w-auto ${
-              open
-                ? "max-h-96 opacity-100 mt-4"
-                : "max-h-0 opacity-0 lg:max-h-full lg:opacity-100"
-            }`}
+          {/* Mobile menu button */}
+          <motion.button
+            whileTap={{ scale: 0.9 }}
+            onClick={() => setIsOpen(!isOpen)}
+            className="md:hidden p-2 rounded-lg text-white hover:bg-white/10 transition-colors"
           >
-            <Link
-              to="/"
-              className="hover:text-blue-500 px-2 py-2 m-1 rounded-lg hover:bg-gray-800"
-              onClick={() => setOpen(false)}
-            >
-              <motion.span
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                transition={{ duration: 0.2 }}
-              >
-                Home
-              </motion.span>
-            </Link>
-
-            <Link
-              to="/classes"
-              className="hover:text-blue-500 px-2 py-2 m-1 rounded-lg hover:bg-gray-800"
-              onClick={() => setOpen(false)}
-            >
-              <motion.span
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                transition={{ duration: 0.2 }}
-              >
-                Classes
-              </motion.span>
-            </Link>
-
-            <Link
-              to="/map"
-              className="hover:text-blue-500 px-2 py-2 m-1 rounded-lg hover:bg-gray-800"
-              onClick={() => setOpen(false)}
-            >
-              <motion.span
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                transition={{ duration: 0.2 }}
-              >
-                Map
-              </motion.span>
-            </Link>
-
-            <Link
-              to={"/shop"}
-              className="hidden lg:block ml-4"
-              onClick={() => setOpen(false)}
-            >
-              <motion.i 
-                className="fa-solid fa-cart-shopping text-2xl"
-                variants={cartIconVariants}
-                initial="rest"
-                whileHover="hover"
-              />
-            </Link>
-          </div>
+            <i className={`fas ${isOpen ? 'fa-times' : 'fa-bars'} text-2xl`}></i>
+          </motion.button>
         </div>
-      </motion.div>
-    </>
+      </div>
+
+      {/* Mobile Menu */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3 }}
+            className="md:hidden glass-nav overflow-hidden"
+          >
+            <div className="px-4 py-4 space-y-2">
+              {[
+                { path: "/", label: "Home", icon: "fa-home" },
+                { path: "/classes", label: "Classes", icon: "fa-dumbbell" },
+                { path: "/map", label: "Map", icon: "fa-map-marked-alt" },
+              ].map((item, index) => (
+                <motion.div
+                  key={item.path}
+                  initial={{ x: -20, opacity: 0 }}
+                  animate={{ x: 0, opacity: 1 }}
+                  transition={{ delay: index * 0.1 }}
+                >
+                  <Link
+                    to={item.path}
+                    onClick={() => setIsOpen(false)}
+                    className={`flex items-center space-x-3 px-3 py-2 rounded-lg font-medium transition-all ${
+                      isActive(item.path)
+                        ? 'bg-blue-500/20 text-blue-400'
+                        : 'text-gray-300 hover:bg-white/10 hover:text-white'
+                    }`}
+                  >
+                    <i className={`fas ${item.icon} text-lg`}></i>
+                    <span>{item.label}</span>
+                  </Link>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.nav>
   );
 }

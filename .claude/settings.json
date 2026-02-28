@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install)",
+      "Bash(git restore public/trans/ public/assets/optimized/trans/)",
+      "Bash(git restore public/assets/bigLogo.png)"
+    ]
+  }
+}

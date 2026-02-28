@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import gymMap from "../../public/map.png";
 import { Link } from "react-router-dom";
+
+const gymMap = "/map.png";
 
 function Map() {
   const [hoveredArea, setHoveredArea] = useState(null);
@@ -126,7 +127,7 @@ function Map() {
 
         {/* اللوجو فوق الخريطة */}
         <motion.img
-          src="./maplogo.png"
+          src="/maplogo.png"
           alt="Map Logo"
           className="absolute center top-24 left-1/2 transform -translate-x-1/2 -z-20"
           variants={logoVariants}

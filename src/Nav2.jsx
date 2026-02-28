@@ -40,7 +40,7 @@ export default function PageWithVideo() {
       {/* ✅ Video background */}
       <section className="w-full min-h-screen relative flex items-center justify-center">
         <video
-          src="./0910.mp4"
+          src="/0910.mp4"
           autoPlay
           loop
           muted

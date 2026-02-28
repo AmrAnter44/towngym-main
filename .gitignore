@@ -22,9 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-$ git config --list
-user.name=Amr Anter
-user.email=amranter200444@gmail.com
+
 # Environment variables
 .env
 .env.local
