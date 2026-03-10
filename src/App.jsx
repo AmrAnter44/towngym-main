@@ -4,6 +4,7 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Analytics } from "@vercel/analytics/react";
 import LoadingSpinner from './components/LoadingSpinner';
+import { useWebsiteTracking } from './hooks/useWebsiteTracking';
 
 // Eager load critical components
 import Layout from './Layout';
@@ -25,6 +26,9 @@ const Machines = lazy(() => import('./comp/Map/Machines'));
 const Bar = lazy(() => import('./comp/Map/Bar'));
 
 function App() {
+  // Track homepage visits
+  useWebsiteTracking();
+
   let router = createBrowserRouter([
     {
       path: "/",
