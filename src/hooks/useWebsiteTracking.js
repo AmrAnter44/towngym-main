@@ -5,12 +5,12 @@ import { createClient } from '@supabase/supabase-js';
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 const gymSlug = import.meta.env.VITE_GYM_SLUG;
-const branchSlug = import.meta.env.VITE_BRANCH_SLUG;
 
 const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 /**
  * Track homepage visit only once per session
+ * Tracks at GYM level (all branches aggregated)
  * Privacy-friendly: No PII stored, only session tracking
  */
 export function useWebsiteTracking() {
@@ -23,7 +23,7 @@ export function useWebsiteTracking() {
     }
 
     // Track only once per page load
-    if (!hasTracked.current && gymSlug && branchSlug) {
+    if (!hasTracked.current && gymSlug) {
       trackVisit();
       hasTracked.current = true;
     }
@@ -70,21 +70,8 @@ export function useWebsiteTracking() {
         return;
       }
 
-      // Get branch ID from slugs
-      const { data: branchId, error: branchError } = await supabase
-        .rpc('get_branch_id_by_slugs', {
-          p_gym_slug: gymSlug,
-          p_branch_slug: branchSlug
-        });
-
-      if (branchError || !branchId) {
-        console.warn('Could not find branch for slugs:', gymSlug, branchSlug);
-        return;
-      }
-
       const visitData = {
         gym_id: gymId,
-        branch_id: branchId,
         session_id: generateSessionId(),
         visited_at: new Date().toISOString()
       };
