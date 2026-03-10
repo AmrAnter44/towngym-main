@@ -59,6 +59,17 @@ export function useWebsiteTracking() {
         return;
       }
 
+      // Get gym ID from gym slug
+      const { data: gymId, error: gymError } = await supabase
+        .rpc('get_gym_id_by_slug', {
+          p_gym_slug: gymSlug
+        });
+
+      if (gymError || !gymId) {
+        console.warn('Could not find gym for slug:', gymSlug);
+        return;
+      }
+
       // Get branch ID from slugs
       const { data: branchId, error: branchError } = await supabase
         .rpc('get_branch_id_by_slugs', {
@@ -72,6 +83,7 @@ export function useWebsiteTracking() {
       }
 
       const visitData = {
+        gym_id: gymId,
         branch_id: branchId,
         session_id: generateSessionId(),
         visited_at: new Date().toISOString()
