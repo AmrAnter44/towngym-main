@@ -73,14 +73,7 @@ export default function BlackFridayOffer() {
   };
 
   if (offers.length === 0) {
-    return (
-      <section className='relative w-full py-8 px-4'>
-        <div className="text-center py-8">
-          <i className="text-3xl text-blue-700 fa-solid fa-spinner fa-spin" />
-          <p className="text-blue-400 mt-2">Loading Offers...</p>
-        </div>
-      </section>
-    );
+    return null;
   }
 
   return (
