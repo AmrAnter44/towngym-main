@@ -67,12 +67,7 @@ export default function PageWithVideo() {
       return () => clearTimeout(timer);
     }, [text, isDeleting, wordIndex]);
 
-  function handleCompetitionRegister() {
   
-   
-    const url = `https://supabase-alpha-one.vercel.app/`;
-    window.open(url);
-  }
 
   return <>
     <div className="relative w-full min-h-screen">
@@ -152,8 +147,8 @@ export default function PageWithVideo() {
               </p>
 
               {/* Register Button */}
-              <button
-                onClick={handleCompetitionRegister}
+              <a href="https://supabase-alpha-one.vercel.app/"
+                
                 className="relative w-full md:w-auto mx-auto px-8 py-4 bg-white text-blue font-bold text-lg rounded-xl transition-all duration-500 transform hover:scale-105 active:scale-95 shadow-xl shadow-green-500/40 flex items-center justify-center gap-3"
               >
                 
