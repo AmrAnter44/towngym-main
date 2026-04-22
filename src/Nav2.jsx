@@ -154,10 +154,10 @@ export default function PageWithVideo() {
               {/* Register Button */}
               <button
                 onClick={handleCompetitionRegister}
-                className="relative w-full md:w-auto mx-auto px-8 py-4 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-400 hover:to-green-500 text-white font-bold text-lg rounded-xl transition-all duration-500 transform hover:scale-105 active:scale-95 shadow-xl shadow-green-500/40 flex items-center justify-center gap-3"
+                className="relative w-full md:w-auto mx-auto px-8 py-4 bg-white text-blue font-bold text-lg rounded-xl transition-all duration-500 transform hover:scale-105 active:scale-95 shadow-xl shadow-green-500/40 flex items-center justify-center gap-3"
               >
-                <i className="fa-brands fa-whatsapp text-2xl"></i>
-                Register via WhatsApp
+                
+               to Register 
               </button>
             </div>
           </div>
