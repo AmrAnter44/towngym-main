@@ -68,10 +68,10 @@ export default function PageWithVideo() {
     }, [text, isDeleting, wordIndex]);
 
   function handleCompetitionRegister() {
-    const phone = "201028188900";
-    const message = "Hello, I would like to register for the X-GYM Competition on Thursday.";
-    const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
-    window.open(url, "whatsappWindow", "width=600,height=600,top=100,left=200");
+  
+   
+    const url = `https://supabase-alpha-one.vercel.app/`;
+    window.open(url);
   }
 
   return <>
