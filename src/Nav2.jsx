@@ -153,7 +153,7 @@ export default function PageWithVideo() {
               >
                 
                to Register 
-              </button>
+              </a>
             </div>
           </div>
         </div>
