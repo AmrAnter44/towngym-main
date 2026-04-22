@@ -149,7 +149,7 @@ export default function PageWithVideo() {
               {/* Register Button */}
               <a href="https://supabase-alpha-one.vercel.app/"
                 
-                className="relative w-full md:w-auto mx-auto px-8 py-4 bg-white text-blue-500 font-bold text-lg rounded-xl transition-all duration-500 transform hover:scale-105 active:scale-95 shadow-xl shadow-white flex items-center justify-center gap-3"
+                className="relative w-full md:w-auto mx-auto px-8 py-4 bg-white text-blue-500 font-bold text-lg rounded-xl transition-all duration-500 transform hover:scale-105 active:scale-95 shadow-xl shadow-white/50 flex items-center justify-center gap-3"
               >
                 
                to Register 
