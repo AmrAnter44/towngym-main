@@ -26,6 +26,35 @@ export default function Footer() {
         </div>
       </footer>
 
+      <div className="bg-black text-white text-center py-6 px-4 border-t border-gray-800">
+        <h3 className="text-lg lg:text-xl font-semibold mb-2">
+          Our Gym App is now available on Android & iPhone
+        </h3>
+        <p className="text-sm text-gray-400 mb-4">
+          Download the FitBoost app and take your training to the next level
+        </p>
+        <div className="flex flex-row justify-center items-center gap-4 flex-wrap">
+          <a
+            href="https://play.google.com/store/apps/details?id=com.fitboost.app"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 bg-green-600 hover:bg-green-700 transition-colors px-5 py-2 rounded-lg text-white font-medium"
+          >
+            <i className="fa-brands fa-google-play text-xl"></i>
+            <span>Android</span>
+          </a>
+          <a
+            href="https://apps.apple.com/eg/app/fit-boost/id6760668273"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 transition-colors px-5 py-2 rounded-lg text-white font-medium"
+          >
+            <i className="fa-brands fa-apple text-xl"></i>
+            <span>iPhone</span>
+          </a>
+        </div>
+      </div>
+
       <p className="text-center bg-black">
           Powered by{" "}
         <a href="https://fitboost.website/" className="text-blue-600">
