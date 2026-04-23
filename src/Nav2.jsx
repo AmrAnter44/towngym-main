@@ -1,12 +1,12 @@
 import React, { useState , useEffect} from "react";
 import { Link } from "react-router-dom";
 
-function getNextThursdayAt6PM() {
+function getNextSundayAt6PM() {
   const now = new Date();
   const target = new Date(now);
   const day = now.getDay(); // Sun=0, Mon=1, ..., Thu=4
-  let daysUntilThursday = (4 - day + 7) % 7;
-  target.setDate(now.getDate() + daysUntilThursday);
+  let daysUntilSunday = (0 - day + 7) % 7;
+  target.setDate(now.getDate() + daysUntilSunday);
   target.setHours(18, 0, 0, 0);
   if (target.getTime() <= now.getTime()) {
     target.setDate(target.getDate() + 7);
@@ -24,7 +24,7 @@ export default function PageWithVideo() {
     const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
 
     useEffect(() => {
-      const target = getNextThursdayAt6PM();
+      const target = getNextSundayAt6PM();
       const updateCountdown = () => {
         const diff = target.getTime() - new Date().getTime();
         if (diff <= 0) {
@@ -88,7 +88,7 @@ export default function PageWithVideo() {
           {/* ⏱ Countdown Timer */}
           <div className="mt-16 inline-flex items-center gap-2 bg-gradient-to-r from-blue-900/80 to-blue-800/80 backdrop-blur-md border border-blue-400/40 rounded-full px-4 py-2 shadow-lg">
             <i className="fa-solid fa-stopwatch text-blue-300 text-sm animate-pulse"></i>
-            <span className="text-xs md:text-sm text-blue-100 font-semibold">Thursday 6 PM in</span>
+            <span className="text-xs md:text-sm text-blue-100 font-semibold">Sunday 6 PM in</span>
             <div className="flex items-center gap-1 text-white font-bold">
               <span className="bg-blue-500/40 px-2 py-0.5 rounded text-xs md:text-sm tabular-nums">{String(timeLeft.days).padStart(2, '0')}d</span>
               <span className="bg-blue-500/40 px-2 py-0.5 rounded text-xs md:text-sm tabular-nums">{String(timeLeft.hours).padStart(2, '0')}h</span>
@@ -112,7 +112,7 @@ export default function PageWithVideo() {
               <div className="relative flex justify-center mb-3">
                 <span className="inline-flex items-center gap-2 px-4 py-1 bg-gradient-to-r from-blue-500 to-blue-600 text-white text-xs font-bold rounded-full animate-pulse shadow-lg">
                   <i className="fa-solid fa-trophy"></i>
-                  COMPETITION THIS THURSDAY
+                  COMPETITION THIS SUNDAY
                 </span>
               </div>
 
@@ -121,7 +121,7 @@ export default function PageWithVideo() {
                 X-GYM Championship
               </h3>
               <p className="relative text-blue-200 text-sm md:text-base mb-5">
-                Join us this Thursday and compete for amazing prizes!
+                Join us this Sunday and compete for amazing prizes!
               </p>
 
               {/* Prizes */}
