@@ -11,6 +11,7 @@ export default function Home() {
   const [memberships, setMemberships] = useState([]);
   const [ptPackages, setPtPackages] = useState([]);
   const [showMemberships, setShowMemberships] = useState(false);
+  const [showDayMemberships, setShowDayMemberships] = useState(false);
   const [showPT, setShowPT] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -80,6 +81,13 @@ export default function Home() {
   function handleMembershipBook(membership) {
     const phone = "201028188900";
     const message = `Hello, I would like to book the ${membership.duration} membership.`;
+    const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+    window.open(url, "whatsappWindow", "width=600,height=600,top=100,left=200");
+  }
+
+  function handleDayMembershipBook(membership, dayPrice) {
+    const phone = "201028188900";
+    const message = `Hello, I would like to book the ${membership.duration} Day Membership for ${dayPrice} EGP with the 35% discount (workout hours: 7 AM - 3 PM only).`;
     const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
     window.open(url, "whatsappWindow", "width=600,height=600,top=100,left=200");
   }
@@ -376,6 +384,151 @@ export default function Home() {
           </div>
         </section>
 
+        {/* ==================== قسم Day Memberships (30% OFF) ==================== */}
+        <section className='relative w-full py-16 px-4 overflow-hidden'>
+          {/* Background */}
+          <div className="absolute inset-0 bg-gradient-to-br from-yellow-500/15 via-orange-900/25 to-transparent"></div>
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-yellow-400/15 via-transparent to-transparent"></div>
+
+          {/* Decorative Elements */}
+          <div className="absolute top-20 right-20 w-40 h-40 bg-yellow-500/10 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-20 left-20 w-48 h-48 bg-orange-600/10 rounded-full blur-3xl"></div>
+
+          <div className="relative z-10 max-w-6xl mx-auto">
+            {/* Header */}
+            <div className="text-center mb-8">
+              <span className="inline-flex items-center gap-2 px-4 py-1 bg-gradient-to-r from-yellow-500 to-orange-500 text-white text-xs font-bold rounded-full mb-4 animate-pulse">
+                <i className="fa-solid fa-sun"></i>
+                35% OFF DAY PASS
+              </span>
+              <h2 className='text-3xl md:text-4xl text-white font-bold gymfont mb-2 flex items-center justify-center gap-3'>
+                <i className="fa-solid fa-sun text-yellow-400 animate-spin-slow"></i>
+                Day Memberships
+                <i className="fa-solid fa-sun text-yellow-400 animate-spin-slow"></i>
+              </h2>
+              <p className="text-gray-300 text-sm md:text-base">Workout hours <span className="font-bold text-yellow-300">7 AM to 3 PM only</span> — 35% discount</p>
+              <p className="text-gray-300 text-sm md:text-base mt-1" dir="rtl">معاد التمرين المسموح <span className="font-bold text-yellow-300">من ٧ صباحًا إلى ٣ عصرًا فقط</span> بخصم ٣٥٪</p>
+              <div className="w-24 h-1 bg-gradient-to-r from-yellow-500 to-orange-500 mx-auto mt-4 rounded-full"></div>
+            </div>
+
+            <button
+              onClick={() => setShowDayMemberships(!showDayMemberships)}
+              className='w-full max-w-2xl mx-auto text-xl md:text-2xl text-white font-bold gymfont bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-400 hover:to-orange-400 px-6 md:px-8 py-5 rounded-2xl transition-all duration-500 flex items-center justify-center gap-3 shadow-2xl transform hover:scale-105 active:scale-95 border-2 border-yellow-300/30'
+            >
+              <i className="fa-solid fa-sun"></i>
+              <span className="relative z-10">{showDayMemberships ? 'Hide' : 'View'} Day Memberships</span>
+              <i className={`fas fa-chevron-${showDayMemberships ? 'up' : 'down'} transition-all duration-500 transform ${showDayMemberships ? 'rotate-180' : ''} relative z-10`}></i>
+            </button>
+
+            <div className={`overflow-hidden transition-all duration-700 ease-in-out ${showDayMemberships ? 'max-h-[5000px] opacity-100' : 'max-h-0 opacity-0'}`}>
+              <div className='pt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
+                {memberships.length === 0 ? (
+                  <div className="col-span-full text-center py-8">
+                    <i className="text-3xl text-yellow-400 fa-solid fa-spinner fa-spin" />
+                  </div>
+                ) : (
+                  memberships.map((membership, index) => {
+                    const originalPrice = parseFloat(membership.price) || 0;
+                    const dayPrice = Math.round(originalPrice * 0.65);
+
+                    return (
+                      <div
+                        key={`day-${membership.id}`}
+                        className="group relative bg-gradient-to-br from-yellow-900/40 via-orange-800/30 to-transparent backdrop-blur-sm border-2 border-yellow-500/30 hover:border-yellow-400 rounded-2xl transition-all duration-500 transform hover:scale-105 hover:shadow-2xl hover:shadow-yellow-500/30 hover:-translate-y-2 overflow-hidden"
+                        style={{
+                          animation: `fadeInUp 0.6s ease-out ${index * 0.1}s both`
+                        }}
+                      >
+                        {/* Shine effect */}
+                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+
+                        {/* 35% OFF Badge */}
+                        <div className="absolute top-3 right-3 z-20">
+                          <div className="bg-gradient-to-r from-yellow-400 to-orange-500 text-white px-3 py-1 rounded-full text-xs font-bold animate-pulse shadow-lg">
+                            35% OFF
+                          </div>
+                        </div>
+
+                        {/* Header */}
+                        <div className="relative bg-gradient-to-r from-yellow-500 to-orange-500 p-4 rounded-t-2xl">
+                          <h3 className='font-bold text-xl gymfont text-white flex items-center justify-center gap-2'>
+                            <i className="fa-solid fa-sun transform group-hover:rotate-180 transition-transform duration-700"></i>
+                            {membership.duration}
+                          </h3>
+                        </div>
+
+                        <div className='p-6'>
+                          {/* Time Notice */}
+                          <div className="bg-yellow-500/10 border border-yellow-400/30 rounded-xl p-3 mb-4 text-center">
+                            <p className="text-yellow-200 text-xs md:text-sm font-semibold flex items-center justify-center gap-2">
+                              <i className="fa-solid fa-dumbbell"></i>
+                              Workout time: 7 AM - 3 PM only
+                            </p>
+                            <p className="text-yellow-200 text-xs md:text-sm font-semibold mt-1" dir="rtl">
+                              معاد التمرين: ٧ صباحًا - ٣ عصرًا فقط
+                            </p>
+                            <p className="text-yellow-300/80 text-[10px] md:text-xs mt-2 italic">
+                              (Workout hours, not registration time)
+                            </p>
+                            <p className="text-yellow-300/80 text-[10px] md:text-xs italic" dir="rtl">
+                              (معاد التمرين، مش معاد دفع الاشتراك)
+                            </p>
+                          </div>
+
+                          {/* Price */}
+                          <div className='flex items-center justify-between mb-6 pb-4 border-b border-yellow-500/20'>
+                            <div className="flex flex-col">
+                              <span className="text-xs text-gray-400 uppercase tracking-wider mb-1">Was</span>
+                              <span className="text-lg line-through text-gray-500">
+                                {originalPrice} EGP
+                              </span>
+                            </div>
+                            <div className="flex flex-col items-end">
+                              <span className="text-xs text-yellow-400 uppercase tracking-wider mb-1">Now</span>
+                              <span className="text-3xl font-bold bg-gradient-to-r from-yellow-300 to-orange-400 bg-clip-text text-transparent">
+                                {dayPrice} EGP
+                              </span>
+                            </div>
+                          </div>
+
+                          {/* Features */}
+                          <ul className='space-y-3 mb-6'>
+                            {membership.metadata?.features && Array.isArray(membership.metadata.features) && membership.metadata.features.length > 0 ? (
+                              membership.metadata.features.map((feature, idx) => (
+                                <li
+                                  key={idx}
+                                  className='flex items-center gap-3 text-gray-200 transform transition-all duration-300 hover:translate-x-2 hover:text-white group/item'
+                                >
+                                  <div className="w-8 h-8 rounded-full bg-yellow-500/20 flex items-center justify-center group-hover/item:bg-yellow-500/40 transition-colors duration-300 flex-shrink-0">
+                                    <i className={`fa-solid ${getFeatureIcon(feature)} text-yellow-400 text-xs group-hover/item:scale-125 transition-transform duration-300`}></i>
+                                  </div>
+                                  <span className="text-sm font-medium">{feature}</span>
+                                </li>
+                              ))
+                            ) : null}
+                          </ul>
+
+                          {/* Book Button */}
+                          <button
+                            onClick={() => handleDayMembershipBook(membership, dayPrice)}
+                            className='w-full px-6 text-lg py-4 bg-gradient-to-r from-yellow-500 to-orange-500 text-white rounded-xl hover:from-yellow-400 hover:to-orange-400 transition-all duration-500 font-bold transform hover:scale-105 hover:shadow-xl hover:shadow-yellow-500/50 active:scale-95 relative overflow-hidden group/btn'
+                          >
+                            <span className="relative z-10 flex items-center justify-center gap-2">
+                              <i className="fa-solid fa-sun"></i>
+                              Join Day Pass
+                            </span>
+                            <div className="absolute inset-0 bg-gradient-to-r from-yellow-300 to-orange-300 transform scale-x-0 group-hover/btn:scale-x-100 transition-transform duration-500 origin-left"></div>
+                          </button>
+                        </div>
+                      </div>
+                    );
+                  })
+                )}
+              </div>
+            </div>
+          </div>
+        </section>
+
 
         {/* <section className='relative w-full py-16 px-4 overflow-hidden'>
   
@@ -538,6 +691,13 @@ export default function Home() {
             opacity: 1;
             transform: translateY(0);
           }
+        }
+        @keyframes spin-slow {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+        .animate-spin-slow {
+          animation: spin-slow 8s linear infinite;
         }
       `}</style>
     </>
