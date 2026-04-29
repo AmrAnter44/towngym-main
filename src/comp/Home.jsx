@@ -429,7 +429,7 @@ export default function Home() {
                 ) : (
                   memberships.map((membership, index) => {
                     const originalPrice = parseFloat(membership.price) || 0;
-                    const dayPrice = Math.round(originalPrice * 0.65);
+                    const dayPrice = Math.floor((originalPrice * 0.65) / 50) * 50;
 
                     return (
                       <div
