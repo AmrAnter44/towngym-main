@@ -515,7 +515,7 @@ export default function Home() {
                           >
                             <span className="relative z-10 flex items-center justify-center gap-2">
                               <i className="fa-solid fa-sun"></i>
-                              Join Day Pass
+                              Join
                             </span>
                             <div className="absolute inset-0 bg-gradient-to-r from-yellow-300 to-orange-300 transform scale-x-0 group-hover/btn:scale-x-100 transition-transform duration-500 origin-left"></div>
                           </button>
