@@ -3,6 +3,7 @@ import { Outlet } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import Nav from './Nav'
 import Footer from './Footer'
+import LeadForm from './components/LeadForm'
 
 export default function Layout() {
   // Smooth scroll setup
@@ -94,6 +95,8 @@ export default function Layout() {
       >
         <Footer />
       </motion.div>
+
+      <LeadForm />
     </motion.div>
   )
 }
