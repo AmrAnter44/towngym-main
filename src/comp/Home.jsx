@@ -87,7 +87,7 @@ export default function Home() {
 
   function handleDayMembershipBook(membership, dayPrice) {
     const phone = "201028188900";
-    const message = `Hello, I would like to book the ${membership.duration} Day Membership for ${dayPrice} EGP with the 35% discount (workout hours: 7 AM - 3 PM only).`;
+    const message = `Hello, I would like to book the ${membership.duration} Day Membership for ${dayPrice} EGP with the 35% discount (workout hours: 3 AM - 4 PM only).`;
     const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
     window.open(url, "whatsappWindow", "width=600,height=600,top=100,left=200");
   }
@@ -406,8 +406,8 @@ export default function Home() {
                 Day Memberships
                 <i className="fa-solid fa-sun text-yellow-400 animate-spin-slow"></i>
               </h2>
-              <p className="text-gray-300 text-sm md:text-base">Workout hours <span className="font-bold text-yellow-300">7 AM to 3 PM only</span> — 35% discount</p>
-              <p className="text-gray-300 text-sm md:text-base mt-1" dir="rtl">معاد التمرين المسموح <span className="font-bold text-yellow-300">من ٧ صباحًا إلى ٣ عصرًا فقط</span> بخصم ٣٥٪</p>
+              <p className="text-gray-300 text-sm md:text-base">Workout hours <span className="font-bold text-yellow-300">3 AM to 4 PM only</span> — 35% discount</p>
+              <p className="text-gray-300 text-sm md:text-base mt-1" dir="rtl">معاد التمرين المسموح <span className="font-bold text-yellow-300">من ٣ فجرًا إلى ٤ عصرًا فقط</span> بخصم ٣٥٪</p>
               <div className="w-24 h-1 bg-gradient-to-r from-yellow-500 to-orange-500 mx-auto mt-4 rounded-full"></div>
             </div>
 
@@ -462,10 +462,10 @@ export default function Home() {
                           <div className="bg-yellow-500/10 border border-yellow-400/30 rounded-xl p-3 mb-4 text-center">
                             <p className="text-yellow-200 text-xs md:text-sm font-semibold flex items-center justify-center gap-2">
                               <i className="fa-solid fa-dumbbell"></i>
-                              Workout time: 7 AM - 3 PM only
+                              Workout time: 3 AM - 4 PM only
                             </p>
                             <p className="text-yellow-200 text-xs md:text-sm font-semibold mt-1" dir="rtl">
-                              معاد التمرين: ٧ صباحًا - ٣ عصرًا فقط
+                              معاد التمرين: ٣ فجرًا - ٤ عصرًا فقط
                             </p>
                             <p className="text-yellow-300/80 text-[10px] md:text-xs mt-2 italic">
                               (Workout hours, not registration time)
