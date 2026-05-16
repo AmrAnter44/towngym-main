@@ -10,7 +10,6 @@ import BlackFridayOffer from './BlackFridayOffer'; // حط المسار الصح
 export default function Home() {
   const [memberships, setMemberships] = useState([]);
   const [ptPackages, setPtPackages] = useState([]);
-  const [showMemberships, setShowMemberships] = useState(false);
   const [showDayMemberships, setShowDayMemberships] = useState(false);
   const [showPT, setShowPT] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -276,15 +275,7 @@ export default function Home() {
               <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-blue-600 mx-auto mt-4 rounded-full"></div>
             </div>
 
-            <button
-              onClick={() => setShowMemberships(!showMemberships)}
-              className='w-full max-w-2xl mx-auto text-xl md:text-2xl text-white font-bold gymfont bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 px-6 md:px-8 py-5 rounded-2xl transition-all duration-500 flex items-center justify-center gap-3 shadow-2xl transform hover:scale-105 active:scale-95 border-2 border-blue-400/30'
-            >
-              <span className="relative z-10">{showMemberships ? 'Hide' : 'View'} Memberships</span>
-              <i className={`fas fa-chevron-${showMemberships ? 'up' : 'down'} transition-all duration-500 transform ${showMemberships ? 'rotate-180' : ''} relative z-10`}></i>
-            </button>
-
-            <div className={`overflow-hidden transition-all duration-700 ease-in-out ${showMemberships ? 'max-h-[5000px] opacity-100' : 'max-h-0 opacity-0'}`}>
+            <div>
               <div className='pt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
                 {memberships.length === 0 ? (
                   <div className="col-span-full text-center py-8">
