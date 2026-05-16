@@ -273,102 +273,148 @@ export default function Home() {
               </h2>
               <p className="text-gray-300 text-sm md:text-base">Choose the perfect plan for your fitness goals</p>
               <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-blue-600 mx-auto mt-4 rounded-full"></div>
+
+              <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 mt-6 text-xs text-gray-400">
+                <span className="flex items-center gap-1.5">
+                  <i className="fa-solid fa-shield-halved text-blue-400"></i>
+                  No hidden fees
+                </span>
+                <span className="flex items-center gap-1.5">
+                  <i className="fa-solid fa-snowflake text-blue-400"></i>
+                  Freeze available
+                </span>
+                <span className="flex items-center gap-1.5">
+                  <i className="fa-solid fa-clock text-blue-400"></i>
+                  24/7 access
+                </span>
+              </div>
             </div>
 
             <div>
-              <div className='pt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
+              <div className='pt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 items-stretch'>
                 {memberships.length === 0 ? (
                   <div className="col-span-full text-center py-8">
                     <i className="text-3xl text-blue-400 fa-solid fa-spinner fa-spin" />
                   </div>
                 ) : (
-                  memberships.map((membership, index) => (
-                    <div
-                      key={membership.id}
-                      className="group relative bg-gradient-to-br from-blue-900/40 via-blue-800/30 to-transparent backdrop-blur-sm border-2 border-blue-500/30 hover:border-blue-400 rounded-2xl transition-all duration-500 transform hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/30 hover:-translate-y-2 overflow-hidden"
-                      style={{
-                        animation: `fadeInUp 0.6s ease-out ${index * 0.1}s both`
-                      }}
-                    >
-                      {/* Shine effect */}
-                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-
-                      {/* Header */}
-                      <div className="relative bg-gradient-to-r from-blue-600 to-blue-500 p-4 rounded-t-2xl">
-                        <h3 className='font-bold text-xl gymfont text-white flex items-center justify-center gap-2'>
-                          <i className="fa-solid fa-id-card transform group-hover:rotate-12 transition-transform duration-500"></i>
-                          {membership.duration}
-                        </h3>
-                      </div>
-
-                      <div className='p-6'>
-                        {/* Description */}
-                        {membership.description && (
-                          <p className="text-gray-300 text-sm text-center mb-4 pb-4 border-b border-blue-500/10">
-                            {membership.description}
-                          </p>
+                  memberships.map((membership, index) => {
+                    const isFeatured = memberships.length > 1 && index === Math.floor(memberships.length / 2);
+                    return (
+                      <div
+                        key={membership.id}
+                        className={`relative ${isFeatured ? 'lg:-translate-y-4' : ''}`}
+                        style={{
+                          animation: `fadeInUp 0.6s ease-out ${index * 0.1}s both`
+                        }}
+                      >
+                        {isFeatured && (
+                          <div className="absolute -top-3 left-1/2 -translate-x-1/2 z-30">
+                            <div className="bg-gradient-to-r from-blue-400 to-blue-500 text-white text-xs font-bold px-4 py-1.5 rounded-full shadow-lg shadow-blue-500/50 flex items-center gap-1.5 whitespace-nowrap border border-blue-300/50">
+                              <i className="fa-solid fa-crown text-yellow-300"></i>
+                              MOST POPULAR
+                            </div>
+                          </div>
                         )}
 
-                        {/* Price */}
-                        <div className='flex items-center justify-between mb-6 pb-4 border-b border-blue-500/20'>
-                          {membership.price_new && membership.price_new !== "0" ? (
-                            <>
-                              <div className="flex flex-col">
-                                <span className="text-xs text-gray-400 uppercase tracking-wider mb-1">Was</span>
-                                <span className="text-lg line-through text-gray-500">
-                                  {membership.price_new} EGP
-                                </span>
-                              </div>
-                              <div className="flex flex-col items-end">
-                                <span className="text-xs text-blue-400 uppercase tracking-wider mb-1">Now</span>
-                                <span className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-blue-300 bg-clip-text text-transparent">
+                        <div
+                          className={`group relative h-full bg-gradient-to-br backdrop-blur-sm border-2 rounded-2xl transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 overflow-hidden ${
+                            isFeatured
+                              ? 'from-blue-800/60 via-blue-700/40 to-blue-900/20 border-blue-400 shadow-2xl shadow-blue-500/40 hover:shadow-blue-400/60 ring-1 ring-blue-400/40'
+                              : 'from-blue-900/40 via-blue-800/30 to-transparent border-blue-500/30 hover:border-blue-400 hover:shadow-2xl hover:shadow-blue-500/30'
+                          }`}
+                        >
+                          {/* Shine effect */}
+                          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+
+                          {/* Header */}
+                          <div className={`relative p-4 rounded-t-2xl ${isFeatured ? 'bg-gradient-to-r from-blue-500 via-blue-400 to-blue-500' : 'bg-gradient-to-r from-blue-600 to-blue-500'}`}>
+                            <h3 className='font-bold text-xl gymfont text-white flex items-center justify-center gap-2'>
+                              <i className="fa-solid fa-id-card transform group-hover:rotate-12 transition-transform duration-500"></i>
+                              {membership.duration}
+                            </h3>
+                          </div>
+
+                          <div className='p-6'>
+                            {/* Description */}
+                            {membership.description && (
+                              <p className="text-gray-300 text-sm text-center mb-4 pb-4 border-b border-blue-500/10">
+                                {membership.description}
+                              </p>
+                            )}
+
+                            {/* Price */}
+                            <div className='flex items-center justify-between mb-6 pb-4 border-b border-blue-500/20'>
+                              {membership.price_new && membership.price_new !== "0" ? (
+                                <>
+                                  <div className="flex flex-col">
+                                    <span className="text-xs text-gray-400 uppercase tracking-wider mb-1">Was</span>
+                                    <span className="text-lg line-through text-gray-500">
+                                      {membership.price_new} EGP
+                                    </span>
+                                  </div>
+                                  <div className="flex flex-col items-end">
+                                    <span className="text-xs text-blue-400 uppercase tracking-wider mb-1">Now</span>
+                                    <span className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-blue-300 bg-clip-text text-transparent">
+                                      {membership.price} EGP
+                                    </span>
+                                  </div>
+                                </>
+                              ) : (
+                                <span className="text-3xl font-bold text-white mx-auto">
                                   {membership.price} EGP
                                 </span>
-                              </div>
-                            </>
-                          ) : (
-                            <span className="text-3xl font-bold text-white mx-auto">
-                              {membership.price} EGP
-                            </span>
-                          )}
+                              )}
+                            </div>
+
+                            {/* What's Included divider */}
+                            <div className="mb-4 flex items-center gap-3">
+                              <div className="h-px flex-1 bg-blue-500/20"></div>
+                              <span className="text-[10px] text-blue-300/80 font-bold uppercase tracking-[0.2em]">What's Included</span>
+                              <div className="h-px flex-1 bg-blue-500/20"></div>
+                            </div>
+
+                            {/* Features - 100% Custom from metadata with smart icons */}
+                            <ul className='space-y-3 mb-6'>
+                              {membership.metadata?.features && Array.isArray(membership.metadata.features) && membership.metadata.features.length > 0 ? (
+                                membership.metadata.features.map((feature, idx) => (
+                                  <li
+                                    key={idx}
+                                    className='flex items-center gap-3 text-gray-200 transform transition-all duration-300 hover:translate-x-2 hover:text-white group/item'
+                                  >
+                                    <div className="w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center group-hover/item:bg-blue-500/40 transition-colors duration-300 flex-shrink-0">
+                                      <i className={`fa-solid ${getFeatureIcon(feature)} text-blue-400 text-xs group-hover/item:scale-125 transition-transform duration-300`}></i>
+                                    </div>
+                                    <span className="text-sm font-medium">{feature}</span>
+                                  </li>
+                                ))
+                              ) : (
+                                <li className='flex items-center gap-3 text-gray-400'>
+                                  <i className="fa-solid fa-circle-info text-xs"></i>
+                                  <span className="text-sm">Add features in metadata</span>
+                                </li>
+                              )}
+                            </ul>
+
+                            {/* Book Button */}
+                            <button
+                              onClick={() => handleMembershipBook(membership)}
+                              className={`w-full px-6 text-lg py-4 text-white rounded-xl transition-all duration-500 font-bold transform hover:scale-105 hover:shadow-xl active:scale-95 relative overflow-hidden group/btn ${
+                                isFeatured
+                                  ? 'bg-gradient-to-r from-blue-500 to-blue-400 hover:from-blue-400 hover:to-blue-300 hover:shadow-blue-400/60'
+                                  : 'bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 hover:shadow-blue-500/50'
+                              }`}
+                            >
+                              <span className="relative z-10 flex items-center justify-center gap-2">
+                                <i className="fa-solid fa-calendar-check"></i>
+                                Join Now
+                              </span>
+                              <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-blue-300 transform scale-x-0 group-hover/btn:scale-x-100 transition-transform duration-500 origin-left"></div>
+                            </button>
+                          </div>
                         </div>
-
-                        {/* Features - 100% Custom from metadata with smart icons */}
-                        <ul className='space-y-3 mb-6'>
-                          {membership.metadata?.features && Array.isArray(membership.metadata.features) && membership.metadata.features.length > 0 ? (
-                            membership.metadata.features.map((feature, idx) => (
-                              <li
-                                key={idx}
-                                className='flex items-center gap-3 text-gray-200 transform transition-all duration-300 hover:translate-x-2 hover:text-white group/item'
-                              >
-                                <div className="w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center group-hover/item:bg-blue-500/40 transition-colors duration-300 flex-shrink-0">
-                                  <i className={`fa-solid ${getFeatureIcon(feature)} text-blue-400 text-xs group-hover/item:scale-125 transition-transform duration-300`}></i>
-                                </div>
-                                <span className="text-sm font-medium">{feature}</span>
-                              </li>
-                            ))
-                          ) : (
-                            <li className='flex items-center gap-3 text-gray-400'>
-                              <i className="fa-solid fa-circle-info text-xs"></i>
-                              <span className="text-sm">Add features in metadata</span>
-                            </li>
-                          )}
-                        </ul>
-
-                        {/* Book Button */}
-                        <button
-                          onClick={() => handleMembershipBook(membership)}
-                          className='w-full px-6 text-lg py-4 bg-gradient-to-r from-blue-600 to-blue-500 text-white rounded-xl hover:from-blue-500 hover:to-blue-400 transition-all duration-500 font-bold transform hover:scale-105 hover:shadow-xl hover:shadow-blue-500/50 active:scale-95 relative overflow-hidden group/btn'
-                        >
-                          <span className="relative z-10 flex items-center justify-center gap-2">
-                            <i className="fa-solid fa-calendar-check"></i>
-                            Join Now
-                          </span>
-                          <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-blue-300 transform scale-x-0 group-hover/btn:scale-x-100 transition-transform duration-500 origin-left"></div>
-                        </button>
                       </div>
-                    </div>
-                  ))
+                    );
+                  })
                 )}
               </div>
             </div>
