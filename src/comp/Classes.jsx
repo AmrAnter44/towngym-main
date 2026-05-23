@@ -45,12 +45,19 @@ export default function Classes() {
 
         // تحويل البيانات من Supabase format للـ component format
         const formattedClasses = data.map((classItem) => {
+          const name = classItem.name || 'Class';
+          const isBoxing = name.toLowerCase().includes('boxing');
+          let time = classItem.time || 'N/A';
+          if (!isBoxing && typeof time === 'string' && time.startsWith('08:')) {
+            time = '08:30';
+          }
+
           return {
             ...classItem,
-            classname: classItem.name || 'Class',
+            classname: name,
             day: classItem.day_of_week || 'N/A',
             coachname: classItem.coach_name || 'Coach',
-            time1: classItem.time || 'N/A',
+            time1: time,
             mix: classItem.class_type || '',
             mem: classItem.booking_required || false,
             img: getImageUrl(classItem.image_url)
