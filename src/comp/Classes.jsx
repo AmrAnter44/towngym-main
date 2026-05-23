@@ -46,10 +46,16 @@ export default function Classes() {
         // تحويل البيانات من Supabase format للـ component format
         const formattedClasses = data.map((classItem) => {
           const name = classItem.name || 'Class';
-          const isBoxing = name.toLowerCase().includes('boxing');
+          const isBoxing = name.toLowerCase().includes('boxing') ||
+                           (classItem.class_type || '').toLowerCase().includes('boxing');
           let time = classItem.time || 'N/A';
-          if (!isBoxing && typeof time === 'string' && time.startsWith('08:')) {
-            time = '08:30';
+          if (!isBoxing && typeof time === 'string') {
+            const hourMatch = time.match(/^(\d{1,2}):/);
+            if (hourMatch) {
+              const hour = parseInt(hourMatch[1], 10);
+              if (hour === 8) time = '08:30';
+              else if (hour === 20) time = '20:30';
+            }
           }
 
           return {
