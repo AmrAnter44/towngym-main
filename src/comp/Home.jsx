@@ -428,8 +428,10 @@ export default function Home() {
                   </div>
                 ) : (
                   memberships.map((membership, index) => {
-                    const originalPrice = parseFloat(membership.price) || 0;
-                    const dayPrice = Math.floor((originalPrice * 0.65) / 50) * 50;
+                    const basePrice = (membership.price_new && parseFloat(membership.price_new) > 0)
+                      ? parseFloat(membership.price_new)
+                      : parseFloat(membership.price) || 0;
+                    const dayPrice = Math.floor((basePrice * 0.65) / 50) * 50;
 
                     return (
                       <div
@@ -480,7 +482,7 @@ export default function Home() {
                             <div className="flex flex-col">
                               <span className="text-xs text-gray-400 uppercase tracking-wider mb-1">Was</span>
                               <span className="text-lg line-through text-gray-500">
-                                {originalPrice} EGP
+                                {basePrice} EGP
                               </span>
                             </div>
                             <div className="flex flex-col items-end">
