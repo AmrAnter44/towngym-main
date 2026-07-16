@@ -84,9 +84,20 @@ export default function Home() {
     window.open(url, "whatsappWindow", "width=600,height=600,top=100,left=200");
   }
 
-  function handleDayMembershipBook(membership, dayPrice) {
+  // أسعار المورنينج الثابتة — مش بتتحسب من سعر الاشتراك الأساسي
+  function getMorningOffer(duration) {
+    const name = String(duration || '').toLowerCase();
+    if (/12|١٢|year|سنة/.test(name)) return { price: 3250, freeMonths: 0 };
+    if (/6|٦/.test(name)) return { price: 1950, freeMonths: 0 };
+    if (/3|٣/.test(name)) return { price: 1500, freeMonths: 1 };
+    if (/1|١|month|شهر/.test(name)) return { price: 650, freeMonths: 0 };
+    return null;
+  }
+
+  function handleDayMembershipBook(membership, dayPrice, freeMonths) {
     const phone = "201028188900";
-    const message = `Hello, I would like to book the ${membership.duration} Day Membership for ${dayPrice} EGP with the 35% discount (workout hours: 3 AM - 4 PM only).`;
+    const bonus = freeMonths ? ` + ${freeMonths} month free` : '';
+    const message = `Hello, I would like to book the ${membership.duration} Day Membership for ${dayPrice} EGP${bonus} (workout hours: 3 AM - 4 PM only).`;
     const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
     window.open(url, "whatsappWindow", "width=600,height=600,top=100,left=200");
   }
@@ -468,7 +479,11 @@ export default function Home() {
                     const basePrice = (membership.price_new && parseFloat(membership.price_new) > 0)
                       ? parseFloat(membership.price_new)
                       : parseFloat(membership.price) || 0;
-                    const dayPrice = Math.floor((basePrice * 0.65) / 50) * 50;
+                    const morningOffer = getMorningOffer(membership.duration);
+                    const dayPrice = morningOffer
+                      ? morningOffer.price
+                      : Math.floor((basePrice * 0.65) / 50) * 50;
+                    const freeMonths = morningOffer?.freeMonths || 0;
 
                     return (
                       <div
@@ -527,6 +542,11 @@ export default function Home() {
                               <span className="text-3xl font-bold bg-gradient-to-r from-yellow-300 to-orange-400 bg-clip-text text-transparent">
                                 {dayPrice} EGP
                               </span>
+                              {freeMonths > 0 && (
+                                <span className="mt-1 text-xs font-bold text-yellow-300 bg-yellow-500/10 border border-yellow-400/30 rounded-full px-3 py-1">
+                                  + 1 Month FREE • شهر فري
+                                </span>
+                              )}
                             </div>
                           </div>
 
@@ -549,7 +569,7 @@ export default function Home() {
 
                           {/* Book Button */}
                           <button
-                            onClick={() => handleDayMembershipBook(membership, dayPrice)}
+                            onClick={() => handleDayMembershipBook(membership, dayPrice, freeMonths)}
                             className='w-full px-6 text-lg py-4 bg-gradient-to-r from-yellow-500 to-orange-500 text-white rounded-xl hover:from-yellow-400 hover:to-orange-400 transition-all duration-500 font-bold transform hover:scale-105 hover:shadow-xl hover:shadow-yellow-500/50 active:scale-95 relative overflow-hidden group/btn'
                           >
                             <span className="relative z-10 flex items-center justify-center gap-2">
